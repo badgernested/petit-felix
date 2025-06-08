@@ -68,7 +68,7 @@ The front cover looks like this.
 
 In future versions this will be more customizable but currently just laying out the groundwork first!
 
-### Content
+## Content
 
 To create documents, you will need to have files written in markdown.
 
