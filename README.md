@@ -29,27 +29,27 @@ Notice the separator between the markdown content and the metadata. This is very
 The basic document builder supports the following tags:
 
 * Required Elements
-** ``title`` - The title as displayed on the front cover and filename.
+	* ``title`` - The title as displayed on the front cover and filename.
 * Front Cover Elements
-** ``front_cover`` - If ``true``, will create the front cover.
-** ``author`` - The author of the work. Displayed on the front cover.
-** ``front_cover_image`` - The front cover art. Images are stored in ``./assets/images``.
-** ``date`` - The date of original publication.
+	* ``front_cover`` - If ``true``, will create the front cover.
+	* ``author`` - The author of the work. Displayed on the front cover.
+	* ``front_cover_image`` - The front cover art. Images are stored in ``./assets/images``.
+	* ``date`` - The date of original publication.
 * Back Cover Elements
-** ``back_cover`` - If ``true``, will create the back cover.
-** ``back_cover_image`` - The back cover art. Images are stored in ``./assets/images``.
-** ``author_back`` - The author of the work. Displayed on the bottom of the back cover. Could be used for account names or websites.
+	* ``back_cover`` - If ``true``, will create the back cover.
+	* ``back_cover_image`` - The back cover art. Images are stored in ``./assets/images``.
+	* ``author_back`` - The author of the work. Displayed on the bottom of the back cover. Could be used for account names or websites.
 * Styling Elements
-** ``default_font_size`` - Default paragraph text font size.
-** ``header[1-6]_size`` - 6 different variables for indicating font size for different headers.
-** ``font_normal`` - Path to the default font for the normal font face. 
-** ``font_italic`` - Path to the default font for the *italic* font face. 
-** ``font_bold`` - Path to the default font for the **bold** font face. 
-** ``font_bold_italic`` - Path to the default font for the ***bold italic*** font face. 
+	* ``default_font_size`` - Default paragraph text font size.
+	* ``header[1-6]_size`` - 6 different variables for indicating font size for different headers.
+	* ``font_normal`` - Path to the default font for the normal font face. 
+	* ``font_italic`` - Path to the default font for the *italic* font face. 
+	* ``font_bold`` - Path to the default font for the **bold** font face. 
+	* ``font_bold_italic`` - Path to the default font for the ***bold italic*** font face. 
 * Text Formatting Elements
-** ``columns`` - How many columns to display in the text.
-** ``margin`` - How much to move in the margins.
-** ``page_layout`` - Whether or not to render in ``portrait`` or ``landscape`` mode. Note: ``landscape`` cover is incomplete currently, working on it...
+	* ``columns`` - How many columns to display in the text.
+	* ``margin`` - How much to move in the margins.
+	* ``page_layout`` - Whether or not to render in ``portrait`` or ``landscape`` mode. Note: ``landscape`` cover is incomplete currently, working on it...
 
 The front cover looks like this.
 
