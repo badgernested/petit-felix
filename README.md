@@ -6,25 +6,38 @@ PetitFelix is a document generating tool that takes markdown files, that contain
 
 This tool might be a little challenging at first to use. A long term goal is to make the software easier for people with little experience in computers to use, but also having a useful command line interface.
 
+## Configuration
+
+You can configure the default settings of your output with the ``./default.cfg`` file.
+
+Metadata is written in a style similar to this:
+```
+front_cover: true
+back_cover: true
+author: badgernested
+```
+
+See the Metadata section below for more information on using metadata tags.
+
 ## Setting Up Source Files
 
 To create documents, you will need to draft text documents that contains metadata separated from the content. You can separate this data with a lone line that has ``---`` on it.
 
-### Metadata
+### File Metadata
 
-Metadata is used to change how the file is rendered, including things such as title, cover art, etc. as well as options for text sizes and things like that.
+Metadata is used to change how the file is rendered, including things such as title, cover art, etc. as well as options for text sizes and things like that. Metadata defined in the file overrides the metadata loaded by the options.
 
 To write metadata, use it in this kind of format:
 ```
 title: "Test title"
 date: 2025-05-04
-cover: true
-title_image: schizoethics.png
 ---
 [[content...]]
 ```
 
 Notice the separator between the markdown content and the metadata. This is very important or else PetitFelix will not work.
+
+## Metadata Elements
 
 The basic document builder supports the following tags:
 
