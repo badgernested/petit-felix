@@ -1,10 +1,11 @@
 require "prawn"
 require 'fileutils'
 require "prawndown-ext"
+require "./source/metadata_handler"
 
 module PdfFelixBasic
 
-  class	PrawnExtd < Prawn::Document
+  class	PDFWriter < Prawn::Document
   
   	def page_numbering(page)
   	
@@ -124,56 +125,22 @@ module PdfFelixBasic
   end
 
   class Generator
-  
-  	DEFAULT_OPTIONS = {
-  		"columns" => 1,
-  		"default_font_size" => 12,
-		"header1_size" => 32,
-		"header2_size" => 28,
-		"header3_size" => 20,
-		"header4_size" => 18,
-		"header5_size" => 16,
-		"header6_size" => 14,
-		"margin" =>  40,
-		"font_normal" => "./assets/font/Unageo-Regular.ttf",
-		"font_italic"=> "./assets/font/Unageo-Regular-Italic.ttf",
-		"font_bold"=> "./assets/font/Unageo-ExtraBold.ttf",
-		"font_bold_italic" => "./assets/font/Unageo-ExtraBold-Italic.ttf"
-	}
-	
-	def strip_data(input)
-		input = input.split("---")
-		if input.count > 1
-			input = input.reject! { |s| s.nil? || s.empty? }
-		end
-		input
-	end
 
-	def get_metadata(input)
-		array = input.lines
-
-		metadata = {}
-		
-		array.each do |set|
-			if set.count(":") >= 1
-				data = set.split(":")
-				index = data[0].strip.downcase
-				metadata[index] = data[1].strip
-			end
-		end
-		metadata
-	end
-
-	def gen_zine(page, dir, options: nil,
+	def make_zine(page, dir,
 		title: true,
 		back: true)
 		
+		options = Marshal.load(Marshal.dump(@options))
+		page = File.read(page)
 		
 		# splits the page into parts for metadata and content
+		
+		# Felix metadata handler
+		metadata_helper = Felix::Metadata.new
 			
-		page_data = strip_data page
-			
-		metadata = get_metadata page_data[0]
+		page_data = metadata_helper.split page
+				
+		metadata = metadata_helper.get_metadata page_data[0]
 			
 		content = page_data[1]
 		
@@ -227,7 +194,7 @@ module PdfFelixBasic
 			
 			# Generates PDF
 				
-			pdf = PrawnExtd.new(
+			pdf = PDFWriter.new(
 				page_layout: page_layout,
 				print_scaling: print_scaling)
 
@@ -282,45 +249,23 @@ module PdfFelixBasic
 		end
 	end
 	
-	def get_options
-	
-		# load default options
-		options = Marshal.load(Marshal.dump(DEFAULT_OPTIONS))
-		
-		# Loads the default configuation in default.cfg
-		if File.file?("./default.cfg")
-			
-			config = get_metadata(strip_data(File.read("./default.cfg"))[0])
-			config.keys.each do |key|
-				options[key] = config[key]
-			end
-		end
-		
-		options
-	
-	end
-
-	def create_pdf(file, save_path: "./output", options: {})
-		loaded_options = Marshal.load(Marshal.dump(options))
-
-		content = File.read("./md/" + file)
-
-		# 1 column text zine, portrait
-		gen_zine(content, save_path, options: loaded_options)
-	end
-	
 	## Renders all the files in the given directory.
 	
 	def render_all_files(input_path: "./md", output_path:"./output")
 		site_list = Dir.entries(input_path)
-		loaded_options = get_options
 		
 		site_list.each do |page|
 		
-			if File.file?(input_path + "/" + page)
-				create_pdf(page, save_path: output_path, options: loaded_options)
+			filename = input_path + "/" + page
+		
+			if File.file?(filename)
+				make_zine(filename, output_path)
 				end
 			end
+	end
+	
+	def set_base_options(options)
+		@options = options
 	end
 
 	def initialize

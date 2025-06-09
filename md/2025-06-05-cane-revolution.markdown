@@ -2,6 +2,9 @@
 title:  "What My Cane Taught Me About Revolution"
 date:   2025-06-05
 tags: theory political
+front_cover: true
+front_cover_image: cane-revolution.png
+author: punishedfelix.com
 ---
 
 # The Existential Reality of Change

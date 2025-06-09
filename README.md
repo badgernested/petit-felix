@@ -23,6 +23,12 @@ See the Metadata section below for more information on using metadata tags.
 
 To create documents, you will need to draft text documents that contains metadata separated from the content. You can separate this data with a lone line that has ``---`` on it.
 
+The order of loading configs is:
+1. Defaults are loaded.
+2. Configs loaded in ``./default.cfg`` are loaded.
+3. Configs passed as command line arguments are loaded.
+4. Configs in file metadata are loaded for each file.
+
 ### File Metadata
 
 Metadata is used to change how the file is rendered, including things such as title, cover art, etc. as well as options for text sizes and things like that. Metadata defined in the file overrides the metadata loaded by the options.
@@ -36,6 +42,18 @@ date: 2025-05-04
 ```
 
 Notice the separator between the markdown content and the metadata. This is very important or else PetitFelix will not work.
+
+### Command Line Arguments
+
+When calling ``./petitfelix.rb`` from the command line, you can also pass arguments to modify the output.
+
+Each argument is prefixed with ``--``. See the example below:
+
+```
+ruby ./petitfelix.rb --columns 3
+```
+
+This will output the default otuput with 3 columns for the text.
 
 ## Metadata Elements
 
