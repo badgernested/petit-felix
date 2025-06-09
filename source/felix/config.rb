@@ -1,5 +1,4 @@
-## Helper class that handles metadata
-require "./source/metadata_handler"
+## Helper class that handles configs
 
 module Felix
 

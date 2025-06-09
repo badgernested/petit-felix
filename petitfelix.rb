@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require "./source/pdfgen_basic"
-require "./source/config_loader"
+require "./source/felix/config"
 
 ### Entry point for program
 

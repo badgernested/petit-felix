@@ -1,7 +1,7 @@
 require "prawn"
 require 'fileutils'
 require "prawndown-ext"
-require "./source/metadata_handler"
+require "./source/felix/metadata"
 
 module PdfFelixBasic
 
