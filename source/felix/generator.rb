@@ -20,5 +20,6 @@ module Felix
 			
 			Felix::Task::BasicPDFTask.new.render_files options
 		end
+		
 	end
 end

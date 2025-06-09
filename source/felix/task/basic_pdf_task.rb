@@ -2,7 +2,9 @@ require "./source/felix/task/default_task"
 require "./source/worker/basic_pdf_writer"
 
 module Felix
+
 	module Task
+	
 		class BasicPDFTask < Felix::Task::DefaultTask
 		
 			def render_zine options
@@ -142,6 +144,9 @@ module Felix
 			end
 		
 		end
+		
 	end
+	
 end
+
 end
