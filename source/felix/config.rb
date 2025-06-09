@@ -1,4 +1,5 @@
 ## Helper class that handles configs
+require "./source/felix/metadata"
 
 module Felix
 
