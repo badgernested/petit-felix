@@ -130,21 +130,6 @@ module Felix
 				end
 			end
 		
-			def render_files options
-				# this should be changed to render from a selection statement
-				site_list = Dir.entries(options["input_dir"])
-				
-				site_list.each do |page|
-				
-					options["filename"] = options["input_dir"] + "/" + page
-				
-					if File.file?(options["filename"])
-						render_zine(options)
-					end
-			end
-		
-		end
-		
 	end
 	
 end

@@ -42,6 +42,7 @@ module Felix
 			"font_bold" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
 			"font_bold_italic" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
 			"page_layout" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
+			"input_files" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
 		}
 
 		### Command Line Arguments

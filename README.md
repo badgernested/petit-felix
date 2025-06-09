@@ -81,6 +81,8 @@ The basic document builder supports the following tags:
 	* ``columns`` - How many columns to display in the text.
 	* ``margin`` - How much to move in the margins.
 	* ``page_layout`` - Whether or not to render in ``portrait`` or ``landscape`` mode. Note: ``landscape`` cover is incomplete currently, working on it...
+* Filesystem (Only tested on global config settings and command line arguments)
+	* ``input_files`` - A list of specific files to update, separated by a comma.
 
 The front cover looks like this.
 
