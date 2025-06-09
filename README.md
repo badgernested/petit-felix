@@ -93,6 +93,8 @@ For more on Markdown, view [the markdown reference](https://www.markdownguide.or
 
 PetitFelix is currently a very simple ruby script that you can execute from the command line. I will be adding better deployment/automation in the future.
 
+### Ruby
+
 You will need the following ruby gem dependencies installed:
 
 ```
@@ -104,4 +106,18 @@ Once you have the dependencies installed, you can execute it by simply calling:
 
 ```
 ruby ./petitfelix.rb
+```
+
+### Bundler
+
+You can also use ``bundler`` to run PetitFelix. To run, first install the gems in the gemfile:
+
+```
+bundle install
+```
+
+Then, you can run PetitFelix like so:
+
+```
+bundle exec ruby petitfelix.rb
 ```

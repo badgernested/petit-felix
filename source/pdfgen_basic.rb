@@ -2,7 +2,7 @@ require "prawn"
 require 'fileutils'
 require "prawndown-ext"
 
-module PdfFelix
+module PdfFelixBasic
 
   class	PrawnExtd < Prawn::Document
   
@@ -281,38 +281,51 @@ module PdfFelix
 			pdf.render_file(dir + "/" + metadata["title"].gsub(/[^\w\s]/, '').tr(" ", "_") + '.pdf')
 		end
 	end
-
-	def initialize
 	
-	site_list = Dir.entries("./md")
-
-	site_list.each do |page|
+	def get_options
 	
-		if File.file?("./md/" + page)
-			# load default options
-			options = Marshal.load(Marshal.dump(DEFAULT_OPTIONS))
+		# load default options
+		options = Marshal.load(Marshal.dump(DEFAULT_OPTIONS))
+		
+		# Loads the default configuation in default.cfg
+		if File.file?("./default.cfg")
 			
-			# Loads the default configuation in default.cfg
-			if File.file?("./default.cfg")
-				
-				config = get_metadata(strip_data(File.read("./default.cfg"))[0])
-				config.keys.each do |key|
-					options[key] = config[key]
-				end
-			end
-			
-			content = File.read("./md/" + page)
-
-			# 1 column text zine, portrait
-			gen_zine(content, "./output/column1", options: options)
-
-			# 2 column text zine, portrait
-			#gen_zine(page, "pdf/column2", options: options, columns: 2)
+			config = get_metadata(strip_data(File.read("./default.cfg"))[0])
+			config.keys.each do |key|
+				options[key] = config[key]
 			end
 		end
-
-	self
+		
+		options
+	
 	end
+
+	def create_pdf(file, save_path: "./output", options: {})
+		loaded_options = Marshal.load(Marshal.dump(options))
+
+		content = File.read("./md/" + file)
+
+		# 1 column text zine, portrait
+		gen_zine(content, save_path, options: loaded_options)
+	end
+	
+	## Renders all the files in the given directory.
+	
+	def render_all_files(input_path: "./md", output_path:"./output")
+		site_list = Dir.entries(input_path)
+		loaded_options = get_options
+		
+		site_list.each do |page|
+		
+			if File.file?(input_path + "/" + page)
+				create_pdf(page, save_path: output_path, options: loaded_options)
+				end
+			end
+	end
+
+	def initialize
 		
 	end
+		
+end
 end

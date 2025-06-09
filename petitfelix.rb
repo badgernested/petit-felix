@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
-require "./source/pdfgen"
+require "./source/pdfgen_basic"
 
-felix = PdfFelix::Generator.new
+felix_basic = PdfFelixBasic::Generator.new
+felix_basic.render_all_files
