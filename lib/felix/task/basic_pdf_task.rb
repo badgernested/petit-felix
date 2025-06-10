@@ -151,6 +151,9 @@ module PetitFelix
 						if metaoptions["front_cover"]
 							pdf.title_page(pdf, metaoptions)
 							pdf.start_new_page()
+							if metaoptions.key?("front_extra_page") && metaoptions["front_extra_page"]
+								pdf.start_new_page()
+							end
 						end
 					end
 					
@@ -177,6 +180,10 @@ module PetitFelix
 					# If the back is generated
 					if metaoptions.key?("back_cover")
 						if metaoptions["back_cover"]
+							if metaoptions.key?("back_extra_page") && metaoptions["back_extra_page"]
+								pdf.start_new_page()
+							end
+						
 							pdf.start_new_page()
 							pdf.back_page(pdf, metaoptions)
 						end

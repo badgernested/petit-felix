@@ -66,10 +66,12 @@ The basic document builder supports the following tags:
 	* ``author`` - The author of the work. Displayed on the front cover.
 	* ``front_cover_image`` - The front cover art. Images are stored in ``./assets/images``.
 	* ``date`` - The date of original publication.
+	* ``front_extra_page`` - Inserts an empty page after the cover if true. Useful for double sided prints.
 * Back Cover Elements
 	* ``back_cover`` - If ``true``, will create the back cover.
 	* ``back_cover_image`` - The back cover art. Images are stored in ``./assets/images``.
 	* ``author_back`` - The author of the work. Displayed on the bottom of the back cover. Could be used for account names or websites.
+	* ``back_extra_page`` - Inserts an empty page before the back cover if true. Useful for double sided prints.
 * Styling Elements
 	* ``default_font_size`` - Default paragraph text font size.
 	* ``header[1-6]_size`` - 6 different variables for indicating font size for different headers.
