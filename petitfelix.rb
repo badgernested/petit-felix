@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 require "./felix"
 
-### Entry point for program
+### CLI interface for petitfelix
 
-felix = PetitFelix::Felix.new
-felix.start(args: ARGV)
+felix = PetitFelix::Felix.new(cl_args: ARGV)
