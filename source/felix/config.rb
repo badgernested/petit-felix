@@ -19,6 +19,7 @@ module Felix
 				"header4_size" => 18,
 				"header5_size" => 16,
 				"header6_size" => 14,
+				"quote_size" => 14,
 				"margin" =>  40,
 				"font_normal" => "./assets/font/Unageo-Regular.ttf",
 				"font_italic"=> "./assets/font/Unageo-Regular-Italic.ttf",

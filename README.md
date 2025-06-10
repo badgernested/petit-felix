@@ -73,6 +73,7 @@ The basic document builder supports the following tags:
 * Styling Elements
 	* ``default_font_size`` - Default paragraph text font size.
 	* ``header[1-6]_size`` - 6 different variables for indicating font size for different headers.
+	* ``quote_size`` - Quote text size.
 	* ``font_normal`` - Path to the default font for the normal font face. 
 	* ``font_italic`` - Path to the default font for the *italic* font face. 
 	* ``font_bold`` - Path to the default font for the **bold** font face. 
