@@ -3,7 +3,7 @@ require 'fileutils'
 require "prawndown-ext"
 require "./lib/felix/metadata"
 
-module Felix
+module PetitFelix
 	module Worker
 
 		class	BasicPDFWriter < Prawn::Document

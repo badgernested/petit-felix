@@ -1,6 +1,6 @@
 ## Helper class that handles metadata
 
-module Felix
+module PetitFelix
 
 	class	Metadata
 

@@ -1,11 +1,11 @@
 require "./lib/felix/task/default_task"
 require "./lib/worker/basic_pdf_writer"
 
-module Felix
+module PetitFelix
 
 	module Task
 	
-		class BasicPDFTask < Felix::Task::DefaultTask
+		class BasicPDFTask < PetitFelix::Task::DefaultTask
 		
 			# Adds a font to the pdf document
 			def add_font pdf, metaoptions, type
@@ -64,7 +64,7 @@ module Felix
 				# splits the page into parts for metadata and content
 				
 				# Felix metadata handler
-				metadata_helper = Felix::Metadata.new
+				metadata_helper = PetitFelix::Metadata.new
 					
 				page_data = metadata_helper.split page
 						
@@ -122,7 +122,7 @@ module Felix
 					
 					# Generates PDF
 						
-					pdf = Felix::Worker::BasicPDFWriter.new(
+					pdf = PetitFelix::Worker::BasicPDFWriter.new(
 						page_layout: page_layout,
 						print_scaling: print_scaling)
 

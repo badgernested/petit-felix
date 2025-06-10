@@ -1,6 +1,6 @@
 require "./lib/felix/task/basic_pdf_task"
 
-module Felix
+module PetitFelix
 
   class Generator
 	
@@ -18,7 +18,7 @@ module Felix
 			
 			options["output_dir"] = output_path
 			
-			Felix::Task::BasicPDFTask.new.render_files options
+			PetitFelix::Task::BasicPDFTask.new.render_files options
 		end
 		
 	end

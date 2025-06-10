@@ -1,4 +1,4 @@
-module Felix
+module PetitFelix
 
 	module Task
 	

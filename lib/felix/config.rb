@@ -1,7 +1,7 @@
 ## Helper class that handles configs
 require "./lib/felix/metadata"
 
-module Felix
+module PetitFelix
 
 	class	Config
 
@@ -64,7 +64,7 @@ module Felix
 			@processed_arguments = []
 	
 			# Felix metadata handler
-			metadata = Felix::Metadata.new
+			metadata = PetitFelix::Metadata.new
 			
 			# load default options
 			options = Marshal.load(Marshal.dump(DEFAULT_OPTIONS))
