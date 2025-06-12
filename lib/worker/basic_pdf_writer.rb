@@ -1,7 +1,7 @@
 require "prawn"
 require 'fileutils'
 require "prawndown-ext"
-require "./lib/felix/metadata"
+require "felix/metadata"
 
 module PetitFelix
 	module Worker
@@ -123,7 +123,42 @@ module PetitFelix
 			end
 		end
 		
+		def main_block(pdf, options, content)
+			margin = 25
+			columns = 1
+			
+			if options.key?("margin")
+				margin = options["margin"].to_i
+			end
+			
+			if options.key?("columns")
+				columns = options["columns"].to_i
+			end
+		
+			half_margin = (margin * 0.5).floor()
+		
+			# content generation
+			pdf.font_size(options["default_font_size"].to_i)
+			
+			if columns == 1
+				pdf.bounding_box([half_margin, pdf.cursor - half_margin],
+					width: pdf.bounds.width-margin,
+					height: pdf.bounds.height - margin) do
+				
+					pdf.markdown(content, options: options)
+				end
+			else
+				pdf.column_box([half_margin, pdf.cursor - half_margin],
+					columns: columns,
+					width: pdf.bounds.width-margin,
+					height: pdf.bounds.height - margin) do
+				
+					pdf.markdown(content, options: options)
+				end
+			end
 		end
+
+	end
 
 	end
 end

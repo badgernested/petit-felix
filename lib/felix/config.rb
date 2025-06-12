@@ -1,5 +1,5 @@
 ## Helper class that handles configs
-require "./lib/felix/metadata"
+require "felix/metadata"
 
 module PetitFelix
 

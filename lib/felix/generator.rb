@@ -1,4 +1,4 @@
-require "./lib/felix/task/basic_pdf_task"
+require "felix/task/basic_pdf_task"
 
 module PetitFelix
 

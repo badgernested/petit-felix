@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require "./felix"
+require "./lib/petit-felix"
 
 ### CLI interface for petitfelix
 

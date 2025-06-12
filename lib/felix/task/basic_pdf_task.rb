@@ -1,5 +1,5 @@
-require "./lib/felix/task/default_task"
-require "./lib/worker/basic_pdf_writer"
+require "felix/task/default_task"
+require "worker/basic_pdf_writer"
 
 module PetitFelix
 
@@ -89,18 +89,8 @@ module PetitFelix
 								
 					# Parameters
 						
-					margin = 25
 					page_layout = :portrait
 					print_scaling = :none
-					columns = 1
-
-					if metaoptions.key?("margin")
-						margin = metaoptions["margin"].to_i
-					end
-					
-					if metaoptions.key?("columns")
-						columns = metaoptions["columns"].to_i
-					end
 					
 					if metaoptions.key?("page_layout")
 						page_layout = metaoptions["page_layout"]
@@ -115,11 +105,7 @@ module PetitFelix
 							end
 						end
 					end
-					
-					# Calculated values
-						
-					half_margin = (margin * 0.5).floor()
-					
+
 					# Generates PDF
 						
 					pdf = PetitFelix::Worker::BasicPDFWriter.new(
@@ -157,25 +143,8 @@ module PetitFelix
 						end
 					end
 					
-					# content generation
-					pdf.font_size(metaoptions["default_font_size"].to_i)
-					
-					if columns == 1
-						pdf.bounding_box([half_margin, pdf.cursor - half_margin],
-							width: pdf.bounds.width-margin,
-							height: pdf.bounds.height - margin) do
-						
-							pdf.markdown(content, options: metaoptions)
-						end
-					else
-						pdf.column_box([half_margin, pdf.cursor - half_margin],
-							columns: columns,
-							width: pdf.bounds.width-margin,
-							height: pdf.bounds.height - margin) do
-						
-							pdf.markdown(content, options: metaoptions)
-						end
-					end
+					# Does the main content
+					pdf.main_block(pdf, metaoptions, content)
 					
 					# If the back is generated
 					if metaoptions.key?("back_cover")

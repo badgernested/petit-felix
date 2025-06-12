@@ -1,13 +1,10 @@
 #!/usr/bin/env ruby
-require "./lib/felix/generator"
-require "./lib/felix/config"
+require "felix/generator"
+require "felix/config"
 
 module PetitFelix
 
-	## The main class for petitfelix.
-	## He handles everything with options passed as CLI arguments or an options hash.
-
-	class Felix
+	class Output
 	
 		# cl_args - command line arguments passed from CLI
 		# options - hash passed by developer containing default rendering options
@@ -16,10 +13,10 @@ module PetitFelix
 			## Loads options from default values, ./default.cfg
 			config = PetitFelix::Config.new
 			loaded_options = config.load_config cl_args
-			
+
 			## Makes sure stuff passed by options variable overrides
 			## any previous config loading
-			options.each do |option|
+			options.keys.each do |option|
 				loaded_options[option] = options[option]
 			end
 
@@ -30,5 +27,6 @@ module PetitFelix
 		end
 		
 	end
+
 end
 
