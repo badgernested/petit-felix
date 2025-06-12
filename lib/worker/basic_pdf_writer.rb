@@ -40,7 +40,7 @@ module PetitFelix
 			height: box_width) do
 			
 				if metadata.key?("back_cover_image")
-					var = "./assets/images/" + metadata["back_cover_image"]
+					var = PetitFelix::Metadata.new.get_image_location(metadata["image_dir"], metadata["back_cover_image"])
 					
 					if File.file?(var)
 						pdf.image(var,
@@ -89,7 +89,7 @@ module PetitFelix
 			height: box_width) do
 			
 				if metadata.key?("front_cover_image")
-					var = "./assets/images/" + metadata["front_cover_image"]
+					var = PetitFelix::Metadata.new.get_image_location(metadata["image_dir"], metadata["front_cover_image"])
 					
 					if File.file?(var)
 						pdf.image(var,

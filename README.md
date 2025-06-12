@@ -94,6 +94,8 @@ The basic document builder supports the following tags:
 	* ``page_layout`` - Whether or not to render in ``portrait`` or ``landscape`` mode. Note: ``landscape`` cover is incomplete currently, working on it...
 * Filesystem (Only tested on global config settings and command line arguments)
 	* ``input_files`` - A list of file path masks to process. It can be a path directly to a file like ``./md/2025-06-05-cane.md``, or it can be a mask that includes a set of files like ``./md/2025-*.md``
+	* ``output_dir`` - Output directory.
+	* ``image_dir`` - The base directory for cover images.
 
 The front cover looks like this.
 
@@ -152,3 +154,4 @@ Then, you can run PetitFelix like so:
 ```
 bundle exec ruby petitfelix.rb
 ```
+

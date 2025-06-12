@@ -24,7 +24,8 @@ module PetitFelix
 				"font_normal" => "./assets/font/Unageo-Regular.ttf",
 				"font_italic"=> "./assets/font/Unageo-Regular-Italic.ttf",
 				"font_bold"=> "./assets/font/Unageo-ExtraBold.ttf",
-				"font_bold_italic" => "./assets/font/Unageo-ExtraBold-Italic.ttf"
+				"font_bold_italic" => "./assets/font/Unageo-ExtraBold-Italic.ttf",
+				"image_dir" => "./assets/images",
 		}
 
 		## Hash for custom command line argument calls
@@ -44,6 +45,7 @@ module PetitFelix
 			"font_bold_italic" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
 			"page_layout" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
 			"input_files" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
+			"image_dir" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
 		}
 
 		### Command Line Arguments

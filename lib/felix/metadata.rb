@@ -4,6 +4,17 @@ module PetitFelix
 
 	class	Metadata
 
+		## Gets image from path and location
+		def get_image_location img_dir, filename
+			file = img_dir + "/" + filename
+			
+			if !File.file?(file)
+				file = "." + img_dir + "/" + filename
+			end
+			
+			file
+		end
+
 		## Gets metadata from string into paired hashes
 		def get_metadata(input)
 			array = input.lines
