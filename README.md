@@ -1,5 +1,7 @@
 # What is PetitFelix?
 
+[![Gem Version](https://badge.fury.io/rb/petit-felix.svg)](https://badge.fury.io/rb/petit-felix)
+
 PetitFelix is a document generating tool that takes markdown files, that contains a separate metadata section, and assembles them into a printable format such as PDF. This could be used to easily make small scale publications for local art scenes and stuff, but it's pretty early in development.
 
 # How do I use PetitFelix?
