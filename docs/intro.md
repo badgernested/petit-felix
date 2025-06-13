@@ -23,7 +23,7 @@ The entry point of the program is ``./lib/petit-felix.rb``. This application fir
 - ``PetitFelix::Config`` - Where configs are loaded in.
 - ``PetitFelix::Metadata`` - Metadata and file path parsers.
 - ``PetitFelix::Error`` - Error printing code.
-- ``PetitFelix::Generator`` - The main generator class.
+- ``PetitFelix::Generator`` - The main document generator class.
 
 The last class is the most interesting, so let's discuss it.
 
