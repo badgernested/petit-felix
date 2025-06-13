@@ -13,7 +13,7 @@ You can run ``petit-felix`` in multiple ways:
 - [In the CLI with ruby](#running-petit-felix-in-the-command-line-interface-cli).
 - [Using bundler](#running-petit-felix-with-bundler).
 - [As a Ruby Gem](#using-petit-felix-in-a-ruby-gem).
-- [As a plugin for Jekyll](#using-the-petit-felix-jekyll-plugin)
+- [As a plugin for Jekyll](#using-the-petit-felix-jekyll-plugin).
 
 ``petit-felix`` works by passing arguments to "workers". Workers are different ways that files can be created with by ``petit-felix``. Each worker will read the arguments passed to the main program, and will produce outputs based on these arguments. It can also read command line arguments
 
