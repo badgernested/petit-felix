@@ -2,15 +2,18 @@
 
 [![Gem Version](https://badge.fury.io/rb/petit-felix.svg)](https://badge.fury.io/rb/petit-felix)
 
-``petit-felix`` is a document generator ruby gem and standalone command line program that can input markdown files and produce very nice looking outputs depending on the worker assigned.
+``petit-felix`` is a document generator ruby gem and standalone command line program that can input markdown files and produce very nice looking outputs depending on the worker assigned. You can use this to turn markdown files, specifically those used on [Jekyll](https://jekyllrb.com/) posts, into a printable format that looks nice. If your markdown files are not formatted like Jekyll files, it is easy to update them to work with ``petit-felix``.
+
+If you're just getting started, check out the [Quickstart Guide](#quickstart-guide). But if you want to know more about ``petit-felix``, check out the [Documentation](#documentation).
 
 # Quickstart Guide
 
-You can run ``petit-felix`` in a multitude of ways:
+You can run ``petit-felix`` in multiple ways:
 
-- In the CLI with [ruby](https://www.ruby-lang.org/en/).
-- Using [bundler](https://bundler.io/).
-- As a [Ruby Gem](https://rubygems.org/gems/petit-felix).
+- [In the CLI with ruby](#running-petit-felix-in-the-command-line-interface-cli).
+- [Using bundler](#running-petit-felix-with-bundler).
+- [As a Ruby Gem](#using-petit-felix-in-a-ruby-gem).
+- [As a plugin for Jekyll](#using-the-petit-felix-jekyll-plugin)
 
 ``petit-felix`` works by passing arguments to "workers". Workers are different ways that files can be created with by ``petit-felix``. Each worker will read the arguments passed to the main program, and will produce outputs based on these arguments. It can also read command line arguments
 
@@ -44,6 +47,15 @@ options = {
 # Calling petit-felix
 PetitFelix::Output.new(options: options)
 ```
+
+The following arguments are global to the application and are not specific to a worker:
+* ``worker`` - The worker to use.
+* ``input_files`` - A list of file path masks to process. It can be a path directly to a file like ``./md/2025-06-05-cane.md``, or it can be a mask that includes a set of files like ``./md/*.md``
+* ``output_dir`` - Output directory.
+* ``image_dir`` - The base directory for images.
+
+The following arguments are **required** to be in the data files, or else they will not generate:
+* ``title`` - The title as displayed on the front cover and filename.
 
 The arguments for workers are specific to each worker, and you can read more about them on their specific documentation pages:
 
@@ -114,7 +126,7 @@ PetitFelix::Output.new(options: options)
 
 ## Using the petit-felix Jekyll plugin
 
-``petit-felix`` has a simple plugin included in the repository in ``./jekyll/_plugins`` that you can add to your Jekyll project's ``_plugins`` directory so you can produce PDFs of your files with your blog.
+``petit-felix`` has a simple plugin included in the repository in ``./jekyll/_plugins`` that you can add to your Jekyll project's ``_plugins`` directory so you can produce PDFs of your files with your blog when you build it.
 
 First, add the following value to your ``_config.yml`` file:
 
@@ -128,4 +140,12 @@ gen_pdf: true
 With this set, you can now execute . Note that individual markdown files must be marked to include ``pdf: true`` in their metadata tags on the top of the file in order for a file to be produced. You can also add this line to ``./default.cfg`` as well to make all PDF files generate.
 
 > [!CAUTION]
-> Do not use ``bundle exec jeykll serve``. This can lead to infinitely looping updates of the auto-update hotloading feature.
+> Do not use ``bundle exec jeykll serve`` while ``pdf: true`` in ``_config.yml``. This can lead to infinitely looping updates of the auto-update hotloading feature. Make sure that ``pdf: true`` is disabled when deploying or it may cause issues.
+
+# Documentation
+
+1. [Introduction to petit-felix](docs/intro)
+2. [Using petit-felix](docs/using)
+3. Workers
+	a. [Introduction to Workers](docs/workers/intro)
+	b. [basic-pdf](docs/workers/basic_pdf)
