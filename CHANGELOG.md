@@ -2,6 +2,7 @@
 
 - Transitioned towards having workers called by arguments.
 - Added error printing class.
+- Fixed bug with output directory for PDFs
 
 ## [0.1.1] - 2025-06-12
 
