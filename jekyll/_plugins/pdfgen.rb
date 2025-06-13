@@ -6,10 +6,10 @@ module Jekyll
 
 	def generate(site)
 	
-	if !defined?(site.gen_pdf)
+	if !defined?(site.config["gen_pdf"])
 		return
 	else
-		if !site["gen_pdf"]:
+		if !site.config["gen_pdf"]
 			return
 		end
 	end
@@ -24,7 +24,7 @@ module Jekyll
 				"author" => "punishedfelix.com",
 				"author_back" => "punishedfelix.com",
 				"back_cover_image" => "./images/article_pic/felixlogo.png",
-				"output_dir" => "./pdf"
+				"output_dir" => "./pdf",
 			}
 			
 			felix = PetitFelix::Output.new(options: options)

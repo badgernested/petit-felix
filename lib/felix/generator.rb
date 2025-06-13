@@ -1,8 +1,14 @@
 require "felix/task/basic_pdf_task"
+require "felix/error"
 
 module PetitFelix
 
   class Generator
+	
+		WORKERS = {
+			# Basic PDF 
+			"basic_pdf" => PetitFelix::Task::BasicPDFTask.new,
+		}
 	
 		## Renders all the files in the given directory.
 		
@@ -16,9 +22,21 @@ module PetitFelix
 				options["input_files"] = input_path
 			end
 			
-			options["output_dir"] = output_path
+			if !options.key?("output_dir")
+				options["output_dir"] = output_path
+			end
 			
-			PetitFelix::Task::BasicPDFTask.new.render_files options
+			if WORKERS.key?(options["worker"].downcase)
+				WORKERS[options["worker"].downcase].render_files options
+			else
+				text = "worker " + options["worker"].downcase + " not found. Make sure the variable \"worker\" is set correctly in your configuration settings. Available workers: "
+			
+				WORKERS.keys.each do |key|
+					text += "\n  " + key
+				end
+			
+				PetitFelix::Error.new.print_err text
+			end
 		end
 		
 	end

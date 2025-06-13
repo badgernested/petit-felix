@@ -26,6 +26,7 @@ module PetitFelix
 				"font_bold"=> "./assets/font/Unageo-ExtraBold.ttf",
 				"font_bold_italic" => "./assets/font/Unageo-ExtraBold-Italic.ttf",
 				"image_dir" => "./assets/images",
+				"worker" => "basic_pdf",
 		}
 
 		## Hash for custom command line argument calls

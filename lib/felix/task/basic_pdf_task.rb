@@ -58,7 +58,6 @@ module PetitFelix
 				
 				dir = options["output_dir"]
 				
-				
 				page = File.read(options["filename"])
 				
 				# splits the page into parts for metadata and content
