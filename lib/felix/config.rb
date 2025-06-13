@@ -9,24 +9,12 @@ module PetitFelix
 		## Prevents weird intersection conditions
 		@processed_arguments
 
-		## Default options of the application
+		# Global defaults
 		DEFAULT_OPTIONS = {
-				"columns" => 1,
-				"default_font_size" => 12,
-				"header1_size" => 32,
-				"header2_size" => 28,
-				"header3_size" => 20,
-				"header4_size" => 18,
-				"header5_size" => 16,
-				"header6_size" => 14,
-				"quote_size" => 14,
-				"margin" =>  40,
-				"font_normal" => "./assets/font/Unageo-Regular.ttf",
-				"font_italic"=> "./assets/font/Unageo-Regular-Italic.ttf",
-				"font_bold"=> "./assets/font/Unageo-ExtraBold.ttf",
-				"font_bold_italic" => "./assets/font/Unageo-ExtraBold-Italic.ttf",
-				"image_dir" => "./assets/images",
-				"worker" => "basic_pdf",
+			"image_dir" => "./assets/images",
+			"input_files" => "./md/*",
+			"output_dir" => "./output",
+			"worker" => "basic_pdf",
 		}
 
 		## Hash for custom command line argument calls
@@ -63,33 +51,78 @@ module PetitFelix
 		## then command line arguments,
 		## then finally any arguments defined in the metadata.
 
-		def load_config(args)
+		def load_config(wm, passed_args, args)
 			@processed_arguments = []
 	
 			# Felix metadata handler
 			metadata = PetitFelix::Metadata.new
 			
-			# load default options
-			options = Marshal.load(Marshal.dump(DEFAULT_OPTIONS))
+			# load global default options
+			default_options = Marshal.load(Marshal.dump(DEFAULT_OPTIONS))
 			
 			# Loads the default configuation in default.cfg
+			
+			default_config = {}
+			
 			if File.file?("./default.cfg")
 				
-				config = metadata.get_metadata(File.read("./default.cfg")[0])
-				config.keys.each do |key|
-					options[key] = config[key]
-				end
+				default_config = metadata.get_metadata(File.read("./default.cfg")[0])
 			end
 			
 			# Loads command line arguments
 			cl_args = load_cl_args(args)
 			
+			# Loads default worker options
+			worker = ""
+			worker_options = nil
+			
+			if default_options.key?("worker")
+				worker = default_options["worker"]
+			end
+			
+			if default_config.key?("worker")
+				worker = default_config["worker"]
+			end
+			
+			if cl_args.key?("worker")
+				worker = cl_args["worker"]
+			end
+			
+			if passed_args.key?("worker")
+				worker = passed_args["worker"]
+			end
+			
+			if worker != ""
+				worker_options = Marshal.load(Marshal.dump(wm.get_task_options worker))
+			end
+
+			# Now, assemble the options in order
+			# First, default options
+			options = default_options
+			
+			# Then loading default config file
+			default_config.keys.each do |key|
+				options[key] = default_config[key]
+			end
+			
+			# Then loading default worker args
+			if !worker_options.nil?
+				worker_options.keys.each do |key|
+					options[key] = worker_options[key]
+				end
+			end
+			
+			# Then loading CLI arguments
 			cl_args.keys.each do |key|
 				options[key] = cl_args[key]
 			end
+			
+			# Then loading passed arguments
+			passed_args.keys.each do |key|
+				options[key] = passed_args[key]
+			end
 
 			options
-			
 		end
 
 		# Loads command line arguments

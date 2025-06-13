@@ -13,13 +13,31 @@ This is a list of all the arguments for ``basic_pdf``.
 * ``front_cover_image`` - The front cover art. Images are stored in ``./assets/images``.
 * ``date`` - The date of original publication.
 * ``front_extra_page`` - Inserts an empty page after the cover if true. Useful for double sided prints.
+* ``front_publisher`` - A small text field on the bottom of the cover, for including things like publisher or group information.
+* ``front_default_font_[normal,italic,bold,bold_italic]`` - A set of 4 options that lets you set the default fonts for each style for the front cover. Otherwise, it will use the default font set in the global configuration.
+* ``front_title_size`` - Sets the font of the title on the front cover.
+* ``front_title_font_[normal,italic,bold,bold_italic]`` - A set of 4 options that lets you set the fonts for each style for the front title. 
+* ``front_author_size`` - Sets the font of the author section on the front cover.
+* ``front_author_font_[normal,italic,bold,bold_italic]`` - A set of 4 options that lets you set the fonts for each style for the front author field. 
+* ``front_date_size`` - Sets the font of the date on the front cover.
+* ``front_date_font_[normal,italic,bold,bold_italic]`` - A set of 4 options that lets you set the fonts for each style for the front date field. 
+* ``front_publisher_size`` - Sets the font of the publisher info on the front cover.
+* ``front_publish_font_[normal,italic,bold,bold_italic]`` - A set of 4 options that lets you set the fonts for each style for the front publisher field.
 
 ### Back Cover Elements
 
+* ``back_text`` - Text displayed on the back cover.
+* ``back_text_margin`` - How much to push in the margins for the text on the back cover.
+* ``back_text_size`` - The size of the font of the back text.
 * ``back_cover`` - If ``true``, will create the back cover.
 * ``back_cover_image`` - The back cover art. Images are stored in ``./assets/images``.
-* ``author_back`` - The author of the work. Displayed on the bottom of the back cover. Could be used for account names or websites.
+* ``back_author`` - The author of the work. Displayed on the bottom of the back cover. Could be used for account names or websites.
+* ``back_author_size`` - The size of the text for the back author.
+* ``back_publisher_size`` - Sets the font of the publisher info on the back cover.
 * ``back_extra_page`` - Inserts an empty page before the back cover if true. Useful for double sided prints.
+* ``back_default_font_[normal,italic,bold,bold_italic]`` - A set of 4 options that lets you set the default fonts for each style for the front cover. Otherwise, it will use the default font set in the global configuration.
+* ``back_author_font_[normal,italic,bold,bold_italic]`` - A set of 4 options that lets you set the fonts for each style for the front author field. 
+* ``back_publish_font_[normal,italic,bold,bold_italic]`` - A set of 4 options that lets you set the fonts for each style for the front publisher field.
 
 ### Styling Elements
 
@@ -44,3 +62,12 @@ This is a list of all the arguments for ``basic_pdf``.
 * ``columns`` - How many columns to display in the text.
 * ``margin`` - How much to move in the margins.
 * ``page_layout`` - Whether or not to render in ``portrait`` or ``landscape`` mode. Note: ``landscape`` cover is incomplete currently, working on it...
+
+### Paginator
+
+* ``paginator`` - If true, renders the paginator on the bottom of the page.
+* ``paginator_alternate`` - If true, the paginator will alternate sides.
+* ``paginator_start`` - Which page to start on. 
+* ``paginator_start_count`` - Which number to start counting on for the paginator.
+* ``paginator_size`` - Text size of the paginator.
+* ``paginator_font_[normal,italic,bold,bold_italic]`` - A set of 4 options that lets you set the fonts for each style for the paginator.

@@ -1,3 +1,10 @@
+## [0.1.3] - 2025-06-13
+
+- Major cleanup to the system to match documentation, further separation between worker and task classes.
+- Added a ton of new features to ``basic_pdf`` (see the documentation on [basic_pdf](/docs/workers/basic_pdf.md) for more info).
+- Allowed tasks to contain their own configs.
+- Tasks are now loaded dynamically from ``lib/task``.
+
 ## [0.1.2] - 2025-06-12
 
 - Transitioned towards having workers called by arguments.

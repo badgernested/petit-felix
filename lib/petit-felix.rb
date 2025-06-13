@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require "felix/generator"
 require "felix/config"
+require "felix/task_manager"
 
 module PetitFelix
 
@@ -10,19 +11,15 @@ module PetitFelix
 		# options - hash passed by developer containing default rendering options
 		def initialize(cl_args: [], options: {})
 	
+			# Creates a new worker manager, which has all the worker stuff
+			wm = PetitFelix::TaskManager.new
+	
 			## Loads options from default values, ./default.cfg
 			config = PetitFelix::Config.new
-			loaded_options = config.load_config cl_args
-
-			## Makes sure stuff passed by options variable overrides
-			## any previous config loading
-			options.keys.each do |option|
-				loaded_options[option] = options[option]
-			end
+			loaded_options = config.load_config wm, options, cl_args
 
 			## Starts producing stuff
-			felix_basic = PetitFelix::Generator.new
-			felix_basic.render_files loaded_options
+			PetitFelix::Generator.new.render_files wm, loaded_options
 		
 		end
 		
