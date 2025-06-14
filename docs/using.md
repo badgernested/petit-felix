@@ -22,7 +22,7 @@ You can run ``petit-felix`` in multiple ways:
 - [As a Ruby Gem](#using-petit-felix-in-a-ruby-gem).
 - [As a plugin for Jekyll](#using-the-petit-felix-jekyll-plugin).
 
-``petit-felix`` works by passing arguments to "workers". Workers are different ways that files can be created with by ``petit-felix``. Each worker will read the arguments passed to the main program, and will produce outputs based on these arguments. It can also read command line arguments
+``petit-felix`` works by passing arguments to "workers". Workers are different ways that files can be created with by ``petit-felix``. Each worker will read the arguments passed to the main program, and will produce outputs based on these arguments. It can also read command line arguments.
 
 The order of reading arguments from least important to most important is:
 
@@ -51,7 +51,7 @@ options = {
 	"output_dir" => "./pdf",
 }
 
-### Calling petit-felix
+# Calling petit-felix
 PetitFelix::Output.new(options: options)
 ```
 
@@ -61,8 +61,8 @@ The following arguments are global to the application and are not specific to a 
 * ``output_dir`` - Output directory.
 * ``image_dir`` - The base directory for images.
 
-The following arguments are **required** to be in the data files, or else they will not generate:
-* ``title`` - The title as displayed on the front cover and filename.
+> [!IMPORTANT]  
+> In order to generate, ``title`` **must** be set in the options of each markdown file's metadata. This also mandates that all markdown parsed by ``petit-felix`` includes metadata parameters. Additionally, if using the Jekyll plugin provided, you must also include ``pdf: true`` in the file in order for it to generate. See the [markdown](#markdown-files) section for more details.
 
 The arguments for workers are specific to each worker, and you can read more about them on their specific documentation pages:
 

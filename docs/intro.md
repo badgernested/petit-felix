@@ -16,7 +16,7 @@ The entry point of the program is ``./lib/petit-felix.rb``. This application fir
 
 ``petit-felix`` is sorted into two parts. ``Felix`` is the main command part of the application, and it has ``Tasks`` that assign work to ``Workers``, which are small programs that do specific tasks, like assembling the parts of the PDF file. The ``Workers`` read the options passed from ``Felix`` through the ``Tasks``, allowing ``Felix`` to act as an interface for all sorts of different kinds of ``Workers``. 
 
-(I haven't tested it yet, but I want to make ``Workers`` easily user extendible as well, but that's a future goal)
+(I haven't tested it yet, but I want to make Tasks and Workers easily user extendible as well, but that's a future goal)
 
 ``Felix`` is composed of the following classes:
 
@@ -28,7 +28,7 @@ The entry point of the program is ``./lib/petit-felix.rb``. This application fir
 
 The last class is the most interesting, so let's discuss it.
 
-This class will take the value of the option ``worker`` (default: ``basic_pdf``) and use the worker assigned to that name to process the documents. This Worker is assigned work to create files organized by the Task that Felix runs when ``[PetitFelix::Generator].render_files(options)`` is exectuted.
+This class will take the value of the option ``task`` (default: ``basic_pdf``) and use the task assigned to that name to process the documents. This Task produces the output with the worker to create files organized by the Task that Felix runs when ``[PetitFelix::Generator].render_files(options)`` is exectuted.
 
 ``Tasks`` are a list of classes stored in ``./lib/task``. The default task, ``PetitFelix::Task::DefaultTask`` has two methods that the interface expects:
 - ``render_files`` - This processes the file input list and passes to ``render_zine`` the name of the current file to process.
