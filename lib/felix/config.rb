@@ -14,7 +14,7 @@ module PetitFelix
 			"image_dir" => "./assets/images",
 			"input_files" => "./md/*",
 			"output_dir" => "./output",
-			"worker" => "basic_pdf",
+			"task" => "basic_pdf",
 		}
 
 		## Hash for custom command line argument calls
@@ -76,20 +76,20 @@ module PetitFelix
 			worker = ""
 			worker_options = nil
 			
-			if default_options.key?("worker")
-				worker = default_options["worker"]
+			if default_options.key?("task")
+				worker = default_options["task"]
 			end
 			
-			if default_config.key?("worker")
-				worker = default_config["worker"]
+			if default_config.key?("task")
+				worker = default_config["task"]
 			end
 			
-			if cl_args.key?("worker")
-				worker = cl_args["worker"]
+			if cl_args.key?("task")
+				worker = cl_args["task"]
 			end
 			
-			if passed_args.key?("worker")
-				worker = passed_args["worker"]
+			if passed_args.key?("task")
+				worker = passed_args["task"]
 			end
 			
 			if worker != ""

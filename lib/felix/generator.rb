@@ -9,7 +9,7 @@ module PetitFelix
 		
 		def render_files(wm, options)
 			
-			task = wm.get_task options["worker"]
+			task = wm.get_task options["task"]
 			
 			if !task.nil?
 				task.render_files options

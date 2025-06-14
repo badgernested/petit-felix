@@ -56,6 +56,8 @@ This is a list of all the arguments for ``basic_pdf``.
 * ``quote_font_bold`` - Path to the quote font for the **bold** font face. 
 * ``quote_font_bold_italic`` - Path to the quote font for the ***bold italic*** font face. 
 * ``quote_font_spacing`` - Amount of spacing between characters in quotes.
+* ``image_height`` - The height of in-line images.
+* ``image_width`` - The width of in-line images.
 
 ### Text Formatting Elements
 

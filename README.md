@@ -1,129 +1,151 @@
-# What is PetitFelix?
+# petit-felix
 
 [![Gem Version](https://badge.fury.io/rb/petit-felix.svg)](https://badge.fury.io/rb/petit-felix)
 
-PetitFelix is a document generating tool that takes markdown files, that contains a separate metadata section, and assembles them into a printable format such as PDF. This could be used to easily make small scale publications for local art scenes and stuff, but it's pretty early in development.
+``petit-felix`` is a document generator ruby gem and standalone command line program that can input markdown files and produce very nice looking outputs depending on the worker assigned. You can use this to turn markdown files, specifically those used on [Jekyll](https://jekyllrb.com/) posts, into a printable format that looks nice. If your markdown files are not formatted like Jekyll files, it is easy to update them to work with ``petit-felix``.
 
-# How do I use PetitFelix?
+If you're just getting started, check out the [Quickstart Guide](#quickstart-guide). But if you want to know more about ``petit-felix``, check out the [Documentation](#documentation).
 
-This tool might be a little challenging at first to use. A long term goal is to make the software easier for people with little experience in computers to use, but also having a useful command line interface.
+# Quickstart Guide
 
-## Configuration
+You can run ``petit-felix`` in multiple ways:
 
-You can configure the default settings of your output with the ``./default.cfg`` file.
+- [In the CLI with ruby](#running-petit-felix-in-the-command-line-interface-cli).
+- [Using bundler](#running-petit-felix-with-bundler).
+- [As a Ruby Gem](#using-petit-felix-in-a-ruby-gem).
+- [As a plugin for Jekyll](#using-the-petit-felix-jekyll-plugin).
 
-Metadata is written in a style similar to this:
-```
-front_cover: true
-back_cover: true
-author: badgernested
-```
+``petit-felix`` works by passing arguments to "workers". Workers are different ways that files can be created with by ``petit-felix``. Each worker will read the arguments passed to the main program, and will produce outputs based on these arguments. It can also read command line arguments
 
-See the Metadata section below for more information on using metadata tags.
+The order of reading arguments from least important to most important is:
 
-## Setting Up Source Files
+1. Default option values.
+2. Options defined in ``./default.cfg``.
+3. Command line arguments passed.
+4. Any options passed as an argument from calling the class directly.
+5. Options in the top level of the data files, in the same style as Jekyll markdown files.
 
-To create documents, you will need to draft text documents that contains metadata separated from the content. You can separate this data with a lone line that has ``---`` on it.
+## Arguments
 
-The order of loading configs is:
-1. Defaults are loaded.
-2. Configs loaded in ``./default.cfg`` are loaded.
-3. Configs passed as command line arguments are loaded.
-4. Configs in file metadata are loaded for each file.
+You can pass arguments on the command line or through an options hash, depending on how you are running ``petit-felix``. 
 
-### File Metadata
-
-Metadata is used to change how the file is rendered, including things such as title, cover art, etc. as well as options for text sizes and things like that. Metadata defined in the file overrides the metadata loaded by the options.
-
-To write metadata, use it in this kind of format:
-```
-title: "Test title"
-date: 2025-05-04
----
-[[content...]]
-```
-
-Notice the separator between the markdown content and the metadata. This is very important or else PetitFelix will not work.
-
-### Command Line Arguments
-
-When calling ``./petitfelix.rb`` from the command line, you can also pass arguments to modify the output.
-
-Each argument is prefixed with ``--``. See the example below:
+To pass it through the command line, make sure each option starts with ``--``:
 
 ```
-ruby ./petitfelix.rb --columns 3
-```
+ruby ./petit-felix.rb --columns 2
+``` 
 
-This will output the default otuput with 3 columns for the text.
-
-## Metadata Elements
-
-The basic document builder supports the following tags:
-
-* Required Elements
-	* ``title`` - The title as displayed on the front cover and filename.
-
-* Filesystem (Only tested on global config settings and command line arguments)
-	* ``input_files`` - A list of file path masks to process. It can be a path directly to a file like ``./md/2025-06-05-cane.md``, or it can be a mask that includes a set of files like ``./md/2025-*.md``
-	* ``output_dir`` - Output directory.
-	* ``image_dir`` - The base directory for cover images.
-
-The front cover looks like this.
-
-In future versions this will be more customizable but currently just laying out the groundwork first!
-
-## Content
-
-To create documents, you will need to have files written in markdown.
-
-Markdown is a style of formatting that uses special characters to modify how text is rendered, similar to what you might see in printed media or on a website. This allows users to render very nice looking articles while just focusing on text output, but can also be a useful way to store formatting information for other purposes.
-
-The following markdown tags are currently supported:
-- ``#`` - this tag is used to indicate headers. ``#`` is header 1, ``##`` is header 2, etc.
-- ``links``
-- ``bold``
-- ``italic``
-- ``strikeout``
-
-The following is removed:
-- ``<iframe>``, such as video links from YouTube or other embedded media
-
-The following is removed, but will be added in a future update:
-- ``images``
-
-For more on Markdown, view [the markdown reference](https://www.markdownguide.org/basic-syntax/).
-
-## Running PetitFelix
-
-PetitFelix is currently a very simple ruby script that you can execute from the command line. I will be adding better deployment/automation in the future.
-
-### Ruby
-
-You will need the following ruby gem dependencies installed:
+You can also create an options hash and pass that in ruby code like this:
 
 ```
-gem install prawn
-gem install prawndown-ext
+# options hash
+options = {
+	"input_files" => "./_posts",
+	"output_dir" => "./pdf",
+}
+
+# Calling petit-felix
+PetitFelix::Output.new(options: options)
 ```
 
-Once you have the dependencies installed, you can execute it by simply calling:
+The following arguments are global to the application and are not specific to a worker:
+* ``task`` - The worker to use.
+* ``input_files`` - A list of file path masks to process. It can be a path directly to a file like ``./md/2025-06-05-cane.md``, or it can be a mask that includes a set of files like ``./md/*.md``
+* ``output_dir`` - Output directory.
+* ``image_dir`` - The base directory for images.
+
+The following arguments are **required** to be in the data files, or else they will not generate:
+* ``title`` - The title as displayed on the front cover and filename.
+
+The arguments for workers are specific to each worker, and you can read more about them on their specific documentation pages:
+
+- [basic_pdf](docs/workers/basic_pdf) - A simple worker that makes a PDF file from a Jekyll style markdown page. Useful for turning Jekyll blogs into zines.
+
+## Running petit-felix in the Command Line Interface (CLI)
+
+You can run ``petit-felix`` through the command line using Ruby.
+
+First, make sure the appropriate gem dependencies are installed:
 
 ```
-ruby ./petitfelix.rb
+gem install petit-felix
 ```
 
-### Bundler
+Then, run the script.
 
-You can also use ``bundler`` to run PetitFelix. To run, first install the gems in the gemfile:
+```
+ruby ./petit-felix.rb
+```
+
+You can also run it using the ``.sh`` file provided, making it an executable script.
+
+```
+./petit-felix.rb
+```
+
+## Running petit-felix with bundler
+
+You can also easily execute ``petit-felix`` with bundler.
+
+To run ``petit-felix``, first make sure that bundler has the necessary gems installed.
 
 ```
 bundle install
 ```
 
-Then, you can run PetitFelix like so:
+Then, just run it with ruby.
 
 ```
-bundle exec ruby petitfelix.rb
+bundle exec ruby petit-felix.rb
 ```
 
+You can pass arguments just like with the normal CLI interface.
+
+## Using petit-felix in a Ruby Gem
+
+``petit-felix`` can also be used in your ruby applications by passing a hash of arguments.
+
+First, make sure that the ``petit-felix`` gem is installed:
+
+```
+gem install petit-felix
+```
+
+Or, if you need to add it to your gemfile:
+
+```
+gem 'petit-felix'
+```
+
+Then, when you want to call ``petit-felix``, you can do so with the following command:
+
+```
+# "options" is the argument passed as the options hash
+PetitFelix::Output.new(options: options)
+```
+
+## Using the petit-felix Jekyll plugin
+
+``petit-felix`` has a simple plugin included in the repository in ``./jekyll/_plugins`` that you can add to your Jekyll project's ``_plugins`` directory so you can produce PDFs of your files with your blog when you build it.
+
+First, add the following value to your ``_config.yml`` file:
+
+```
+gen_pdf: true
+```
+
+> [!IMPORTANT]  
+> This value **must** be set to true or else it will not generate any files.
+
+With this set, you can now execute . Note that individual markdown files must be marked to include ``pdf: true`` in their metadata tags on the top of the file in order for a file to be produced. You can also add this line to ``./default.cfg`` as well to make all PDF files generate.
+
+> [!CAUTION]
+> Do not use ``bundle exec jeykll serve`` while ``pdf: true`` in ``_config.yml``. This can lead to infinitely looping updates of the auto-update hotloading feature. Make sure that ``pdf: true`` is disabled when deploying or it may cause issues.
+
+# Documentation
+
+1. [Introduction to petit-felix](docs/intro.md)
+2. [Using petit-felix](docs/using.md)
+3. [Introduction to Workers](docs/worker.md)
+4. [Introduction to Tasks](docs/tasks.md)
+    - [basic-pdf](docs/task/basic_pdf.md)

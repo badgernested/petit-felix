@@ -53,7 +53,7 @@ module PetitFelix
 					name = "[UNDEFINED]"
 				end
 			
-				err_no_task_found name, additional_text: "Unable to get options for Worker " + name + ":\n"
+				err_no_task_found name, additional_text: "Unable to get options for Task " + name + ":\n"
 			end
 			
 			return nil
@@ -61,7 +61,7 @@ module PetitFelix
 		
 		# No task found error
 		def err_no_task_found task, additional_text: ""
-				text = "Worker " + task.downcase + " not found. Make sure the variable \"worker\" is set correctly in your configuration settings. Available Workers: "
+				text = "Task " + task.downcase + " not found. Make sure the variable \"task\" is set correctly in your configuration settings. Available Tasks: "
 				
 				@task_list.keys.each do |key|
 					text += "\n  " + key
