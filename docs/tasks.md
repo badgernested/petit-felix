@@ -22,4 +22,4 @@ Constants:
 
 ## Task List
 
-- [basic_pdf](basic_pdf.md) - A worker that transforms Jekyll-styled markdown files into PDF output through a static template.
+- [basic_pdf](task/basic_pdf.md) - A worker that transforms Jekyll-styled markdown files into PDF output through a static template.
