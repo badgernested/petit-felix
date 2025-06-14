@@ -21,9 +21,6 @@ module Jekyll
 			options = {
 				"input_files" => page.path,
 				"image_dir" => ".",
-				"author" => "punishedfelix.com",
-				"author_back" => "punishedfelix.com",
-				"back_cover_image" => "./images/article_pic/felixlogo.png",
 				"output_dir" => "./pdf",
 			}
 			
