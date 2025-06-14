@@ -8,7 +8,7 @@
 
 I was working on my [Jekyll blog](https://punishedfelix.com) when I realized I didn't have print versions of my posts, which limited their distribution. I realized that I should make a script that automates turning markdown files into zines. However, I realized this software has a lot of potential to cover more broad use cases so I cleaned up the plugin and produced a system that was easier to extend over time and was very simple to work with.
 
-``petit-felix`` is a reference to Félix Guattari, a French radical psychiatrist who distributed his own journals that he edited which had many contributors. This software is a little homage to that I guess lol.
+``petit-felix`` is a reference to [Félix Guattari](https://en.wikipedia.org/wiki/F%C3%A9lix_Guattari), a French radical psychiatrist who distributed his own interdisciplinary journals such as *Reserches*. This software pays homage to his in-house editing.
 
 ## How is petit-felix Structured?
 

@@ -4,9 +4,9 @@
 
 ## Markdown Files
 
-Markdown is a commonly used syntax used when editing text files to display formatting when processed by a markdown reader. For example, headers in markdown documents are represented with ``#`` characters at the beginning of a line, and you can represent . Forms of Markdown are used all over the internet, such as on Github's documentation pages like this, Wikipedia editing, static generated blogs like Jekyll and even chat clients like Discord. You can learn more how to use Markdown quickly with this [cheat sheet](https://www.markdownguide.org/cheat-sheet/) here.
+Markdown is a commonly used syntax used when editing text files to display formatting when processed by a markdown reader. For example, headers in markdown documents are represented with ``#`` characters at the beginning of a line. Forms of Markdown are used all over the internet, such as on Github's documentation pages like this, Wikipedia editing, static generated blogs like Jekyll and even chat clients like Discord. You can learn more how to use Markdown quickly with this [cheat sheet](https://www.markdownguide.org/cheat-sheet/) here.
 
-With ``petit-felix``, a little more in your Markdown files is expected. This is because it not only reads Markdown, but it also reads a set of metadata parameters that are stored on the top of the file. This is also the same way it works in Jekyll's static post generation, so if you have used Jekyll before, this should be familiar.
+With ``petit-felix``, a little more in your Markdown files is expected. This is because it not only reads Markdown, but it also reads a set of metadata parameters that are stored on the top of the file. These parameters allow you to customize the output more, and are the same parameters you will see on the Task pages. This is also the same way it works in Jekyll's static post generation, so if you have used Jekyll before, this should be familiar.
 
 The typical ``petit-felix`` compatible Markdown file looks like this:
 
