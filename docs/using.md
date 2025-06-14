@@ -13,7 +13,7 @@ gem -v
 
 If all is well, you will see the version number displayed.
 
-### Running petit-felix
+## Running petit-felix
 
 You can run ``petit-felix`` in multiple ways:
 
@@ -32,7 +32,7 @@ The order of reading arguments from least important to most important is:
 4. Any options passed as an argument from calling the class directly.
 5. Options in the top level of the data files, in the same style as Jekyll markdown files.
 
-#### Arguments
+### Arguments
 
 You can pass arguments on the command line or through an options hash, depending on how you are running ``petit-felix``. 
 
@@ -51,7 +51,7 @@ options = {
 	"output_dir" => "./pdf",
 }
 
-#### Calling petit-felix
+### Calling petit-felix
 PetitFelix::Output.new(options: options)
 ```
 
@@ -68,7 +68,7 @@ The arguments for workers are specific to each worker, and you can read more abo
 
 - [basic_pdf](docs/workers/basic_pdf) - A simple worker that makes a PDF file from a Jekyll style markdown page. Useful for turning Jekyll blogs into zines.
 
-#### Running petit-felix in the Command Line Interface (CLI)
+### Running petit-felix in the Command Line Interface (CLI)
 
 You can run ``petit-felix`` through the command line using Ruby.
 
@@ -90,7 +90,7 @@ You can also run it using the ``.sh`` file provided, making it an executable scr
 ./petit-felix.rb
 ```
 
-#### Running petit-felix with bundler
+### Running petit-felix with bundler
 
 You can also easily execute ``petit-felix`` with bundler.
 
@@ -108,7 +108,7 @@ bundle exec ruby petit-felix.rb
 
 You can pass arguments just like with the normal CLI interface.
 
-#### Using petit-felix in a Ruby Gem
+### Using petit-felix in a Ruby Gem
 
 ``petit-felix`` can also be used in your ruby applications by passing a hash of arguments.
 
@@ -131,7 +131,7 @@ Then, when you want to call ``petit-felix``, you can do so with the following co
 PetitFelix::Output.new(options: options)
 ```
 
-#### Using the petit-felix Jekyll plugin
+### Using the petit-felix Jekyll plugin
 
 ``petit-felix`` has a simple plugin included in the repository in ``./jekyll/_plugins`` that you can add to your Jekyll project's ``_plugins`` directory so you can produce PDFs of your files with your blog when you build it.
 
