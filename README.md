@@ -8,17 +8,22 @@ If you're just getting started, check out the [Quickstart Guide](#quickstart-gui
 
 # Quickstart Guide
 
-If you just want to run ``petit-felix``, download the contents of the repository:
+If you just want to run ``petit-felix`` out of the box and have Ruby, Rubygems and Bundler installed, download the contents of the repository:
 
 ```
 git clone git@github.com:badgernested/petit-felix.git
 ```
 
-Then, run 
+Then, install the dependencies:
+
 ```
-# Arguments are optional arguments in this style:
-# --columns 2 
-ruby ./petitfelix.rb [arguments]
+bundle install
+```
+
+Then, just run it with ruby.
+
+```
+bundle exec ruby ./petit-felix.rb [arguments]
 ```
 
 This will process the files in ``./md`` and output them to a new directory, ``./output``.
