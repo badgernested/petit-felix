@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary = "Ruby gem that creates document files from markdown, such as on Jekyll blogs."
   spec.description = "Converts markdown files into PDF documents using options passed in a hash."
-  spec.homepage = "https://github.com/badgernested/petitfelix"
+  spec.homepage = "https://github.com/badgernested/petit-felix"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.1.0"
 
@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "prawn", "~> 2.5", ">= 2.5.0"
-  spec.add_runtime_dependency "prawndown-ext", "~> 0.1.10"
+  spec.add_runtime_dependency "prawndown-ext", "~> 0.1.12"
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"

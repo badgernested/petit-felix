@@ -1,3 +1,7 @@
+## [0.1.4] - 2025-06-14
+
+- Minor improvements to worker class to be compatible with prawndown-ext changes
+
 ## [0.1.3] - 2025-06-13
 
 - Major cleanup to the system to match documentation, further separation between worker and task classes.

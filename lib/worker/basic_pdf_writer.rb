@@ -357,19 +357,22 @@ module PetitFelix
 			font_size(@options["default_font_size"].to_i)
 			
 			if columns == 1
+
 				bounding_box([half_margin, cursor - half_margin],
 					width: bounds.width-margin,
 					height: [bounds.height - 20 - margin, bounds.height - margin].min) do
-				
 					markdown(content, options: @options)
 				end
+				
 			else
+			
 				column_box([half_margin, cursor - half_margin],
 					columns: columns,
 					width: bounds.width-margin,
 					height: [bounds.height - 20 - margin, bounds.height - margin].min) do
-				
+					
 					markdown(content, options: @options)
+					
 				end
 			end
 		end

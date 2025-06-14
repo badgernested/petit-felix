@@ -25,7 +25,7 @@ module PetitFelix
 				if set.count(":") >= 1
 					data = set.split(":")
 					index = data[0].strip.downcase
-					metadata[index] = data[1].strip
+					metadata[index] = data[1].strip.gsub("\\\"", "\"")
 				end
 			end
 			metadata

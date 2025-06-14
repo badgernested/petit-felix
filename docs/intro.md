@@ -23,14 +23,19 @@ The entry point of the program is ``./lib/petit-felix.rb``. This application fir
 - ``PetitFelix::Config`` - Where configs are loaded in.
 - ``PetitFelix::Metadata`` - Metadata and file path parsers.
 - ``PetitFelix::Error`` - Error printing code.
+- ``PetitFelix::TaskManager`` - Manages dynamically loaded task list.
 - ``PetitFelix::Generator`` - The main document generator class.
 
 The last class is the most interesting, so let's discuss it.
 
 This class will take the value of the option ``worker`` (default: ``basic_pdf``) and use the worker assigned to that name to process the documents. This Worker is assigned work to create files organized by the Task that Felix runs when ``[PetitFelix::Generator].render_files(options)`` is exectuted.
 
-``Tasks`` are a list of classes stored in ``./lib/felix/task``. The default task, ``PetitFelix::Task::DefaultTask`` has two methods that the interface expects:
+``Tasks`` are a list of classes stored in ``./lib/task``. The default task, ``PetitFelix::Task::DefaultTask`` has two methods that the interface expects:
 - ``render_files`` - This processes the file input list and passes to ``render_zine`` the name of the current file to process.
 - ``render_zine`` - This is where the worker is instructed to render the document based on the passed ``options``.
+
+Tasks also anticipate two constants that are used to load options and tasks properly. **Every task must have these variables:**
+
+- ``NAME``
 
 ``Workers`` are classes stored in ``./lib/felix/worker`` with module ``PetitFelix::Worker`` and can do whatever to process the ``options`` they are passed. They do the work, while a corresponding ``Task`` is a representation of the organization of the work.

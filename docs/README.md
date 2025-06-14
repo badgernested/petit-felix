@@ -146,6 +146,7 @@ With this set, you can now execute . Note that individual markdown files must be
 
 1. [Introduction to petit-felix](intro.md)
 2. [Using petit-felix](using.md)
-3. Workers
+3. [Using Tasks](tasks.md)
+4. Workers
     - [Introduction to Workers](workers/intro.md)
     - [basic-pdf](workers/basic_pdf.md)
