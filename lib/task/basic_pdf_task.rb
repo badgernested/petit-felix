@@ -44,44 +44,19 @@ module PetitFelix
 					"back_author_size" => 16,
 			}
 
-		
-			def render_zine options
-				
-				page = File.read(options["filename"])
-				
-				# splits the page into parts for metadata and content
-				
-				# Felix metadata handler
-				metadata_helper = PetitFelix::Metadata.new
-					
-				page_data = metadata_helper.split page
-						
-				metadata = metadata_helper.get_metadata page_data[0]
-					
-				content = page_data[1]
-				
-				# stores options + metadata. metadata overrides options.
-				metaoptions = {}
-				
-				options.keys.each do |key|
-					metaoptions[key] = options[key]
-				end
-				
-				metadata.keys.each do |key|
-					metaoptions[key] = metadata[key]
-				end
+			def render_zine
 				
 				# Only continue if metadata has a title
 					
-				if metadata.key?("title")
+				if @metadata.key?("title")
 								
 					# Parameters
 						
 					page_layout = :portrait
 					print_scaling = :none
 					
-					if metaoptions.key?("page_layout")
-						page_layout = metaoptions["page_layout"]
+					if @metaoptions.key?("page_layout")
+						page_layout = @metaoptions["page_layout"]
 						
 						if page_layout.is_a? String
 							if page_layout.include?("portrait")
@@ -100,7 +75,7 @@ module PetitFelix
 						page_layout: page_layout,
 						print_scaling: print_scaling)
 
-					pdf.set_options metaoptions
+					pdf.set_options @metaoptions
 
 					# Adds extra fonts
 					
@@ -111,7 +86,7 @@ module PetitFelix
 					pdf.title_page
 
 					# Does the main content
-					pdf.main_block content
+					pdf.main_block @content
 					
 					# Does page numbering
 					pdf.page_numbering

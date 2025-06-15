@@ -1,10 +1,38 @@
+require "felix/metadata"
+
 module PetitFelix
 
 	module Task
 	
 		class DefaultTask
 		
-			def render_zine options
+			def prepare_options options
+				page = File.read(options["filename"])
+				
+				# splits the page into parts for metadata and content
+				
+				# Felix metadata handler
+				metadata_helper = PetitFelix::Metadata.new
+					
+				page_data = metadata_helper.split page
+						
+				@metadata = metadata_helper.get_metadata page_data[0]
+					
+				@content = page_data[1]
+				
+				# stores options + metadata. metadata overrides options.
+				@metaoptions = {}
+				
+				options.keys.each do |key|
+					@metaoptions[key] = options[key]
+				end
+				
+				@metadata.keys.each do |key|
+					@metaoptions[key] = @metadata[key]
+				end
+			end
+		
+			def render_zine
 				print "render_zine() not implemented\n"
 			end
 		
@@ -23,7 +51,8 @@ module PetitFelix
 							options["filename"] = file.strip
 							
 							if File.file?(options["filename"])
-								render_zine(options)
+								prepare_options options
+								render_zine
 							end
 						
 						end
