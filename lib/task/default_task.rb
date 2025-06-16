@@ -30,6 +30,25 @@ module PetitFelix
 				@metadata.keys.each do |key|
 					@metaoptions[key] = @metadata[key]
 				end
+				
+				# Loads proper values from strings for certain params
+				page_layout = :portrait
+				print_scaling = :none
+				
+				if @metaoptions.key?("page_layout")
+					page_layout = @metaoptions["page_layout"]
+					
+					if page_layout.is_a? String
+						if page_layout.include?("portrait")
+							@metaoptions["page_layout"] = :portrait
+						else 
+							if page_layout.include?("landscape")
+							@metaoptions["page_layout"] = :landscape
+							end
+						end
+					end
+				end
+				
 			end
 		
 			def render_zine

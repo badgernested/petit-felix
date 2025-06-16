@@ -1,0 +1,76 @@
+{
+	"fonts" : {},
+	"definition" : {
+		"test" : [
+			{
+				"cmd" : "text",
+				"args" : {
+					"text": "We can do more."
+				}
+			},
+			{
+				"cmd" : "text",
+				"args" : {
+					"text": "We can do more."
+				}
+			},
+			{
+				"cmd" : "move_down",
+				"args" : {
+					"val": 500
+				}
+			},
+			{
+				"cmd" : "text",
+				"args" : {
+					"text": "More test writing",
+					"size": 32
+				}
+			}
+		],
+
+		"main" : [
+			{
+				"cmd" : "text",
+				"args" : {
+					"text" : "test",
+					"size": 32
+				}
+			},
+			{
+				"cmd" : "start_new_page"
+			},
+			{
+				"cmd" : "text",
+				"args" : {
+					"text" : "More more more",
+					"size": 32
+				}
+			},
+			{
+				"cmd" : "image",
+				"args" : {
+					"file" : "./assets/images/missingno.png"
+				}
+			},
+			{
+				"cmd" : "move_up",
+				"args" : {
+					"val" : 100
+				}
+			},
+			{
+				"cmd" : "text_box",
+				"args" : {
+					"text" : "This is test text. This is test text. This is test text. Lalalal asfdsfsd sewrhsfd werews werjsklfjsdlk werjklwsjlkfsdfjslkd werjewksdd sfweerew",
+					"rotate": 25,
+					"width": 100,
+					"height" : 100,
+					"align" : "right",
+					"valign" : "center",
+					"at" : [151,200]
+				}
+			}
+		]
+	}
+}

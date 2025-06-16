@@ -5,51 +5,33 @@ module PetitFelix
 
 	module Task
 	
-		class BasicPDFTask < PetitFelix::Task::DefaultTask
+		class TemplatePDFTask < PetitFelix::Task::DefaultTask
 		
 			NAME = "template_pdf"
 
 			## Default options of the application
 			DEFAULT_OPTIONS = {
-			
+				"template" => "./templates/test.json"
 			}
 		
 			def render_zine
 
 				# Only continue if metadata has a title
-					
 				if @metadata.key?("title")
-								
-					# Parameters
-						
-					page_layout = :portrait
-					print_scaling = :none
-					
-					if @metaoptions.key?("page_layout")
-						page_layout = @metaoptions["page_layout"]
-						
-						if page_layout.is_a? String
-							if page_layout.include?("portrait")
-								page_layout = :portrait
-							else 
-								if page_layout.include?("landscape")
-								page_layout = :landscape
-								end
-							end
-						end
-					end
-
 					# Generates PDF
 						
-					pdf = PetitFelix::Worker::BasicPDFWriter.new(
-						page_layout: page_layout,
-						print_scaling: print_scaling)
+					pdf = PetitFelix::Worker::TemplatePDFWriter.new(
+						page_layout: @metaoptions["page_layout"],
+						print_scaling: @metaoptions["print_scaling"])
 
 					pdf.set_options @metaoptions
 
+					pdf.init_values @metaoptions, pdf
+
+					pdf.read_template
+
 					# Adds extra fonts
-					
-					pdf.initialize_font
+					#pdf.initialize_font
 					
 					# Outputs to file
 					pdf.output
@@ -58,8 +40,8 @@ module PetitFelix
 			end
 			
 		
+		end
+		
 	end
-	
-end
 
 end

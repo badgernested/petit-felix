@@ -8,9 +8,11 @@ module PetitFelix
 		def initialize
 			@error_printer = PetitFelix::Error.new
 			@task_list = {}
+			
+			load "task/template_pdf_task.rb"
 		
 			task_list = PetitFelix::Task.constants.select {|c| PetitFelix::Task.const_get(c).is_a? Class}
-			
+
 			task_list.delete(:DefaultTask)
 			
 			task_list.each do |task|

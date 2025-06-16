@@ -1,0 +1,90 @@
+template methods to implement:
+
+Note: add replace string method for @error_param value so arg can be displayed with that one error
+
+Methods to prioritize
+X delete_page
+X draw_text
+X font_size
+- formatted_text
+- formatted_text_box
+X goto_page
+X horizontal_rule
+X image
+X move_up
+X number_pages (No support for page filter)
+X start_new_page
+X text_box
+- undash
+
+Other:
+- cap_style
+- circle
+- curve
+- curve_to
+- dash
+- ellipse
+- fill_and_stroke_circle
+- fill_and_stroke_ellipse
+- fill_and_stroke_polygon
+- fill_and_stroke_rectangle
+- fill_circle
+- fill_color
+- fill_ellipse
+- fill_gradient
+- fill_polygon
+- fill_rectangle
+- fill_rounded_polygon
+- fill_rounted_rectangle
+- horizontal_line
+- join_style
+- line
+- line_to
+- line_width
+- polygon
+- rectangle
+- rounded_polygon
+- rounded_rectangle
+- rounded_vertex
+- stamp
+- stamp_at
+- stroke_axis
+- stroke_bounds
+- stroke_color
+- stroke_curve
+- stroke_ellipse
+- stroke_horizontal_line
+- stroke_horizontal_rule
+- stroke_polygon
+- stroke_rounded_polygon
+- stroke_rounded_rectangle
+- stroke_vertical_line
+- vertical_line
+
+Requires code block:
+
+Prioritize:
+- bounding_box
+- indent
+- pad
+- pad_bottom
+- pad_top
+- rotate
+- scale
+- span
+- translate
+- transparent
+- column_box
+
+Other:
+- blend_mode
+- create_stamp
+- fill
+- fill_and_stroke
+- soft_mask
+- transformation_matrix
+
+path related:
+- stroke
+- close_and_stroke
+- close_path

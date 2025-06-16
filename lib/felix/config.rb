@@ -35,6 +35,7 @@ module PetitFelix
 			"page_layout" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
 			"input_files" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
 			"image_dir" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
+			"task" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
 		}
 
 		### Command Line Arguments
@@ -111,7 +112,7 @@ module PetitFelix
 					options[key] = worker_options[key]
 				end
 			end
-			
+				
 			# Then loading CLI arguments
 			cl_args.keys.each do |key|
 				options[key] = cl_args[key]

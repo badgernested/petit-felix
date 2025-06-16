@@ -1,4 +1,3 @@
-require "task/basic_pdf_task"
 require "felix/task_manager"
 
 module PetitFelix
@@ -10,7 +9,7 @@ module PetitFelix
 		def render_files(wm, options)
 			
 			task = wm.get_task options["task"]
-			
+
 			if !task.nil?
 				task.render_files options
 			end

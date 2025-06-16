@@ -10,7 +10,7 @@ module PetitFelix
 		# cl_args - command line arguments passed from CLI
 		# options - hash passed by developer containing default rendering options
 		def initialize(cl_args: [], options: {})
-	
+		
 			# Creates a new worker manager, which has all the worker stuff
 			wm = PetitFelix::TaskManager.new
 	
