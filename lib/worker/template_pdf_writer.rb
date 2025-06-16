@@ -261,6 +261,29 @@ module PetitFelix
 				return 0
 			end
 			
+			def args_has_float arg_name, args
+				if !args.key?(arg_name)
+					# text not defined
+					@error_param["arg"] = arg_name.to_s
+					return 7
+				end
+				
+				args[arg_name] = args[arg_name].to_f
+				
+				return 0
+			end
+			
+			
+			def args_has_arr arg_name, args
+				if !args.key?(arg_name)
+					# text not defined
+					@error_param["arg"] = arg_name.to_s
+					return 7
+				end
+				
+				return 0
+			end
+			
 			def args_correct_values args
 				if args.key?(:align)
 					args[:align] = args[:align].to_sym
@@ -271,19 +294,29 @@ module PetitFelix
 				end
 				
 				if args.key?(:direction)
-					args[:direction] = args[overflow].to_sym
+					args[:direction] = args[:direction].to_sym
 				end
 				
 				if args.key?(:mode)
-					args[:mode] = args[overflow].to_sym
+					args[:mode] = args[:mode].to_sym
 				end
 				
 				if args.key?(:overflow)
-					args[:overflow] = args[overflow].to_sym
+					args[:overflow] = args[:overflow].to_sym
 				end
 				
 				if args.key?(:rotate_around)
-					args[:rotate_around] = args[overflow].to_sym
+					args[:rotate_around] = args[:rotate_around].to_sym
+				end
+				
+				if args.key?(:position)
+
+					if ["left","center","right"].include? args[:position]
+						args[:position] = args[:position].to_sym
+					else
+						args[:position] = args[:position].to_i
+					end
+
 				end
 				
 				args

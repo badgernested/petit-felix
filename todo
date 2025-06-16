@@ -15,7 +15,6 @@ X move_up
 X number_pages (No support for page filter)
 X start_new_page
 X text_box
-- undash
 
 Other:
 - cap_style
@@ -60,21 +59,22 @@ Other:
 - stroke_rounded_rectangle
 - stroke_vertical_line
 - vertical_line
+- undash
 
 Requires code block:
 
 Prioritize:
-- bounding_box
-- indent
-- pad
-- pad_bottom
-- pad_top
-- rotate
-- scale
-- span
-- translate
-- transparent
-- column_box
+X bounding_box
+X indent
+X pad
+X pad_bottom
+X pad_top
+X rotate
+X scale
+X span
+X translate
+X transparent
+X column_box
 
 Other:
 - blend_mode
