@@ -7,7 +7,7 @@ module PetitFelix
 	
 		class TemplatePDFTask < PetitFelix::Task::DefaultTask
 		
-			NAME = "template_pdf"
+			NAME = "template-pdf"
 
 			## Default options of the application
 			DEFAULT_OPTIONS = {

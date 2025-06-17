@@ -1,8 +1,8 @@
 require "prawn"
 require 'fileutils'
 require "prawndown-ext"
-require "worker/pdf_writer_column_box"
-require "worker/pdf_writer_bounding_box"
+require "worker/pdf_writer/column_box"
+require "worker/pdf_writer/bounding_box"
 
 ## Prawn PDF writer that outputs template files
 

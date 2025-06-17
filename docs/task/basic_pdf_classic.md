@@ -1,6 +1,6 @@
 # basic_pdf
 
-``basic_pdf`` is a worker that produces zines from markdown files from a predefined template.
+``basic_pdf_classic`` is a worker that produces zines from markdown files from a predefined template.
 
 ## Arguments
 

@@ -1,3 +1,7 @@
+Trying to figure out margin alternation on column_boxes
+
+What we need to do is have it so that page margins can be updated on every page regardless of the top level bounding box.
+
 template methods to implement:
 
 Note: add replace string method for @error_param value so arg can be displayed with that one error

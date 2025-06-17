@@ -1,5 +1,5 @@
 require "task/default_task"
-require "worker/basic_pdf_writer"
+require "worker/basic_pdf_writer_classic"
 
 module PetitFelix
 
@@ -7,7 +7,7 @@ module PetitFelix
 	
 		class BasicPDFTask < PetitFelix::Task::DefaultTask
 		
-			NAME = "basic_pdf"
+			NAME = "basic-pdf-classic"
 
 			## Default options of the application
 			DEFAULT_OPTIONS = {

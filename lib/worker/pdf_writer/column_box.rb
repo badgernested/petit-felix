@@ -1,4 +1,4 @@
-require "worker/pdf_writer_bounding_box"
+require "worker/pdf_writer/bounding_box"
 
 module Prawn
   class Document 

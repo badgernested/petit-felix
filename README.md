@@ -36,4 +36,4 @@ To view other ways to use ``petit-felix``, refer to the [usage documentation](do
 2. [Using petit-felix](docs/using.md)
 3. [Introduction to Workers](docs/worker.md)
 4. [Introduction to Tasks](docs/tasks.md)
-    - [basic-pdf](docs/task/basic_pdf.md)
+    - [basic-pdf-classic](docs/task/basic_pdf_classic.md)

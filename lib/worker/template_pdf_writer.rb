@@ -62,6 +62,33 @@ module PetitFelix
 				
 				# For variables of errors
 				@error_param = {}
+				
+				set_variables
+			end
+			
+			def set_variables
+				@variables = {}
+				
+				@options.keys.each do |key|
+					@variables[key] = @options[key]
+				end
+				
+				## add additional functional stuff
+				@variables["cursor"] = @pdf.cursor
+				@variables["bounds_height"] = @pdf.bounds.height
+				@variables["bounds_width"] = @pdf.bounds.width
+
+			end
+			
+			def replace_variables string
+			
+				@variables.keys.each do |key|
+
+					string = string.gsub("${" + key + "}", @variables[key].to_s)
+					
+				end
+				
+				string
 			end
 			
 			## Parsing template stuff
@@ -126,6 +153,9 @@ module PetitFelix
 						
 						# executes the command
 						line = definition[counter]
+						
+						set_variables
+						
 						command = ""
 						
 						if line.key?(:cmd)
@@ -144,6 +174,19 @@ module PetitFelix
 							args = line[:args]
 						end
 						
+						begin
+							print "Args:\n"
+							print args
+						
+							print "Result:\n"
+							result = replace_variables(JSON.generate(args))
+							print result
+							args = JSON.parse(result, symbolize_names: true)
+						rescue
+							print "\n"
+							print "Error rendering variables!\n"
+						end
+						
 						if !command.empty?
 							
 							if COMMAND.keys.include?(command)
@@ -153,7 +196,7 @@ module PetitFelix
 									# Failed because of stack overflow
 									return [4, counter]
 								end
-							
+					
 								comm = COMMAND[command].call(obj, args)
 
 								@counter_stack[-1] = counter

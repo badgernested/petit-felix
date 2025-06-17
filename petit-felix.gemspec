@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.files.append(Dir['lib/felix/*'].keep_if { |file| File.file?(file) })
   spec.files.append(Dir['lib/task/*'].keep_if { |file| File.file?(file) })
   spec.files.append(Dir['lib/worker/*'].keep_if { |file| File.file?(file) })
+  spec.files.append(Dir['lib/worker/pdf_writer/*'].keep_if { |file| File.file?(file) })
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
