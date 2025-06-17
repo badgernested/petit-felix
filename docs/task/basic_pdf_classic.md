@@ -1,10 +1,10 @@
 # basic_pdf
 
-``basic_pdf_classic`` is a worker that produces zines from markdown files from a predefined template.
+``basic_pdf_classic`` is a worker that produces zines from markdown files from a predefined template. It is the original zine-making worker; unlike later workers it doesn't use ``template_pdf`` as a base.
 
 ## Arguments
 
-This is a list of all the arguments for ``basic_pdf``.
+This is a list of all the arguments for ``basic_pdf_classic``.
 
 ### Front Cover Elements
 
