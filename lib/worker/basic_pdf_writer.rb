@@ -318,13 +318,13 @@ module PetitFelix
 				}]
 
 			begin
-				obj = PetitFelix::Metadata.new.parse_property @options["margin_array"], "{\"margin\" : ${x}}"
+				obj = PetitFelix::Metadata.new.parse_property @options["markdown_margin_array"], "{\"margin\" : ${x}}"
 			
 				base_margin = obj[:margin]
 			
 			rescue
 				print "\n"
-				print "Note: unable to parse argument " + @options["margin_array"]
+				print "Note: unable to parse argument " + @options["markdown_margin_array"]
 			end
 			
 			if columns == 1

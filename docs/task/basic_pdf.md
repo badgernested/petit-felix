@@ -62,7 +62,7 @@ This is a list of all the arguments for ``basic_pdf``.
 ### Text Formatting Elements
 
 * ``columns`` - How many columns to display in the text.
-* ``margin`` - How much to move in the margins.
+* ``markdown_margin_array`` - Array of margin JSON objects that format markdown pages. They will repeat through the array each page on margins. Example: ``[{"left":50,"right":50,"top":10,"bottom":30}]`` makes every markdown page have ``50`` for left and right margins, ``10`` for the top margin and ``30`` for the bottom margin.
 * ``page_layout`` - Whether or not to render in ``portrait`` or ``landscape`` mode. Note: ``landscape`` cover is incomplete currently, working on it...
 
 ### Paginator
