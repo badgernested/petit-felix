@@ -307,11 +307,6 @@ module PetitFelix
 			
 			base_margin = [{
 					:left => 10,
-					:right => 80,
-					:top => 10,
-					:bottom => 30
-				},{
-					:left => 80,
 					:right => 10,
 					:top => 10,
 					:bottom => 30
@@ -323,8 +318,10 @@ module PetitFelix
 				base_margin = obj[:margin]
 			
 			rescue
-				print "\n"
-				print "Note: unable to parse argument " + @options["markdown_margin_array"]
+				if @options.key?("markdown_margin_array")
+					print "\n"
+					print "Note: unable to parse argument " + @options["markdown_margin_array"]
+				end
 			end
 			
 			if columns == 1
