@@ -1,6 +1,8 @@
 require "prawn"
 require 'fileutils'
 require "prawndown-ext"
+require "worker/pdf_writer_column_box"
+require "worker/pdf_writer_bounding_box"
 
 ## Prawn PDF writer that outputs template files
 
@@ -73,6 +75,63 @@ module PetitFelix
 				FileUtils.mkdir_p @options["output_dir"]
 				render_file(@options["output_dir"] + "/" + @options["title"].gsub(/[^\w\s]/, '').tr(" ", "_") + '.pdf')
 			end
+			
+			
+    def start_new_page(options = {})
+      last_page = state.page
+      if last_page
+        last_page_size = last_page.size
+        last_page_layout = last_page.layout
+        last_page_margins = last_page.margins.dup
+      end
+
+      page_options = {
+        size: options[:size] || last_page_size,
+        layout: options[:layout] || last_page_layout,
+        margins: last_page_margins,
+      }
+      if last_page
+        if last_page.graphic_state
+          new_graphic_state = last_page.graphic_state.dup
+        end
+
+        # erase the color space so that it gets reset on new page for fussy
+        # pdf-readers
+        new_graphic_state&.color_space = {}
+
+        page_options[:graphic_state] = new_graphic_state
+      end
+
+      state.page = PDF::Core::Page.new(self, page_options)
+
+      apply_margin_options(options)
+      generate_margin_box
+
+      # Reset the bounding box if the new page has different size or layout
+      if last_page && (last_page.size != state.page.size ||
+                       last_page.layout != state.page.layout)
+        @bounding_box = @margin_box
+      end
+
+      use_graphic_settings
+
+      unless options[:orphan]
+        state.insert_page(state.page, @page_number)
+        @page_number += 1
+
+        if @background
+          canvas do
+            image(@background, scale: @background_scale, at: bounds.top_left)
+          end
+        end
+        @y = @bounding_box.absolute_top
+
+        float do
+          state.on_page_create_action(self)
+        end
+      end
+      
+    end
 		
 		end
 	end

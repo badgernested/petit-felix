@@ -16,6 +16,7 @@ module PetitFelix
 				
 				# PDF functions
 				:text => -> (obj, args) { obj.com_text args, obj },
+				:markdown => -> (obj, args) { obj.com_markdown args, obj },
 				:text_box => -> (obj, args) { obj.com_text_box args, obj },
 				:move_down => -> (obj, args) { obj.com_move_down args, obj },
 				:move_to => -> (obj, args) { obj.com_move_to args, obj },
@@ -221,6 +222,21 @@ module PetitFelix
 				return 0
 			end
 			
+			# Later - change this to reading a file's input.
+			def com_markdown args, obj
+				validate = args_has_string :file, args
+				
+				if validate != 0
+					return validate
+				end
+			
+				args = args_correct_values args
+			
+				obj.markdown args[:file], options: @options
+				
+				return 0
+			end
+			
 			def com_move_cursor_to args, obj
 				validate = args_has_int :val, args
 				
@@ -421,9 +437,9 @@ module PetitFelix
 					obj.scale(args[:factor], args) do
 						val = obj.execute_function @template_stack[-1], args[:func], obj
 											
-											if val[0] != 0
-												return val[0]
-											end
+						if val[0] != 0
+							return val[0]
+						end
 					end
 				
 				else

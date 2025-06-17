@@ -75,6 +75,7 @@ module PetitFelix
 						page_layout: page_layout,
 						print_scaling: print_scaling)
 
+
 					pdf.set_options @metaoptions
 
 					# Adds extra fonts
@@ -91,6 +92,8 @@ module PetitFelix
 					# Does page numbering
 					pdf.page_numbering
 					
+					pdf.go_to_page pdf.page_count
+
 					# Back page generation
 					pdf.back_page
 					

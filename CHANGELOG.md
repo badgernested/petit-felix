@@ -1,3 +1,9 @@
+## [0.2.0] - 2025-06-17
+
+- Added ``template_pdf`` worker. This worker reads JSON template files and processes them into PDF.
+- Added many basic methods for ``template_pdf``.
+- Added ability to customize margins per page and per bounding box. This allows for margins to make double sided printing better.
+
 ## [0.1.4] - 2025-06-14
 
 - Minor improvements to worker class to be compatible with prawndown-ext changes

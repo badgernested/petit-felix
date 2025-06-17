@@ -10,6 +10,7 @@ module PetitFelix
 			@task_list = {}
 			
 			load "task/template_pdf_task.rb"
+			load "task/basic_pdf_task.rb"
 		
 			task_list = PetitFelix::Task.constants.select {|c| PetitFelix::Task.const_get(c).is_a? Class}
 

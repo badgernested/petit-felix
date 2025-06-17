@@ -88,7 +88,7 @@ module PetitFelix
 							odd_options[:page_filter] = ->(pg) { pg > page_start && pg % 2 == 1 }
 							
 							even_options = {
-								at: [0, bounds.left],
+								at: [bounds.left, 0],
 								width: bounds.width,
 								align: align_even,
 								start_count_at: page_start_count + 1,
@@ -102,7 +102,7 @@ module PetitFelix
 						else
 						
 							options = {
-								at: [0, 0],
+								at: [0, -10],
 								width: bounds.width,
 								align: :right,
 								start_count_at: page_start_count,
@@ -305,25 +305,50 @@ module PetitFelix
 			# content generation
 			font_size(@options["default_font_size"].to_i)
 			
+			base_margin = [{
+					:left => 10,
+					:right => 80,
+					:top => 10,
+					:bottom => 30
+				},{
+					:left => 80,
+					:right => 10,
+					:top => 10,
+					:bottom => 30
+				}]
+
+			begin
+				obj = PetitFelix::Metadata.new.parse_property @options["margin_array"], "{\"margin\" : ${x}}"
+			
+				base_margin = obj[:margin]
+			
+			rescue
+				print "\n"
+				print "Note: unable to parse argument " + @options["margin_array"]
+			end
+			
 			if columns == 1
 
-				bounding_box([half_margin, cursor - half_margin],
-					width: bounds.width-margin,
-					height: [bounds.height - 20 - margin, bounds.height - margin].min) do
+				bounding_box([0, cursor],
+					width: bounds.width,
+					height: [bounds.height, bounds.height].min,
+					base_margins: base_margin) do
 					markdown(content, options: @options)
 				end
 				
 			else
 			
-				column_box([half_margin, cursor - half_margin],
+				column_box([0, cursor],
 					columns: columns,
-					width: bounds.width-margin,
-					height: [bounds.height - 20 - margin, bounds.height - margin].min) do
+					width: bounds.width,
+					height: [bounds.height, bounds.height].min,
+					base_margins: base_margin) do
 					
 					markdown(content, options: @options)
 					
 				end
 			end
+			
 		end
 
 	end

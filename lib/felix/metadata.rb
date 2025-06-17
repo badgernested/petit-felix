@@ -20,14 +20,15 @@ module PetitFelix
 			array = input.lines
 
 			metadata = {}
-			
+		
 			array.each do |set|
 				if set.count(":") >= 1
-					data = set.split(":")
+					data = set.split(":", 2)
 					index = data[0].strip.downcase
 					metadata[index] = data[1].strip.gsub("\\\"", "\"")
 				end
 			end
+			
 			metadata
 		end
 		
@@ -39,6 +40,12 @@ module PetitFelix
 			end
 			input
 		end
+		
+		## Transforms string into JSON parsed object
+		def parse_property string, base="${x}"
+			return JSON.parse(base.sub("${x}", string), symbolize_names: true)
+		end
+		
 		
 	end
 end

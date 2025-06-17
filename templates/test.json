@@ -28,13 +28,9 @@
 				}
 			},
 			{
-				"cmd" : "column_box",
+				"cmd" : "markdown",
 				"args" : {
-					"func" : "test",
-					"at" : [0,500],
-					"width": 300,
-					"height" : 300,
-					"columns" : 2
+					"file" : "# This is a header!\n\nText *Text* Text test."
 				}
 			}
 		]

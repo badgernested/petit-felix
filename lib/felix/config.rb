@@ -53,6 +53,7 @@ module PetitFelix
 		## then finally any arguments defined in the metadata.
 
 		def load_config(wm, passed_args, args)
+		
 			@processed_arguments = []
 	
 			# Felix metadata handler
@@ -67,7 +68,7 @@ module PetitFelix
 			
 			if File.file?("./default.cfg")
 				
-				default_config = metadata.get_metadata(File.read("./default.cfg")[0])
+				default_config = metadata.get_metadata(File.read("./default.cfg"))
 			end
 			
 			# Loads command line arguments
@@ -101,16 +102,16 @@ module PetitFelix
 			# First, default options
 			options = default_options
 			
-			# Then loading default config file
-			default_config.keys.each do |key|
-				options[key] = default_config[key]
-			end
-			
 			# Then loading default worker args
 			if !worker_options.nil?
 				worker_options.keys.each do |key|
 					options[key] = worker_options[key]
 				end
+			end
+			
+			# Then loading default config file
+			default_config.keys.each do |key|
+				options[key] = default_config[key]
 			end
 				
 			# Then loading CLI arguments
