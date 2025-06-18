@@ -1,0 +1,671 @@
+{
+  "fonts": {
+    "default": {
+      "normal": "${font_normal}",
+      "italic": "${font_italic}",
+      "bold": "${font_bold}",
+      "bold_italic": "${font_bold}"
+    },
+    "front_title": {
+      "normal": "${front_title_font_normal}",
+      "italic": "${front_title_font_italic}",
+      "bold": "${front_title_font_bold}",
+      "bold_italic": "${front_title_font_bold}"
+    },
+    "front_author": {
+      "normal": "${front_author_font_normal}",
+      "italic": "${front_author_font_italic}",
+      "bold": "${front_author_font_bold}",
+      "bold_italic": "${front_author_font_bold}"
+    },
+    "front_date": {
+      "normal": "${front_date_font_normal}",
+      "italic": "${front_date_font_italic}",
+      "bold": "${front_date_font_bold}",
+      "bold_italic": "${front_date_font_bold}"
+    },
+    "front_publish": {
+      "normal": "${front_publish_font_normal}",
+      "italic": "${front_publish_font_italic}",
+      "bold": "${front_publish_font_bold}",
+      "bold_italic": "${front_publish_font_bold}"
+    },
+    "back_default": {
+      "normal": "${back_default_font_normal}",
+      "italic": "${back_default_font_italic}",
+      "bold": "${back_default_font_bold}",
+      "bold_italic": "${back_default_font_bold}"
+    },
+    "back_author": {
+      "normal": "${back_author_font_normal}",
+      "italic": "${back_author_font_italic}",
+      "bold": "${back_author_font_bold}",
+      "bold_italic": "${back_author_font_bold}"
+    },
+    "back_publish": {
+      "normal": "${back_publish_font_normal}",
+      "italic": "${back_publish_font_italic}",
+      "bold": "${back_publish_font_bold}",
+      "bold_italic": "${back_publish_font_bold}"
+    },
+    "paginator": {
+      "normal": "${paginator_font_normal}",
+      "italic": "${paginator_font_italic}",
+      "bold": "${paginator_font_bold}",
+      "bold_italic": "${paginator_font_bold}"
+    }
+  },
+  "default_variables": {
+    "columns": 1,
+    "default_font_size": 12,
+    "header1_size": 32,
+    "header2_size": 28,
+    "header3_size": 20,
+    "header4_size": 18,
+    "header5_size": 16,
+    "header6_size": 14,
+    "quote_size": 14,
+    "margin": 40,
+    
+    "font_normal": "./assets/font/Unageo-Regular.ttf",
+    "font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
+    "font_bold": "./assets/font/Unageo-ExtraBold.ttf",
+    "font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
+    "front_title_font_normal": "./assets/font/Unageo-Regular.ttf",
+    "front_title_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
+    "front_title_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
+    "front_title_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
+    "front_author_font_normal": "./assets/font/Unageo-Regular.ttf",
+    "front_author_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
+    "front_author_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
+    "front_author_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
+    "front_date_font_normal": "./assets/font/Unageo-Regular.ttf",
+    "front_date_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
+    "front_date_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
+    "front_date_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
+    "front_publish_font_normal": "./assets/font/Unageo-Regular.ttf",
+    "front_publish_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
+    "front_publish_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
+    "front_publish_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
+    "back_default_font_normal": "./assets/font/Unageo-Regular.ttf",
+    "back_default_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
+    "back_default_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
+    "back_default_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
+    "back_author_font_normal": "./assets/font/Unageo-Regular.ttf",
+    "back_author_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
+    "back_author_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
+    "back_author_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
+    "back_publish_font_normal": "./assets/font/Unageo-Regular.ttf",
+    "back_publish_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
+    "back_publish_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
+    "back_publish_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
+    "paginator_font_normal": "./assets/font/Unageo-Regular.ttf",
+    "paginator_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
+    "paginator_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
+    "paginator_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
+    
+    "paginator_switch" : false,
+    "paginator_mode" : "default",
+    "paginator_start_count": 1,
+    "paginator_start": 1,
+    "paginator": true,
+    "paginator_size" : 12,
+    "back_text": "",
+    "back_text_size": 14,
+    "front_title_size": 32,
+    "front_author_size": 18,
+    "front_date_size": 14,
+    "back_publisher": "",
+    "back_publisher_size": 14,
+    "front_publisher": "",
+    "front_publisher_size": 14,
+    "front_cover_show_image": true,
+    "back_cover_show_image": true,
+    "back_author": "",
+    "back_author_size": 16,
+    "markdown_margin_array": "[{\"left\":30,\"right\":30,\"top\":30,\"bottom\":30}]",
+    "back_text_margin": "[{\"left\":100, \"right\":100, \"top\":30, \"bottom\":30 }]"
+  },
+  "definition": {
+  
+    "start_new_page_front": [
+      {
+        "cmd": "set",
+        "args": {
+          "var": "page_start_increment",
+          "val" : "${page_start_increment} + 1"
+        }
+      },
+      {
+        "cmd": "start_new_page"
+      }
+    ],
+    
+    "start_new_page_back": [
+      {
+        "cmd": "set",
+        "args": {
+          "var": "page_end_increment",
+          "val" : "${page_end_increment} + 1"
+        }
+      },
+      {
+        "cmd": "start_new_page"
+      }
+    ],
+    
+    "main_section": [
+      {
+        "cmd": "font",
+        "args": {
+          "val": "default"
+        }
+      },
+      {
+        "cmd": "font_size",
+        "args": {
+          "val": "${default_font_size}"
+        }
+      },
+      {
+        "cmd": "elif",
+        "args": {
+          "exp": "${columns} > 1",
+          "func": "main_section_multi",
+          "func_else": "main_section_single"
+        }
+      }
+    ],
+    "main_section_single": [
+      {
+        "cmd": "bounding_box",
+        "args": {
+          "func": "main_section_markdown",
+          "at": "[0, ${cursor}]",
+          "width": "${bounds_width}",
+          "height": "${bounds_height}",
+          "margin": "${markdown_margin_array}"
+        }
+      }
+    ],
+    "main_section_multi": [
+      {
+        "cmd": "column_box",
+        "args": {
+          "func": "main_section_markdown",
+          "columns": "${columns}",
+          "at": "[0, ${cursor}]",
+          "width": "${bounds_width}",
+          "height": "${bounds_height}",
+          "margin": "${markdown_margin_array}"
+        }
+      }
+    ],
+    "main_section_markdown": [
+      {
+        "cmd": "markdown",
+        "args": {
+          "text": "${markdown_content}"
+        }
+      }
+    ],
+    "front_cover": [
+      {
+        "cmd": "if",
+        "args": {
+          "exp": "${front_cover}",
+          "func": "front_cover_work"
+        }
+      }
+    ],
+    "front_cover_work": [
+      {
+        "cmd": "bounding_box",
+        "args": {
+          "func": "front_cover_title_text",
+          "at": "[25, ${cursor}]",
+          "width": "${bounds_width} - 50",
+          "height": 150
+        }
+      },
+      {
+        "cmd": "bounding_box",
+        "args": {
+          "func": "front_cover_image1",
+          "at": [
+            40,
+            "${cursor} + 10"
+          ],
+          "width": "${bounds_width} - 80",
+          "height": "${bounds_width} - 80"
+        }
+      },
+      {
+        "cmd": "bounding_box",
+        "args": {
+          "func": "front_cover_author_text",
+          "at": [
+            50,
+            "${cursor} - 20"
+          ],
+          "width": "${bounds_width} - 100",
+          "height": "30"
+        }
+      },
+      {
+        "cmd": "bounding_box",
+        "args": {
+          "func": "front_cover_date_text",
+          "at": [
+            50,
+            "${cursor}"
+          ],
+          "width": "${bounds_width} - 100",
+          "height": "30"
+        }
+      },
+      {
+        "cmd": "bounding_box",
+        "args": {
+          "func": "front_cover_publish_text",
+          "at": [
+            0,
+            "${cursor}"
+          ],
+          "width": "${bounds_width}",
+          "height": "50"
+        }
+      },
+      {
+        "cmd": "call",
+        "args" : {
+        	"func" : "start_new_page_front"
+        }
+      },
+      {
+        "cmd": "if",
+        "args": {
+          "exp": "${front_extra_page}",
+          "func": "start_new_page_front"
+        }
+      }
+    ],
+    "front_cover_title_text": [
+      {
+        "cmd": "font",
+        "args": {
+          "val": "front_title"
+        }
+      },
+      {
+        "cmd": "font_size",
+        "args": {
+          "val": "${front_title_size}"
+        }
+      },
+      {
+        "cmd": "text_box",
+        "args": {
+          "text": "${title}",
+          "align": "center",
+          "valign": "center",
+          "style": "bold"
+        }
+      }
+    ],
+    "front_cover_date_text": [
+      {
+        "cmd": "font",
+        "args": {
+          "val": "front_date"
+        }
+      },
+      {
+        "cmd": "font_size",
+        "args": {
+          "val": "${front_date_size}"
+        }
+      },
+      {
+        "cmd": "text_box",
+        "args": {
+          "text": "Original Publication: ${publication_date}",
+          "align": "center",
+          "valign": "center",
+          "style": "bold"
+        }
+      }
+    ],
+    "front_cover_publish_text": [
+      {
+        "cmd": "font",
+        "args": {
+          "val": "front_publish"
+        }
+      },
+      {
+        "cmd": "font_size",
+        "args": {
+          "val": "${front_publish_size}"
+        }
+      },
+      {
+        "cmd": "text_box",
+        "args": {
+          "text": "${front_publish}",
+          "align": "center",
+          "valign": "center",
+          "style": "bold"
+        }
+      }
+    ],
+    "front_cover_image1": [
+      {
+        "cmd": "if",
+        "args": {
+          "exp": "${front_cover_show_image}",
+          "func": "front_cover_image2"
+        }
+      }
+    ],
+    "front_cover_image2": [
+      {
+        "cmd": "image",
+        "args": {
+          "file": "${front_cover_image}",
+          "width": "${bounds_width}",
+          "height": "${bounds_width}"
+        }
+      }
+    ],
+    "front_cover_author_text": [
+      {
+        "cmd": "font",
+        "args": {
+          "val": "front_author"
+        }
+      },
+      {
+        "cmd": "font_size",
+        "args": {
+          "val": "${front_author_size}"
+        }
+      },
+      {
+        "cmd": "text_box",
+        "args": {
+          "text": "${front_author}",
+          "align": "center"
+        }
+      }
+    ],
+    "back_cover": [
+      {
+        "cmd": "elif",
+        "args": {
+          "exp": "${back_cover}",
+          "func": "back_cover_work",
+          "func_else" : "back_cover_nope"
+        }
+      }
+    ],
+    "back_cover_nope" : [
+      {
+        "cmd": "call",
+        "args": {
+          "func": "paginator"
+        }
+      }
+    ],
+    
+    "back_cover_work": [
+      {
+        "cmd": "call",
+        "args" : {
+        	"func" : "start_new_page_back"
+        }
+      },
+      {
+        "cmd": "if",
+        "args": {
+          "exp": "${back_extra_page}",
+          "func": "start_new_page_back"
+        }
+      },
+      {
+        "cmd": "bounding_box",
+        "args": {
+          "func": "back_cover_text",
+          "at": [
+            0,
+            "${cursor}"
+          ],
+          "width": "${bounds_width}",
+          "height": "300",
+          "margin": "${back_text_margin}"
+        }
+      },
+      {
+        "cmd": "bounding_box",
+        "args": {
+          "func": "back_cover_image1",
+          "at": [
+            "${bounds_width} * 0.5 - 64",
+            "${cursor} - 180"
+          ],
+          "width": "${bounds_width} - 100 - 128",
+          "height": "128"
+        }
+      },
+      {
+        "cmd": "bounding_box",
+        "args": {
+          "func": "back_cover_author",
+          "at": [
+            "50",
+            "${cursor} - 20"
+          ],
+          "width": "${bounds_width} - 100",
+          "height": "40"
+        }
+      },
+      {
+        "cmd": "bounding_box",
+        "args": {
+          "func": "back_cover_publish",
+          "at": [
+            "25",
+            "${cursor} - 60"
+          ],
+          "width": "${bounds_width} - 50",
+          "height": "32"
+        }
+      }
+    ],
+    "back_cover_text": [
+      {
+        "cmd": "font",
+        "args": {
+          "val": "back_default"
+        }
+      },
+      {
+        "cmd": "font_size",
+        "args": {
+          "val": "${back_text_size}"
+        }
+      },
+      {
+        "cmd": "markdown",
+        "args": {
+          "text": "${back_text}"
+        }
+      }
+    ],
+    "back_cover_image1": [
+      {
+        "cmd": "if",
+        "args": {
+          "exp": "${back_cover_show_image}",
+          "func": "back_cover_image2"
+        }
+      }
+    ],
+    "back_cover_image2": [
+      {
+        "cmd": "image",
+        "args": {
+          "file": "${back_cover_image}",
+          "width": "128",
+          "height": "128"
+        }
+      }
+    ],
+    "back_cover_author": [
+      {
+        "cmd": "font",
+        "args": {
+          "val": "back_author"
+        }
+      },
+      {
+        "cmd": "font_size",
+        "args": {
+          "val": "${back_author_size}"
+        }
+      },
+      {
+        "cmd": "text_box",
+        "args": {
+          "text": "${back_author}",
+          "align" : "center"
+        }
+      }
+    ],
+    "back_cover_publish": [
+      {
+        "cmd": "font",
+        "args": {
+          "val": "back_publish"
+        }
+      },
+      {
+        "cmd": "font_size",
+        "args": {
+          "val": "${back_publish_size}"
+        }
+      },
+      {
+        "cmd": "text_box",
+        "args": {
+          "text": "${back_publish}",
+          "align" : "center"
+        }
+      }
+    ],
+    
+    "paginator": [
+      {
+        "cmd": "if",
+        "args": {
+        	"exp" : "${paginator}",
+          "func": "paginator_work"
+        }
+      }
+    ],
+    
+    "paginator_work" : [
+      {
+        "cmd": "font",
+        "args": {
+          "val": "paginator"
+        }
+      },
+      {
+        "cmd": "font_size",
+        "args": {
+          "val": "${paginator_size}"
+        }
+      },
+      {
+        "cmd": "bounding_box",
+        "args": {
+          "func": "number_my_pages",
+          "at": [
+            "0",
+            "50"
+          ],
+          "width": "${bounds_width}",
+          "height": "40"
+        }
+      }
+    ],
+    
+    "number_my_pages" : [
+      {
+      	"cmd": "number_pages",
+      	"args": {
+      		"text" : "${title}: <page>",
+      		"page_mode" : "alternate",
+      		"start_count_at" : "1",
+      		"page_start" : "${page_start_increment}",
+      		"page_finish" : "${pages} - ${page_end_increment} + 1",
+      		"odd_at" : ["0","0"],
+      		"even_at" : ["0", "0"],
+      		"odd_align" : "left",
+      		"even_align" : "right",
+      		"width" : "${bounds_width}",
+      		"height" : "${bounds_height}"
+      	}
+      }
+    ],
+    
+    
+    "main": [
+      {
+        "cmd": "set",
+        "args": {
+          "var": "page_start_increment",
+          "val" : "0"
+        }
+      },
+      {
+        "cmd": "set",
+        "args": {
+          "var": "page_end_increment",
+          "val" : "0"
+        }
+      },
+      {
+        "cmd": "read_markdown",
+        "args": {
+          "file": "${input_file}"
+        }
+      },
+      {
+        "cmd": "call",
+        "args": {
+          "func": "front_cover"
+        }
+      },
+      {
+        "cmd": "call",
+        "args": {
+          "func": "main_section"
+        }
+      },
+      {
+        "cmd": "call",
+        "args": {
+          "func": "back_cover"
+        }
+      },
+      {
+        "cmd": "call",
+        "args": {
+          "func": "paginator"
+        }
+      }
+    ]
+  }
+}

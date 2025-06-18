@@ -36,6 +36,7 @@ module PetitFelix
 			"input_files" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
 			"image_dir" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
 			"task" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
+			"template" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
 		}
 
 		### Command Line Arguments
@@ -134,6 +135,7 @@ module PetitFelix
 			index = 0
 			
 			args.each do |com|
+			
 				command = com.downcase
 			
 				if command.start_with?("--")

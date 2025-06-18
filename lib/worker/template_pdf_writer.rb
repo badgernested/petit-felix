@@ -5,6 +5,7 @@ require "felix/metadata"
 require "felix/error"
 require "worker/pdf_writer"
 require "worker/template_pdf_calls"
+require "eqn"
 
 ## Prawn PDF writer that inputs template files
 
@@ -13,7 +14,7 @@ module PetitFelix
 
 		class	TemplatePDFWriter < PetitFelix::Worker::DefaultPDFWriter
 			
-			# error count: 12
+			# error count: 14
 			
 			ERROR_CODES = [
 				"OK",
@@ -21,14 +22,16 @@ module PetitFelix
 				"No command defined. Use \"com\" or \"command\" to define commands.",
 				"Command not found.",
 				"Stack overflow.",
-				"Template ID not found.",
-				"Template method not found.",
+				"Template ID \"{{arg}}\" not found.",
+				"Template method \"{{arg}}\" not found.",
 				"\"{{arg}}\" argument not defined.",
-				"BLANK 8",
-				"BLANK 9",
-				"BLANK 10",
+				"Expression \"{{arg}}\" does not result in boolean result.",
+				"Expression \"{{arg}}\" cannot be evaluated.",
+				"File \"{{arg}}\" not found.",
 				"Not a valid position.",
-				"\"at\" (Array) argument not defined."
+				"\"at\" (Array) argument not defined.",
+				"\"{{arg}}\" is not an array.",
+				"Image \"{{arg}}\" not found."
 			]
 			
 			# Highest a stack is allowed to be
@@ -37,7 +40,13 @@ module PetitFelix
 			## Functions
 			
 			def init_values options, pdf
-				@options = options
+				@variables = {}
+			
+				@options = Marshal.load(Marshal.dump(options))
+				
+				# Options to use for method calls and stuff
+				# Updated every time a template is loaded
+				@metaoptions = {}
 				@pdf = pdf
 				
 				# stack referencing current running commands
@@ -51,9 +60,6 @@ module PetitFelix
 				# external templates together.
 				@template_stack = []
 				
-				# Fonts
-				@fonts = {}
-				
 				# Templates
 				@template = {}
 				
@@ -66,26 +72,74 @@ module PetitFelix
 				set_variables
 			end
 			
-			def set_variables
-				@variables = {}
+			# Adds a font to the pdf document
+			def add_font font, font_name
+
+				if font.key?(:normal)
 				
-				@options.keys.each do |key|
-					@variables[key] = @options[key]
+					if font.key?(:italic)
+						font[:italic] = font[:normal]
+					end
+					if font.key?(:bold)
+						font[:bold] = font[:normal]
+					end
+					if font.key?(:bold_italic)
+						font[:bold_italic] = font[:normal]
+					end
+					
+					font.keys.each do |key|
+						font[key] = replace_variable font[key]
+					end
+				
+					font_families.update(font_name => font)
+					
+				end
+						
+			end
+			
+			def add_fonts fonts
+				fonts.keys.each do |font|
+					add_font fonts[font], font.to_s
+				end
+				
+			end
+			
+			def set_variables
+				@metaoptions.keys.each do |key|
+					@variables[key] = @metaoptions[key]
+				end
+				
+				if @variables.key? :markdown_metadata
+					@variables[:markdown_metadata].keys.each do |meta|
+						@variables[meta] = @variables[:markdown_metadata][meta]
+					end
 				end
 				
 				## add additional functional stuff
 				@variables["cursor"] = @pdf.cursor
 				@variables["bounds_height"] = @pdf.bounds.height
 				@variables["bounds_width"] = @pdf.bounds.width
+				@variables["pages"] = @pdf.page_count
+				
+				# the currently loaded markdown file
+				@variables["loaded_markdown"] = {}
 
 			end
 			
-			def replace_variables string
+			def replace_variables args
 			
+				args.keys.each do |arg|
+					if args[arg].instance_of? String
+						args[arg] = replace_variable args[arg]
+					end
+				end
+				
+				args
+			end
+			
+			def replace_variable string
 				@variables.keys.each do |key|
-
-					string = string.gsub("${" + key + "}", @variables[key].to_s)
-					
+					string = string.gsub("${" + key.to_s + "}", @variables[key].to_s)
 				end
 				
 				string
@@ -101,16 +155,27 @@ module PetitFelix
 					if File.file?(@options["template"])
 						obj = JSON.parse(File.read(@options["template"]), symbolize_names: true)
 					
+						default_options = obj[:default_variables].transform_keys!(&:to_s)
+						
+						if default_options.nil?
+							default_options = {}
+						end
+						
+						@metaoptions = default_options.merge(@options)
+						
+						set_variables
+						
 						@template = {
 							"main" => obj[:definition]
 						}
 						
-						@fonts = {}
+						fonts = {}
 						
 						if obj.key?(:fonts)
-							@fonts = obj[:fonts]
-						
+							fonts = obj[:fonts]
 						end
+						
+						add_fonts fonts
 						
 						# Runs the main function as entry point of the template
 						@template_stack.push("main")
@@ -128,29 +193,29 @@ module PetitFelix
 				definition = nil
 
 				if !@template.key?(template_id)
-				
+					@error_param["arg"] = template_id.to_s
 					# Fails because template ID not found.
 					return [5, -1]
 				else
 				
 					if !@template[template_id].key?(function_id.to_sym )
-					
+						@error_param["arg"] = function_id.to_s
 						# Fails because template function ID not found.
 						return [6, -1]
 					else
-						definition = @template[template_id][function_id.to_sym]
+						definition = Marshal.load(Marshal.dump(@template[template_id][function_id.to_sym]))
 					end
 					
 				end
 			
 				if definition.instance_of? Array
-				
+
 					counter = 0
 					
 					@counter_stack.push(counter)
 					
 					for index in counter ... definition.size
-						
+
 						# executes the command
 						line = definition[counter]
 						
@@ -175,14 +240,11 @@ module PetitFelix
 						end
 						
 						begin
-							print "Args:\n"
-							print args
-						
-							print "Result:\n"
-							result = replace_variables(JSON.generate(args))
-							print result
-							args = JSON.parse(result, symbolize_names: true)
-						rescue
+							args = replace_variables(args)
+							
+						rescue => error
+							print "\n"
+							print error
 							print "\n"
 							print "Error rendering variables!\n"
 						end
@@ -196,24 +258,24 @@ module PetitFelix
 									# Failed because of stack overflow
 									return [4, counter]
 								end
-					
+
 								comm = COMMAND[command].call(obj, args)
 
 								@counter_stack[-1] = counter
 								counter += 1
-								
+
 								# something about command execution failed
 								if comm != 0
 									return [comm, counter]
 								end
-								
+
 								@command_stack.pop
 							else
 								# failed because command not found
 								return [3, counter]
 								
 							end
-							
+
 						else
 							# failed because no command defined
 							return [2, -1]
@@ -228,7 +290,7 @@ module PetitFelix
 					return [0, counter]
 					
 				end
-				
+
 				# Failed because malformed command list
 				return [1, -1]
 			end
@@ -257,6 +319,7 @@ module PetitFelix
 				stack_rv = @command_stack.reverse
 
 				if line >= 0 && !stack_rv.empty?
+				
 					print "\n\nCurrent line:\n"
 					print stack_rv[0][line]
 
@@ -287,7 +350,7 @@ module PetitFelix
 					return 7
 				end
 				
-				args[arg_name] = args[arg_name].to_s
+				args[arg_name] = replace_variable args[arg_name].to_s
 				
 				return 0
 			end
@@ -298,42 +361,111 @@ module PetitFelix
 					@error_param["arg"] = arg_name.to_s
 					return 7
 				end
-				
-				args[arg_name] = args[arg_name].to_i
-				
+
+				if args[arg_name].instance_of? String
+					args[arg_name] = Eqn::Calculator.calc(replace_variable args[arg_name]).to_i
+				end
 				return 0
 			end
 			
 			def args_has_float arg_name, args
+
 				if !args.key?(arg_name)
 					# text not defined
 					@error_param["arg"] = arg_name.to_s
 					return 7
 				end
 				
-				args[arg_name] = args[arg_name].to_f
+				args[arg_name] = Eqn::Calculator.calc(replace_variable args[arg_name]).to_f
 				
 				return 0
 			end
 			
+			def args_has_arr (arg_name, args, type, options = {})
 			
-			def args_has_arr arg_name, args
 				if !args.key?(arg_name)
 					# text not defined
 					@error_param["arg"] = arg_name.to_s
 					return 7
 				end
 				
+				if args[arg_name].instance_of? String
+					begin
+						set_variables
+
+						test = replace_variable args[arg_name]
+						
+						args[arg_name] = JSON.parse(test)
+
+					rescue => error
+						print "\nError parsing array: " + args[arg_name] + "\n"
+						print error
+					
+					end
+					
+				end
+				
+				if args[arg_name].instance_of? Array	
+						if type == :float
+							args[arg_name].map! {|item| Eqn::Calculator.calc(replace_variable item.to_s).to_f }
+						elsif type == :int
+							args[arg_name].map! {|item| Eqn::Calculator.calc(replace_variable item.to_s).to_i }
+						elsif type == :hash
+							args[arg_name].map! {|item| args_correct_hash item, options[:second_type] }
+						else
+							args[arg_name].map! {|item| replace_variable item.to_s }
+						end
+						
+				end
+				
 				return 0
+			end
+			
+			def args_correct_hash hash, type
+				hash.transform_keys!(&:to_sym)
+			
+				hash.keys.each do |key|
+
+					if type == :int
+						hash[key] = Eqn::Calculator.calc(replace_variable hash[key].to_s).to_i
+					elsif type == :float
+						hash[key] = Eqn::Calculator.calc(replace_variable hash[key].to_s).to_f
+					else
+						hash[key] = replace_variable hash[key].to_s
+					end
+					
+				end
+				
+				hash
+				
 			end
 			
 			def args_correct_values args
+				args_has_int :width, args
+				args_has_int :height, args
+			
 				if args.key?(:align)
 					args[:align] = args[:align].to_sym
 				end
 				
+				if args.key?(:odd_align)
+					args[:odd_align] = args[:odd_align].to_sym
+				end
+				
+				if args.key?(:even_align)
+					args[:even_align] = args[:even_align].to_sym
+				end
+				
 				if args.key?(:valign)
 					args[:valign] = args[:valign].to_sym
+				end
+				
+				if args.key?(:odd_valign)
+					args[:odd_valign] = args[:odd_valign].to_sym
+				end
+				
+				if args.key?(:even_valign)
+					args[:even_valign] = args[:even_valign].to_sym
 				end
 				
 				if args.key?(:direction)
@@ -342,6 +474,10 @@ module PetitFelix
 				
 				if args.key?(:mode)
 					args[:mode] = args[:mode].to_sym
+				end
+				
+				if args.key?(:style)
+					args[:style] = args[:style].to_sym
 				end
 				
 				if args.key?(:overflow)

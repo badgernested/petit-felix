@@ -51,6 +51,11 @@ module PetitFelix
 				
 			end
 		
+			def output
+				FileUtils.mkdir_p @options["output_dir"]
+				render_file(@options["output_dir"] + "/" + @options["title"].gsub(/[^\w\s]/, '').tr(" ", "_") + '.pdf')
+			end
+		
 			# Draws page numbering
 			
 			def page_numbering
@@ -328,7 +333,7 @@ module PetitFelix
 
 				bounding_box([0, cursor],
 					width: bounds.width,
-					height: [bounds.height, bounds.height].min,
+					height: bounds.height,
 					base_margins: base_margin) do
 					markdown(content, options: @options)
 				end
@@ -347,6 +352,7 @@ module PetitFelix
 			end
 			
 		end
+		
 
 	end
 

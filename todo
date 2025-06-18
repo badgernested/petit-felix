@@ -1,10 +1,8 @@
-Trying to figure out margin alternation on column_boxes
+Add functions for:
 
-What we need to do is have it so that page margins can be updated on every page regardless of the top level bounding box.
+set_var
 
-template methods to implement:
-
-Note: add replace string method for @error_param value so arg can be displayed with that one error
+- evaluates the statement and sets it to the variable in question.
 
 Methods to prioritize
 X delete_page

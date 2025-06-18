@@ -1,5 +1,7 @@
 require "prawn"
 require "prawndown-ext"
+require "eqn"
+require "felix/metadata"
 
 ## Commands for TemplatePDFWriter
 
@@ -13,6 +15,15 @@ module PetitFelix
 			COMMAND = {
 				:print => -> (obj, args) { obj.com_print args, obj },
 				:call => -> (obj, args) { obj.com_call args, obj },
+				:if => -> (obj, args) { obj.com_if args, obj },
+				:elif => -> (obj, args) { obj.com_elif args, obj },
+				:each => -> (obj, args) { obj.com_each args, obj },
+				:times => -> (obj, args) { obj.com_times args, obj },
+				:set => -> (obj, args) { obj.com_set args, obj },
+				
+				# Loads Markdown file data into @variables
+				:read_markdown => -> (obj, args) { obj.com_read_markdown args, obj },
+				:clear_markdown => -> (obj, args) { obj.com_clear_markdown args, obj },
 				
 				# PDF functions
 				:text => -> (obj, args) { obj.com_text args, obj },
@@ -24,6 +35,7 @@ module PetitFelix
 				:delete_page => -> (obj, args) { obj.com_delete_page args, obj },
 				:start_new_page => -> (obj, args) { obj.com_start_new_page args, obj },
 				:draw_text => -> (obj, args) { obj.com_draw_text args, obj },
+				:font => -> (obj, args) { obj.com_font args, obj },
 				:font_size => -> (obj, args) { obj.com_font_size args, obj },
 				:go_to_page => -> (obj, args) { obj.com_go_to_page args, obj },
 				:horizontal_rule  => -> (obj, args) { obj.com_horizontal_rule args, obj },
@@ -46,7 +58,14 @@ module PetitFelix
 			# Prawn commands
 			
 			def com_bounding_box args, obj
-				validate = args_has_arr :at, args
+
+				validate = args_has_arr :at, args, :int
+				
+				if validate != 0
+					return validate
+				end
+				
+				validate = args_has_int :width, args
 				
 				if validate != 0
 					return validate
@@ -57,14 +76,20 @@ module PetitFelix
 				if validate != 0
 					return validate
 				end
+				
+				args_has_int :height, args
+				
+				args_has_arr :margin, args, :hash, { :second_type => :int }
+			
+				args[:base_margins] = args[:margin]
 			
 				args = args_correct_values args
-			
+				
 				# Calls the function at "func"
 				obj.bounding_box args[:at], args do
 					
 					val = obj.execute_function @template_stack[-1], args[:func], obj
-					
+			
 					if val[0] != 0
 						return val[0]
 					end
@@ -75,7 +100,7 @@ module PetitFelix
 			end
 			
 			def com_column_box args, obj
-				validate = args_has_arr :at, args
+				validate = args_has_arr :at, args, :int
 				
 				if validate != 0
 					return validate
@@ -93,6 +118,13 @@ module PetitFelix
 				if validate != 0
 					return validate
 				end
+				
+				args_has_int :height, args
+				args_has_int :columns, args
+				
+				args_has_arr :margin, args, :hash, { :second_type => :int }
+				
+				args[:base_margins] = args[:margin]
 				
 				# Calls the function at "func"
 				obj.column_box args[:at], args do
@@ -127,7 +159,7 @@ module PetitFelix
 					return validate
 				end
 			
-				validate = args_has_arr :at, args
+				validate = args_has_arr :at, args, :int
 				
 				if validate != 0
 					return validate
@@ -136,6 +168,18 @@ module PetitFelix
 				args = args_correct_values args
 			
 				obj.draw_text args[:text], args
+				
+				return 0
+			end
+			
+			def com_font args, obj
+				validate = args_has_string :val, args
+				
+				if validate != 0
+					return validate
+				end
+			
+				obj.font args[:val]
 				
 				return 0
 			end
@@ -184,7 +228,28 @@ module PetitFelix
 					args[:width] = obj.bounds.width
 				end
 				
-				obj.image args[:file], args
+				args = args_correct_values args
+
+				if File.file?(args[:file])
+				
+					obj.image args[:file], args
+				else
+				
+					var = PetitFelix::Metadata.new.get_image_location(@metaoptions["image_dir"], args[:file])
+				
+					if File.file?(var)
+					
+						obj.image var, args
+					
+					else
+				
+						@error_param["arg"] = args[:file].strip
+						return 14
+					
+					end
+					
+				end
+
 				
 				return 0
 			end
@@ -224,7 +289,7 @@ module PetitFelix
 			
 			# Later - change this to reading a file's input.
 			def com_markdown args, obj
-				validate = args_has_string :file, args
+				validate = args_has_string :text, args
 				
 				if validate != 0
 					return validate
@@ -232,7 +297,7 @@ module PetitFelix
 			
 				args = args_correct_values args
 			
-				obj.markdown args[:file], options: @options
+				obj.markdown args[:text], options: @metaoptions
 				
 				return 0
 			end
@@ -299,7 +364,85 @@ module PetitFelix
 				
 				args = args_correct_values args
 				
-				obj.number_pages args[:text], args
+				args_has_int :width, args
+				args_has_arr :at, args, :int
+				args_has_arr :odd_at, args, :int
+				args_has_arr :even_at, args, :int
+				args_has_int :page_finish, args
+
+				page_mode = :default
+				
+				if args.key?(:page_mode)
+					page_mode = args[:page_mode].to_sym
+				end
+				
+				if page_mode == :alternate
+				
+					if !args.key?(:odd_start_count_at) && !args[:start_count_at].nil?
+						args[:odd_start_count_at] = args[:start_count_at]
+					end
+					
+					if !args.key?(:even_start_count_at) && !args[:start_count_at].nil?
+						args[:even_start_count_at] = args[:start_count_at]
+					end
+					
+					args_has_int :start_count_at, args
+					args_has_int :odd_start_count_at, args
+					args_has_int :even_start_count_at, args
+					
+					if !args.key?(:page_finish)
+						args[:page_finish] = -1
+					end
+						
+					odd_array = {
+						:start_count_at => args[:odd_start_count_at],
+						:at => args[:odd_at],
+						:align => args[:odd_align]
+					}
+					
+					even_array = {
+						:start_count_at => args[:even_start_count_at],
+						:at => args[:even_at],
+						:align => args[:even_align]
+					}
+				
+					odd_options = odd_array.merge(args)
+				
+					even_options = even_array.merge(args)
+					
+					args_has_int :page_start, args
+					args_has_int :page_finish, args
+					
+					odd_options[:start_count_at] += 1
+					
+					if !args.key?(:page_start)
+						@variables["paginator_start"] = @metaoptions["paginator_start"]
+					else
+						@variables["paginator_start"] = args[:page_start]
+					end
+					
+					@variables["paginator_end"] = args[:page_finish]
+				
+					if @metaoptions["paginator_switch"]
+						odd_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 1 }
+						even_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 0 }
+						
+					else
+						even_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 1 }
+						odd_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 0 }
+					
+					end
+
+					string = replace_variable args[:text]
+					
+					number_pages string, odd_options
+					number_pages string, even_options
+				
+				else
+				
+					obj.number_pages args[:text], args
+					
+				end
 			
 				return 0
 			
@@ -396,7 +539,7 @@ module PetitFelix
 				
 				if args.key?(:func)
 				
-					validate = args_has_arr :origin, args
+					validate = args_has_arr :origin, args, :int
 					
 					if validate != 0
 						return validate
@@ -428,7 +571,7 @@ module PetitFelix
 				
 				if args.key?(:func)
 				
-					validate = args_has_arr :origin, args
+					validate = args_has_arr :origin, args, :float
 					
 					if validate != 0
 						return validate
@@ -495,6 +638,7 @@ module PetitFelix
 			end
 			
 			def com_text_box args, obj
+			
 				validate = args_has_string :text, args
 				
 				if validate != 0
@@ -502,7 +646,7 @@ module PetitFelix
 				end
 			
 				args = args_correct_values args
-			
+
 				obj.text_box args[:text], args
 				
 				return 0
@@ -611,6 +755,276 @@ module PetitFelix
 					return val[0]
 				end
 				
+				return 0
+			end
+			
+			def com_if args, obj
+				validate = args_has_string :exp, args
+				
+				if validate != 0
+					return validate
+				end
+			
+				result = false
+			
+				if ["true","false"].include? args[:exp].strip
+					if args[:exp]
+						result = true
+					else
+						result = false
+					end
+				else
+				
+					begin
+						result = Eqn::Calculator.calc(args[:exp].strip)
+					rescue
+						# expression cannot be evaluated
+						return 9
+					end
+				
+				end
+				
+				if [true, false].include? result
+					
+					validate = args_has_string :func, args
+					
+					if validate != 0
+						return validate
+					end
+					
+					if result
+					
+						val = obj.execute_function @template_stack[-1], args[:func], obj
+						
+						if val[0] != 0
+							return val[0]
+						end
+						
+					end
+				
+					return 0
+					
+				end
+				
+				
+				# expression does not return boolean
+				@error_param["arg"] = args[:exp].strip
+				return 8
+
+			end
+			
+			def com_elif args, obj
+				validate = args_has_string :exp, args
+				
+				if validate != 0
+					return validate
+				end
+			
+				result = false
+			
+				if ["true","false"].include? args[:exp].strip
+					if args[:exp]
+						result = true
+					else
+						result = false
+					end
+				else
+				
+					begin
+						result = Eqn::Calculator.calc(args[:exp].strip)
+					rescue
+						# expression cannot be evaluated
+						@error_param["arg"] = args[:exp].strip
+						return 9
+					end
+				
+				end
+				
+				if [true, false].include? result
+					
+					validate = args_has_string :func, args
+					
+					if validate != 0
+						return validate
+					end
+					
+					validate = args_has_string :func_else, args
+					
+					if validate != 0
+						return validate
+					end
+					
+					if result
+					
+						val = obj.execute_function @template_stack[-1], args[:func], obj
+						
+						if val[0] != 0
+							return val[0]
+						end
+						
+					else
+					
+						val = obj.execute_function @template_stack[-1], args[:func_else], obj
+						
+						if val[0] != 0
+							return val[0]
+						end
+						
+					end
+					
+					return 0
+					
+				end
+				
+				
+				# expression does not return boolean
+				@error_param["arg"] = args[:exp].strip
+				return 8
+
+			end
+			
+			
+			# this reads markdown and also adds the metadata
+			def com_read_markdown args, obj
+				# clears the current markdown file
+				com_clear_markdown args, obj
+				
+				validate = args_has_string :file, args
+				
+				if validate != 0
+					return validate
+				end
+				
+				if File.file? args[:file]
+					
+					markdown = {}
+					
+					page = File.read(args[:file])
+					
+					# splits the page into parts for metadata and content
+					
+					# Felix metadata handler
+					metadata_helper = PetitFelix::Metadata.new
+						
+					page_data = metadata_helper.split page
+							
+					@variables[:markdown_metadata] = metadata_helper.get_metadata page_data[0]
+						
+					@variables[:markdown_content] = page_data[1]
+
+					return 0
+					
+				else
+					# File not found
+					@error_param["arg"] = args[:file].strip
+					return 10
+				end
+				
+			end
+			
+			# This clears the markdown file from memory
+			def com_clear_markdown args, obj
+				@variables.delete(:markdown_metadata)
+				@variables.delete(:markdown_content)
+				
+				return 0
+			end
+			
+			
+			# Reads from an array of objects and performs a function on all of them
+			# populates @variables[:each] with the each value
+			def com_each args, obj
+				validate = args_has_string :data, args
+				
+				if validate != 0
+					return validate
+				end
+				
+				validate = args_has_string :func, args
+				
+				if validate != 0
+					return validate
+				end
+			
+				arr = PetitFelix::Metadata.new.parse_property args[:data]
+				
+				if arr.instance_of? Array
+					
+					arr.each do |arr_obj|
+						@variables[:each] = arr_obj
+						
+						val = obj.execute_function @template_stack[-1], args[:func], obj
+	
+						if val[0] != 0
+							return val[0]
+						end
+						
+					end
+					
+					@variables.delete(:each)
+					
+				else
+					@error_param["arg"] = args[:data].strip
+					return 13
+				end
+				
+				return 0
+			
+			end
+			
+			# Does an operation a number of times
+			# populates @variables[:each] with the each value
+			def com_times args, obj
+				validate = args_has_int :val, args
+				
+				if validate != 0
+					return validate
+				end
+				
+				validate = args_has_string :func, args
+				
+				if validate != 0
+					return validate
+				end
+			
+				val = args[:val].to_i
+				
+				if val.is_a? Integer
+					
+					val.times do
+						valz = obj.execute_function @template_stack[-1], args[:func], obj
+						
+						if valz[0] != 0
+							return valz[0]
+						end
+						
+					end
+					
+				else
+					@error_param["arg"] = args[:val].strip
+					return 13
+				end
+			
+				return 0
+			
+			end
+			
+			## sets a variable to a value
+			def com_set args, obj
+				validate = args_has_int :val, args
+				
+				if validate != 0
+					return validate
+				end
+				
+				validate = args_has_string :var, args
+				
+				if validate != 0
+					return validate
+				end
+			
+				@variables[args[:var]] = args[:val]
+
 				return 0
 			end
 			

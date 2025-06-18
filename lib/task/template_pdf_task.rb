@@ -11,32 +11,31 @@ module PetitFelix
 
 			## Default options of the application
 			DEFAULT_OPTIONS = {
-				"template" => "./templates/test.json"
+				"template" => "./templates/test.json",
+				"output_file" => "./output/test.pdf"
 			}
 		
 			def render_zine
 
 				# Only continue if metadata has a title
-				if @metadata.key?("title")
-					# Generates PDF
-						
-					pdf = PetitFelix::Worker::TemplatePDFWriter.new(
-						page_layout: @metaoptions["page_layout"],
-						print_scaling: @metaoptions["print_scaling"])
-
-					pdf.set_options @metaoptions
-
-					pdf.init_values @metaoptions, pdf
-
-					pdf.read_template
-
-					# Adds extra fonts
-					#pdf.initialize_font
+				# Generates PDF
 					
-					# Outputs to file
-					pdf.output
-					
-				end
+				pdf = PetitFelix::Worker::TemplatePDFWriter.new(
+					page_layout: @metaoptions["page_layout"],
+					print_scaling: @metaoptions["print_scaling"])
+
+				pdf.set_options @metaoptions
+
+				pdf.init_values @metaoptions, pdf
+
+				pdf.read_template
+
+				# Adds extra fonts
+				#pdf.initialize_font
+				
+				# Outputs to file
+				pdf.output
+
 			end
 			
 		

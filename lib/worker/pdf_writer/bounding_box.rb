@@ -24,7 +24,7 @@ module Prawn
         @stretched_height = nil
         @margins = {}
         @base_margins = []
-        if options.key?(:base_margins)
+        if options.key?(:base_margins) && !options[:base_margins].nil?
         	@base_margins = options[:base_margins]
         end
 				
@@ -55,7 +55,7 @@ module Prawn
       	update_margins
       
       	margin = 0
-      	
+
       	if !@margins.empty?
       		margin = @margins[:top]
       	end

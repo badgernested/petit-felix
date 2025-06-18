@@ -43,7 +43,11 @@ module PetitFelix
 		
 		## Transforms string into JSON parsed object
 		def parse_property string, base="${x}"
-			return JSON.parse(base.sub("${x}", string), symbolize_names: true)
+			begin
+				return JSON.parse(base.sub("${x}", string), symbolize_names: true)
+			rescue
+				return parse_property
+			end
 		end
 		
 		
