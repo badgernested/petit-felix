@@ -14,7 +14,8 @@ module PetitFelix
 			## Default options of the application
 			def self.default_options
 				return {
-					"template" => "./templates/zine_single.json"
+					"template" => "./templates/zine_single.json",
+					"pdf" => "false"
 				}
 			end
 		
@@ -23,23 +24,38 @@ module PetitFelix
 				# Only continue if metadata has a title
 				# Generates PDF
 					
-				pdf = PetitFelix::Worker::TemplatePDFWriter.new(
-					page_layout: @metaoptions["page_layout"],
-					print_scaling: @metaoptions["print_scaling"])
-
-				@metaoptions["output_file"] = File.basename(File.basename(@metaoptions["filename"], ".md"), ".markdown") + ".pdf"
-
-				pdf.set_options @metaoptions
-
-				pdf.init_values @metaoptions, pdf
-
-				pdf.read_template
-
-				# Adds extra fonts
-				#pdf.initialize_font
+				page = File.read(@metaoptions["filename"])
 				
-				# Outputs to file
-				pdf.output
+				# splits the page into parts for metadata and content
+				
+				# Felix metadata handler
+				metadata_helper = PetitFelix::Metadata.new
+					
+				page_data = metadata_helper.split page
+						
+				metadata = @metaoptions.merge(metadata_helper.get_metadata(page_data[0]))
+
+				if metadata.key?("pdf") && metadata["pdf"] == "true"
+					
+					pdf = PetitFelix::Worker::TemplatePDFWriter.new(
+						page_layout: @metaoptions["page_layout"],
+						print_scaling: @metaoptions["print_scaling"])
+
+					@metaoptions["output_file"] = File.basename(File.basename(@metaoptions["filename"], ".md"), ".markdown") + ".pdf"
+
+					pdf.set_options @metaoptions
+
+					pdf.init_values @metaoptions, pdf
+
+					pdf.read_template
+
+					# Adds extra fonts
+					#pdf.initialize_font
+					
+					# Outputs to file
+					pdf.output
+					
+				end
 
 			end
 			

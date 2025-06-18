@@ -39,6 +39,7 @@ module PetitFelix
 			end
 		
 			def render_files options
+			
 				if options.key?("input_files")
 					site_list = options["input_files"].split(",")
 				end

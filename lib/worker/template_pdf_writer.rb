@@ -320,6 +320,10 @@ module PetitFelix
 				
 				print "Error code: " + error_code.to_s
 				
+				print "\n\n"
+				print "Processing markdown file: " + @metaoptions["filename"]
+				print "\n\n"
+				
 				stack_rv = @command_stack.reverse
 
 				if line >= 0 && !stack_rv.empty?

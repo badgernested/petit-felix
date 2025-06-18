@@ -9,9 +9,13 @@ module PetitFelix
 		def render_files(wm, options)
 			
 			task = wm.get_task options["task"]
+			
+			default_options = wm.get_task_options options["task"]
+			
+			default_options = default_options.merge(options)
 
 			if !task.nil?
-				task.render_files options
+				task.render_files default_options
 			end
 
 		end
