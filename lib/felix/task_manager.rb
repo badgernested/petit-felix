@@ -4,13 +4,19 @@ require "felix/error"
 module PetitFelix
 	class TaskManager
 		
+		def load_task filename
+			load filename
+		end
+		
+		
 		# Gets the list of tasks loaded
 		def initialize
 			@error_printer = PetitFelix::Error.new
 			@task_list = {}
 			
-			load "task/template_pdf_task.rb"
-			load "task/basic_pdf_classic_task.rb"
+			load_task "task/template_pdf_task.rb"
+			load_task "task/pdf_single_task.rb"
+			load_task "task/basic_pdf_classic_task.rb"
 		
 			task_list = PetitFelix::Task.constants.select {|c| PetitFelix::Task.const_get(c).is_a? Class}
 
@@ -21,9 +27,10 @@ module PetitFelix
 			
 				task_obj = {}
 				task_obj["id"] = task
-				task_obj["options"] = task_instance::DEFAULT_OPTIONS
 				
-				name = task_instance::NAME
+				task_obj["options"] = task_instance.default_options
+				
+				name = task_instance.name
 				
 				@task_list[name] = task_obj
 			end

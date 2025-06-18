@@ -72,8 +72,8 @@ module PetitFelix
 			end
 		
 			def output
-				FileUtils.mkdir_p File.dirname(@options["output_file"])
-				render_file(@options["output_file"])
+				FileUtils.mkdir_p File.dirname(@options["output_dir"] + "/" + @options["output_file"])
+				render_file(@options["output_dir"] + "/" + @options["output_file"])
 			end
 			
 			

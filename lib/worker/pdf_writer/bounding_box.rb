@@ -59,8 +59,20 @@ module Prawn
       	if !@margins.empty?
       		margin = @margins[:top]
       	end
-
+      	
       	@base_y - margin
+      end
+      
+      def top
+      	update_margins
+      
+      	margin = 0
+
+      	if !@margins.empty?
+      		margin = @margins[:top]
+      	end
+      
+        height - margin
       end
       
       def width
@@ -90,6 +102,32 @@ module Prawn
       	end
       
       	@base_height - (margin_top + margin_bottom)
+      end
+      
+      # Increase the left padding of the bounding box.
+      def add_left_padding(left_padding)
+        @total_left_padding += left_padding
+        @base_x += left_padding
+        @base_width -= left_padding
+      end
+
+      # Decrease the left padding of the bounding box.
+      def subtract_left_padding(left_padding)
+        @total_left_padding -= left_padding
+        @base_x -= left_padding
+        @base_width += left_padding
+      end
+
+      # Increase the right padding of the bounding box.
+      def add_right_padding(right_padding)
+        @total_right_padding += right_padding
+        @base_width -= right_padding
+      end
+
+      # Decrease the right padding of the bounding box.
+      def subtract_right_padding(right_padding)
+        @total_right_padding -= right_padding
+        @base_width += right_padding
       end
       
 		end

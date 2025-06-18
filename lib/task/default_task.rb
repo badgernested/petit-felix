@@ -6,6 +6,15 @@ module PetitFelix
 	
 		class DefaultTask
 		
+			def self.name 
+				""
+			end
+
+			## Default options of the application
+			def self.default_options
+				return {}
+			end
+		
 			def prepare_options options
 			
 				# stores options + metadata. metadata overrides options.
@@ -20,17 +29,7 @@ module PetitFelix
 				print_scaling = :none
 				
 				if @metaoptions.key?("page_layout")
-					page_layout = @metaoptions["page_layout"]
-					
-					if page_layout.is_a? String
-						if page_layout.include?("portrait")
-							@metaoptions["page_layout"] = :portrait
-						else 
-							if page_layout.include?("landscape")
-							@metaoptions["page_layout"] = :landscape
-							end
-						end
-					end
+					page_layout = @metaoptions["page_layout"].to_sym
 				end
 				
 			end

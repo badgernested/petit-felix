@@ -297,7 +297,11 @@ module PetitFelix
 			
 				args = args_correct_values args
 			
-				obj.markdown args[:text], options: @metaoptions
+				set_variables
+				
+				optio = Marshal.load(Marshal.dump(@variables))
+
+				obj.markdown args[:text], options: optio
 				
 				return 0
 			end
@@ -630,6 +634,10 @@ module PetitFelix
 					return validate
 				end
 			
+				args_has_int :size, args
+				args_has_float :character_spacing, args
+				args_has_float :leading, args
+			
 				args = args_correct_values args
 			
 				obj.text args[:text], args
@@ -910,8 +918,11 @@ module PetitFelix
 							
 					@variables[:markdown_metadata] = metadata_helper.get_metadata page_data[0]
 						
-					@variables[:markdown_content] = page_data[1]
+					@variables[:markdown_content] = page_data[1].strip
 
+					set_variables
+					add_fonts
+	
 					return 0
 					
 				else

@@ -4,55 +4,97 @@
       "normal": "${font_normal}",
       "italic": "${font_italic}",
       "bold": "${font_bold}",
-      "bold_italic": "${font_bold}"
+      "bold_italic": "${font_bold_italic}"
     },
     "front_title": {
       "normal": "${front_title_font_normal}",
       "italic": "${front_title_font_italic}",
       "bold": "${front_title_font_bold}",
-      "bold_italic": "${front_title_font_bold}"
+      "bold_italic": "${front_title_font_bold_italic}"
     },
     "front_author": {
       "normal": "${front_author_font_normal}",
       "italic": "${front_author_font_italic}",
       "bold": "${front_author_font_bold}",
-      "bold_italic": "${front_author_font_bold}"
+      "bold_italic": "${front_author_font_bold_italic}"
     },
     "front_date": {
       "normal": "${front_date_font_normal}",
       "italic": "${front_date_font_italic}",
       "bold": "${front_date_font_bold}",
-      "bold_italic": "${front_date_font_bold}"
+      "bold_italic": "${front_date_font_bold_italic}"
     },
     "front_publish": {
       "normal": "${front_publish_font_normal}",
       "italic": "${front_publish_font_italic}",
       "bold": "${front_publish_font_bold}",
-      "bold_italic": "${front_publish_font_bold}"
+      "bold_italic": "${front_publish_font_bold_italic}"
     },
     "back_default": {
-      "normal": "${back_default_font_normal}",
-      "italic": "${back_default_font_italic}",
-      "bold": "${back_default_font_bold}",
-      "bold_italic": "${back_default_font_bold}"
+      "normal": "${back_text_font_normal}",
+      "italic": "${back_text_font_italic}",
+      "bold": "${back_text_font_bold}",
+      "bold_italic": "${back_text_font_bold_italic}"
     },
     "back_author": {
       "normal": "${back_author_font_normal}",
       "italic": "${back_author_font_italic}",
       "bold": "${back_author_font_bold}",
-      "bold_italic": "${back_author_font_bold}"
+      "bold_italic": "${back_author_font_bold_italic}"
     },
     "back_publish": {
       "normal": "${back_publish_font_normal}",
       "italic": "${back_publish_font_italic}",
       "bold": "${back_publish_font_bold}",
-      "bold_italic": "${back_publish_font_bold}"
+      "bold_italic": "${back_publish_font_bold_italic}"
     },
     "paginator": {
       "normal": "${paginator_font_normal}",
       "italic": "${paginator_font_italic}",
       "bold": "${paginator_font_bold}",
-      "bold_italic": "${paginator_font_bold}"
+      "bold_italic": "${paginator_font_bold_italic}"
+    },
+    "header1": {
+      "normal": "${header1_font_normal}",
+      "italic": "${header1_font_italic}",
+      "bold": "${header1_font_bold}",
+      "bold_italic": "${header1_font_bold_italic}"
+    },
+    "header2": {
+      "normal": "${header2_font_normal}",
+      "italic": "${header2_font_italic}",
+      "bold": "${header2_font_bold}",
+      "bold_italic": "${header2_font_bold_italic}"
+    },
+    "header3": {
+      "normal": "${header3_font_normal}",
+      "italic": "${header3_font_italic}",
+      "bold": "${header3_font_bold}",
+      "bold_italic": "${header3_font_bold_italic}"
+    },
+    "header4": {
+      "normal": "${header4_font_normal}",
+      "italic": "${header4_font_italic}",
+      "bold": "${header4_font_bold}",
+      "bold_italic": "${header4_font_bold_italic}"
+    },
+    "header5": {
+      "normal": "${header5_font_normal}",
+      "italic": "${header5_font_italic}",
+      "bold": "${header5_font_bold}",
+      "bold_italic": "${header5_font_bold_italic}"
+    },
+    "header6": {
+      "normal": "${header6_font_normal}",
+      "italic": "${header6_font_italic}",
+      "bold": "${header6_font_bold}",
+      "bold_italic": "${header6_font_bold_italic}"
+    },
+    "quote": {
+      "normal": "${quote_font_normal}",
+      "italic": "${quote_font_italic}",
+      "bold": "${quote_font_bold}",
+      "bold_italic": "${quote_font_bold_italic}"
     }
   },
   "default_variables": {
@@ -62,8 +104,22 @@
     "header4_size": 18,
     "header5_size": 16,
     "header6_size": 14,
-    "quote_size": 16,
-    "quote_margin" : 20,
+    "header1_line_spacing": 0,
+    "header2_line_spacing": 0,
+    "header3_line_spacing": 0,
+    "header4_line_spacing": 0,
+    "header5_line_spacing": 0,
+    "header6_line_spacing": 0,
+    "quote_size": 18,
+    "quote_horizontal_margin" : 5,
+    "quote_vertical_margin" : 30,
+    "image_pad" : 5,
+    "header1_margin" : 10,
+    "header2_margin" : 10,
+    "header3_margin" : 10,
+    "header4_margin" : 10,
+    "header5_margin" : 10,
+    "header6_margin" : 10,
     
     "font_normal": "./assets/font/Unageo-Regular.ttf",
     "font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
@@ -85,10 +141,10 @@
     "front_publish_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
     "front_publish_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
     "front_publish_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
-    "back_default_font_normal": "./assets/font/Unageo-Regular.ttf",
-    "back_default_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
-    "back_default_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
-    "back_default_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
+    "back_text_font_normal": "./assets/font/Unageo-Regular.ttf",
+    "back_text_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
+    "back_text_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
+    "back_text_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
     "back_author_font_normal": "./assets/font/Unageo-Regular.ttf",
     "back_author_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
     "back_author_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
@@ -102,6 +158,35 @@
     "paginator_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
     "paginator_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
     
+    "quote_font_normal": "./assets/font/Unageo-Regular.ttf",
+    "quote_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
+    "quote_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
+    "quote_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
+    "header1_font_normal": "./assets/font/Unageo-Regular.ttf",
+    "header1_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
+    "header1_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
+    "header1_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
+    "header2_font_normal": "./assets/font/Unageo-Regular.ttf",
+    "header2_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
+    "header2_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
+    "header2_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
+    "header3_font_normal": "./assets/font/Unageo-Regular.ttf",
+    "header3_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
+    "header3_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
+    "header3_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
+    "header4_font_normal": "./assets/font/Unageo-Regular.ttf",
+    "header4_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
+    "header4_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
+    "header4_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
+    "header5_font_normal": "./assets/font/Unageo-Regular.ttf",
+    "header5_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
+    "header5_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
+    "header5_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
+    "header6_font_normal": "./assets/font/Unageo-Regular.ttf",
+    "header6_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
+    "header6_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
+    "header6_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
+    
 		"default_font_size" : 12,
 		"columns" : 1,
 
@@ -114,7 +199,7 @@
 		"front_date_text" : "Original Publication: ${publication_date}",
 		"publication_date" : "",
 		"front_publish_size" : 16,
-		"front_publish" : "",
+		"front_publish_text" : "",
 		"front_cover_show_image" : true,
 		"front_cover_image" : "",
 
@@ -122,6 +207,7 @@
 		"back_extra_page" : true,
 		"back_text_size" : 18,
 		"back_text" : "",
+		"back_text_line_spacing" : 0,
 		"back_cover_show_image" : true,
 		"back_cover_image" : "",
 		"back_author_size" : 14,
@@ -136,7 +222,7 @@
 		"page_mode" : "alternate",
 
     "markdown_margin_array": "[{\"left\":30,\"right\":30,\"top\":30,\"bottom\":30}]",
-    "back_text_margin": "[{\"left\":100, \"right\":100, \"top\":30, \"bottom\":30 }]"
+    "back_text_margin": "[{\"left\":30, \"right\":30, \"top\":30, \"bottom\":30 }]"
   },
   "definition": {
   
@@ -364,7 +450,7 @@
       {
         "cmd": "text_box",
         "args": {
-          "text": "${front_publish}",
+          "text": "${front_publish_text}",
           "align": "center",
           "valign": "center",
           "style": "bold"
@@ -511,9 +597,11 @@
         }
       },
       {
-        "cmd": "markdown",
+        "cmd": "text",
         "args": {
-          "text": "${back_text}"
+          "text": "${back_text}",
+          "leading" : "${back_text_line_spacing}",
+          "align" : "center"
         }
       }
     ],
@@ -654,7 +742,7 @@
       {
         "cmd": "read_markdown",
         "args": {
-          "file": "${input_file}"
+          "file": "${filename}"
         }
       },
       {

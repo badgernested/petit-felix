@@ -97,7 +97,11 @@ module PetitFelix
 						
 			end
 			
-			def add_fonts fonts
+			def add_fonts
+				font_families.clear
+				
+				fonts = Marshal.load(Marshal.dump(@fonts))
+			
 				fonts.keys.each do |font|
 					add_font fonts[font], font.to_s
 				end
@@ -161,21 +165,21 @@ module PetitFelix
 							default_options = {}
 						end
 						
+						@fonts = {}
+						
 						@metaoptions = default_options.merge(@options)
 						
 						set_variables
 						
+						if obj.key?(:fonts)
+							@fonts = obj[:fonts]
+						end
+						
+						add_fonts
+						
 						@template = {
 							"main" => obj[:definition]
 						}
-						
-						fonts = {}
-						
-						if obj.key?(:fonts)
-							fonts = obj[:fonts]
-						end
-						
-						add_fonts fonts
 						
 						# Runs the main function as entry point of the template
 						@template_stack.push("main")

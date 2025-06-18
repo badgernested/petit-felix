@@ -1,21 +1,20 @@
-require "task/default_task"
+require "task/template_pdf_task"
 require "worker/template_pdf_writer"
 
 module PetitFelix
 
 	module Task
 	
-		class TemplatePDFTask < PetitFelix::Task::DefaultTask
+		class SinglePDFTask < PetitFelix::Task::DefaultTask
 		
-			def self.name
-				"template-pdf"
+			def self.name 
+				"pdf-single"
 			end
 
 			## Default options of the application
-			def self.default_options 
+			def self.default_options
 				return {
-					"template" => "./templates/test.json",
-					"output_file" => "./output/test.pdf"
+					"template" => "./templates/zine_single.json"
 				}
 			end
 		
@@ -27,6 +26,8 @@ module PetitFelix
 				pdf = PetitFelix::Worker::TemplatePDFWriter.new(
 					page_layout: @metaoptions["page_layout"],
 					print_scaling: @metaoptions["print_scaling"])
+
+				@metaoptions["output_file"] = File.basename(File.basename(@metaoptions["filename"], ".md"), ".markdown") + ".pdf"
 
 				pdf.set_options @metaoptions
 

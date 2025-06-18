@@ -7,42 +7,46 @@ module PetitFelix
 	
 		class BasicPDFTask < PetitFelix::Task::DefaultTask
 		
-			NAME = "basic-pdf-classic"
+			def self.name 
+				"basic-pdf-classic"
+			end
 
 			## Default options of the application
-			DEFAULT_OPTIONS = {
-					"columns" => 1,
-					"default_font_size" => 12,
-					"header1_size" => 32,
-					"header2_size" => 28,
-					"header3_size" => 20,
-					"header4_size" => 18,
-					"header5_size" => 16,
-					"header6_size" => 14,
-					"quote_size" => 14,
-					"margin" =>  40,
-					"font_normal" => "./assets/font/Unageo-Regular.ttf",
-					"font_italic"=> "./assets/font/Unageo-Regular-Italic.ttf",
-					"font_bold"=> "./assets/font/Unageo-ExtraBold.ttf",
-					"font_bold_italic" => "./assets/font/Unageo-ExtraBold-Italic.ttf",
-					"paginator_start_count" => 1,
-					"paginator_start" => 1,
-					"paginator" => true,
-					"paginator_alternate" => false,
-					"back_text" => "",
-					"back_text_margin" => 0,
-					"back_text_size" => 14,
-					"front_title_size"=> 32,
-					"front_author_size" => 18,
-					"front_date_size" => 14,
-					"back_publisher" => "",
-					"back_publisher_size" => 14,
-					"front_publisher" => "",
-					"front_publisher_size" => 14,
-					"paginator_size" => 12,
-					"back_author" => "",
-					"back_author_size" => 16,
-			}
+			def self.default_options 
+				return {
+						"columns" => 1,
+						"default_font_size" => 12,
+						"header1_size" => 32,
+						"header2_size" => 28,
+						"header3_size" => 20,
+						"header4_size" => 18,
+						"header5_size" => 16,
+						"header6_size" => 14,
+						"quote_size" => 14,
+						"margin" =>  40,
+						"font_normal" => "./assets/font/Unageo-Regular.ttf",
+						"font_italic"=> "./assets/font/Unageo-Regular-Italic.ttf",
+						"font_bold"=> "./assets/font/Unageo-ExtraBold.ttf",
+						"font_bold_italic" => "./assets/font/Unageo-ExtraBold-Italic.ttf",
+						"paginator_start_count" => 1,
+						"paginator_start" => 1,
+						"paginator" => true,
+						"paginator_alternate" => false,
+						"back_text" => "",
+						"back_text_margin" => 0,
+						"back_text_size" => 14,
+						"front_title_size"=> 32,
+						"front_author_size" => 18,
+						"front_date_size" => 14,
+						"back_publisher" => "",
+						"back_publisher_size" => 14,
+						"front_publisher" => "",
+						"front_publisher_size" => 14,
+						"paginator_size" => 12,
+						"back_author" => "",
+						"back_author_size" => 16,
+				}
+			end
 
 			def render_zine
 				
