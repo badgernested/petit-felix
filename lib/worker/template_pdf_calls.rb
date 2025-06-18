@@ -121,6 +121,7 @@ module PetitFelix
 				
 				args_has_int :height, args
 				args_has_int :columns, args
+				args_has_float :spacer, args
 				
 				args_has_arr :margin, args, :hash, { :second_type => :int }
 				
@@ -165,6 +166,9 @@ module PetitFelix
 					return validate
 				end
 				
+				args_has_float :size, args
+				args_has_rotate :size, args
+				
 				args = args_correct_values args
 			
 				obj.draw_text args[:text], args
@@ -178,6 +182,10 @@ module PetitFelix
 				if validate != 0
 					return validate
 				end
+			
+				validate = args_has_string :style, args
+				
+				args = args_correct_values args
 			
 				obj.font args[:val]
 				
@@ -227,6 +235,11 @@ module PetitFelix
 				if !args.key?(:width) && !args.key?(:height)
 					args[:width] = obj.bounds.width
 				end
+				
+				args_has_arr :at, args, :float
+				args_has_float :height, args
+				args_has_float :width, args
+				args_has_float :scale, args
 				
 				args = args_correct_values args
 
@@ -331,7 +344,7 @@ module PetitFelix
 			end
 			
 			def com_move_to args, obj
-				validate = args_has_int :pos, args
+				validate = args_has_arr :pos, args, :float
 				
 				if validate != 0
 					return validate
@@ -543,7 +556,7 @@ module PetitFelix
 				
 				if args.key?(:func)
 				
-					validate = args_has_arr :origin, args, :int
+					validate = args_has_arr :origin, args, :float
 					
 					if validate != 0
 						return validate
@@ -607,6 +620,8 @@ module PetitFelix
 					return validate
 				end
 				
+				args_has_string :position, args
+				
 				if args.key?(:func)
 				
 					obj.span(args[:width], args) do
@@ -617,11 +632,7 @@ module PetitFelix
 						end
 						
 					end
-				
-				else
-				
-					obj.scale args[:factor]
-				
+					
 				end
 				
 				return 0
@@ -637,6 +648,10 @@ module PetitFelix
 				args_has_int :size, args
 				args_has_float :character_spacing, args
 				args_has_float :leading, args
+				args_has_string :direction, args
+				args_has_string :align, args
+				args_has_string :valign, args
+				args_has_string :mode, args
 			
 				args = args_correct_values args
 			
@@ -652,6 +667,19 @@ module PetitFelix
 				if validate != 0
 					return validate
 				end
+				
+				args_has_int :size, args
+				args_has_float :width, args
+				args_has_float :height, args
+				args_has_string :direction, args
+				args_has_string :align, args
+				args_has_string :valign, args
+				args_has_float :rotate, args
+				args_has_string :rotate_around, args
+				args_has_float :character_spacing, args
+				args_has_float :leading, args
+				args_has_string :overflow, args
+				args_has_int :min_font_size, args
 			
 				args = args_correct_values args
 

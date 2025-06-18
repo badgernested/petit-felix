@@ -34,6 +34,21 @@ module PetitFelix
 				"Image \"{{arg}}\" not found."
 			]
 			
+			SYMBOLIZE = [
+				:align,
+				:odd_align,
+				:even_align,
+				:valign,
+				:odd_valign,
+				:even_valign,
+				:direction,
+				:mode,
+				:style,
+				:overflow,
+				:rotate_around
+			]
+			
+			
 			# Highest a stack is allowed to be
 			MAX_STACK = 1024
 			
@@ -451,49 +466,11 @@ module PetitFelix
 			def args_correct_values args
 				args_has_int :width, args
 				args_has_int :height, args
-			
-				if args.key?(:align)
-					args[:align] = args[:align].to_sym
-				end
-				
-				if args.key?(:odd_align)
-					args[:odd_align] = args[:odd_align].to_sym
-				end
-				
-				if args.key?(:even_align)
-					args[:even_align] = args[:even_align].to_sym
-				end
-				
-				if args.key?(:valign)
-					args[:valign] = args[:valign].to_sym
-				end
-				
-				if args.key?(:odd_valign)
-					args[:odd_valign] = args[:odd_valign].to_sym
-				end
-				
-				if args.key?(:even_valign)
-					args[:even_valign] = args[:even_valign].to_sym
-				end
-				
-				if args.key?(:direction)
-					args[:direction] = args[:direction].to_sym
-				end
-				
-				if args.key?(:mode)
-					args[:mode] = args[:mode].to_sym
-				end
-				
-				if args.key?(:style)
-					args[:style] = args[:style].to_sym
-				end
-				
-				if args.key?(:overflow)
-					args[:overflow] = args[:overflow].to_sym
-				end
-				
-				if args.key?(:rotate_around)
-					args[:rotate_around] = args[:rotate_around].to_sym
+
+				SYMBOLIZE.each do |symbol|
+					if args.key?(symbol)
+						args[symbol] = args[symbol].to_sym
+					end
 				end
 				
 				if args.key?(:position)
