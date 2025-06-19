@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib", "templates"]
 
   spec.add_runtime_dependency "prawn", "~> 2.5", ">= 2.5.0"
-  spec.add_runtime_dependency "prawndown-ext", "~> 0.1.12"
+  spec.add_runtime_dependency "prawndown-ext", "~> 0.1.14"
   spec.add_runtime_dependency "eqn", "~> 1.6.5"
 
   # Uncomment to register a new dependency of your gem

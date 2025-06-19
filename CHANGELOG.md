@@ -1,3 +1,8 @@
+## [0.1.8] - 2025-06-18
+
+- Bug fixes:
+	- Fixed output error caused by prawndown-ext
+
 ## [0.1.6] - 2025-06-18
 
 - Bug fixes:
