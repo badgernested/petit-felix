@@ -13,9 +13,9 @@ module PetitFelix
 
 		# Global defaults
 		DEFAULT_OPTIONS = {
-			"image_dir" => "./assets/images",
-			"input_files" => "./md/*",
-			"output_dir" => "./output",
+			"image_dir" => (File.join("assets","images")),
+			"input_files" => (File.join("md","*")),
+			"output_dir" => (File.join("output")),
 			"task" => "pdf-single",
 		}
 
@@ -69,9 +69,11 @@ module PetitFelix
 			
 			default_config = {}
 			
-			if File.file? "./default.cfg" 
+			default_file = File.join("default.cfg")
+			
+			if File.file? default_file
 				
-				default_config = metadata.get_metadata(File.read "./default.cfg")
+				default_config = metadata.get_metadata(File.read default_file)
 			end
 			
 			# Loads command line arguments

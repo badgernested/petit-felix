@@ -14,9 +14,11 @@ module PetitFelix
 			@error_printer = PetitFelix::Error.new
 			@task_list = {}
 			
-			load_task "task/template_pdf_task.rb"
-			load_task "task/pdf_single_task.rb"
-			load_task "task/basic_pdf_classic_task.rb"
+			File.join("..","task","template_pdf_task.rb")
+			
+			load_task File.join(File.dirname(__FILE__),"..","task","template_pdf_task.rb")
+			load_task File.join(File.dirname(__FILE__),"..","task","pdf_single_task.rb")
+			load_task File.join(File.dirname(__FILE__),"..","task","basic_pdf_classic_task.rb")
 		
 			task_list = PetitFelix::Task.constants.select {|c| PetitFelix::Task.const_get(c).is_a? Class}
 

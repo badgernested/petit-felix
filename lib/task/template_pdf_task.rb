@@ -17,8 +17,8 @@ module PetitFelix
 			def self.default_options 
 			
 				return {
-					"template" => "./templates/test.json",
-					"output_file" => "./output/test.pdf"
+					"template" => (File.join(File.dirname(__FILE__),"..","..","templates","test.json")),
+					"output_file" => (File.join("output","test.pdf"))
 				}
 				
 			end

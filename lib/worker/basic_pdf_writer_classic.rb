@@ -52,8 +52,11 @@ module PetitFelix
 			end
 		
 			def output
-				FileUtils.mkdir_p @options["output_dir"]
-				render_file("#{@options["output_dir"]}/#{@options["title"].gsub(/[^\w\s]/, '').tr(" ", "_")}.pdf")
+				file = File.join(@options["output_dir"], "#{@options["title"].gsub(/[^\w\s]/, '').tr(" ", "_")}.pdf")
+			
+				FileUtils.mkdir_p File.dirname(file)
+				
+				render_file(file)
 			end
 		
 			# Draws page numbering

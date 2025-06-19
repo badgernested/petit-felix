@@ -7,16 +7,8 @@ module PetitFelix
 		## Gets image from path and location
 		def get_image_location img_dir, filename
 		
-			file = "#{img_dir}/#{filename}"
-			
-			if !File.file?(file)
-			
-				file = ".#{img_dir}/#{filename}"
-				
-			end
-			
-			file
-			
+			return File.join(img_dir,filename)
+
 		end
 
 		## Gets metadata from string into paired hashes

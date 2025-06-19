@@ -35,6 +35,34 @@ module PetitFelix
 				
 			end
 			
+			def args_has_file arg_name, args
+			
+				if !args.key? arg_name
+					# text not defined
+					@error_param["arg"] = arg_name.to_s
+					return 7
+				end
+				
+				file = replace_variable args[arg_name].to_s
+				
+				file_split = []
+				
+				if file.include? "/"
+					file_split = file.split("/")
+				elsif  file.include? "\\"
+					file_split = file.split("\\")
+				end
+				
+				if file_split.count > 0
+					file = File.join(file_split)
+				end
+				
+				args[arg_name] = file
+				
+				return 0
+				
+			end
+			
 			def args_has_int arg_name, args
 			
 				if !args.key? arg_name

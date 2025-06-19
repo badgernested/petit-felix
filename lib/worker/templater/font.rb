@@ -8,6 +8,11 @@ module PetitFelix
 			# Adds a font to the pdf document
 			def add_font font, font_name
 
+				args_has_file :normal, font
+				args_has_file :bold, font
+				args_has_file :italic, font
+				args_has_file :bold_italic, font
+
 				if font.key?(:normal)
 				
 					if font.key?(:italic)

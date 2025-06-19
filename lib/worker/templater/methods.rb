@@ -225,7 +225,7 @@ module PetitFelix
 			
 			def com_image args, obj
 
-				validate = args_has_string :file, args
+				validate = args_has_file :file, args
 
 				if validate != 0
 					return validate
@@ -925,7 +925,7 @@ module PetitFelix
 				# clears the current markdown file
 				com_clear_markdown args, obj
 				
-				validate = args_has_string :file, args
+				validate = args_has_file :file, args
 				
 				if validate != 0
 					return validate

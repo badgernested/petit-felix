@@ -88,8 +88,10 @@ module PetitFelix
 		
 			def output
 
-				FileUtils.mkdir_p File.dirname("#{@options["output_dir"]}/#{@options["output_file"]}")
-				render_file("#{@options["output_dir"]}/#{@options["output_file"]}")
+				file = File.join(@options["output_dir"], @options["output_file"])
+
+				FileUtils.mkdir_p File.dirname(file)
+				render_file(file)
 				
 			end
 		

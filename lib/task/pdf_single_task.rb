@@ -43,7 +43,7 @@ module PetitFelix
 				metadata = @metaoptions.merge(metadata_helper.get_metadata(page_data[0]))
 
 				# Always forces you to use this template
-				@metaoptions["template"] = File.dirname(__FILE__) + "/../../templates/zine-single.json"
+				@metaoptions["template"] = File.join(File.dirname(__FILE__),"..","..", "templates","zine-single.json")
 
 				if metadata["pdf"] == "true"
 					
