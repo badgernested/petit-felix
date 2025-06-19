@@ -800,11 +800,11 @@ module PetitFelix
 				if validate != 0
 					return validate
 				end
-			
+
 				result = false
 			
 				if ["true","false"].include? args[:exp].strip
-					if args[:exp]
+					if args[:exp] == "true"
 						result = true
 					else
 						result = false
@@ -857,9 +857,9 @@ module PetitFelix
 				end
 			
 				result = false
-			
+
 				if ["true","false"].include? args[:exp].strip
-					if args[:exp]
+					if args[:exp] == "true"
 						result = true
 					else
 						result = false

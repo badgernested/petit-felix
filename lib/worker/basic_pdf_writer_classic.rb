@@ -53,7 +53,7 @@ module PetitFelix
 		
 			def output
 				FileUtils.mkdir_p @options["output_dir"]
-				render_file(@options["output_dir"] + "/" + @options["title"].gsub(/[^\w\s]/, '').tr(" ", "_") + '.pdf')
+				render_file("#{@options["output_dir"]}/#{@options["title"].gsub(/[^\w\s]/, '').tr(" ", "_")}.pdf")
 			end
 		
 			# Draws page numbering
@@ -67,7 +67,7 @@ module PetitFelix
 					
 						font_size(@options["paginator_size"].to_i)
 						
-						string = @options["title"] + ": " ' <page>'
+						string = "#{@options["title"]}: <page>"
 						
 						page_start_count = @options["paginator_start_count"].to_i
 						page_start = @options["paginator_start"].to_i
@@ -263,7 +263,7 @@ module PetitFelix
 					bounding_box([50, cursor], 
 					width: bounds.width - 100,
 					height: 30) do
-						text_box("Original Publication: " + @options["date"],#.strftime('%e %B, %Y'),
+						text_box("Original Publication: #{@options["date"]}",#.strftime('%e %B, %Y'),
 						align: :center)
 						#transparent(0.5) { stroke_bounds }
 					end
@@ -325,7 +325,7 @@ module PetitFelix
 			rescue
 				if @options.key?("markdown_margin_array")
 					print "\n"
-					print "Note: unable to parse argument " + @options["markdown_margin_array"]
+					print "Note: unable to parse argument #{@options["markdown_margin_array"]}"
 				end
 			end
 			

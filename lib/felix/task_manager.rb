@@ -47,7 +47,7 @@ module PetitFelix
 					name = "[UNDEFINED]"
 				end
 			
-				err_no_task_found name, additional_text: "Unable to find task " + name + ":\n"
+				err_no_task_found name, additional_text: "Unable to find task #{name}:\n"
 			end
 		
 			return nil
@@ -63,7 +63,7 @@ module PetitFelix
 					name = "[UNDEFINED]"
 				end
 			
-				err_no_task_found name, additional_text: "Unable to get options for Task " + name + ":\n"
+				err_no_task_found name, additional_text: "Unable to get options for Task #{name}:\n"
 			end
 			
 			return nil
@@ -71,10 +71,10 @@ module PetitFelix
 		
 		# No task found error
 		def err_no_task_found task, additional_text: ""
-				text = "Task " + task.downcase + " not found. Make sure the variable \"task\" is set correctly in your configuration settings. Available Tasks: "
+				text = "Task #{task.downcase} not found. Make sure the variable \"task\" is set correctly in your configuration settings. Available Tasks: "
 				
 				@task_list.keys.each do |key|
-					text += "\n  " + key
+					text += "\n  #{key}"
 				end
 				
 				@error_printer.print_err text

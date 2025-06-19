@@ -1,8 +1,18 @@
-## [0.2.0] - 2025-06-17
+## [0.1.6] - 2025-06-18
+
+- Bug fixes:
+  - ``elif`` command was always choosing ``false`` if defined as ``false`` in the string.
+- Code cleanup
+	- Made code easier to read with better spacing.
+	- Improved error handling with templates and expressions.
+
+## [0.1.5] - 2025-06-18
 
 - Added ``template_pdf`` worker. This worker reads JSON template files and processes them into PDF.
 - Added many basic methods for ``template_pdf``.
 - Added ability to customize margins per page and per bounding box. This allows for margins to make double sided printing better.
+- Added ``pdf-single`` worker. This is a specific template that creates a similar output to the former ``basic-pdf``.
+- Renamed ``basic-pdf`` to ``basic-pdf-classic``.
 
 ## [0.1.4] - 2025-06-14
 
@@ -11,7 +21,7 @@
 ## [0.1.3] - 2025-06-13
 
 - Major cleanup to the system to match documentation, further separation between worker and task classes.
-- Added a ton of new features to ``basic_pdf`` (see the documentation on [basic_pdf](/docs/workers/basic_pdf.md) for more info).
+- Added a ton of new features to ``basic-pdf`` (see the documentation on [basic_pdf](/docs/workers/basic_pdf.md) for more info).
 - Allowed tasks to contain their own configs.
 - Tasks are now loaded dynamically from ``lib/task``.
 

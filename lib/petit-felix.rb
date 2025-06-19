@@ -3,6 +3,8 @@ require "felix/generator"
 require "felix/config"
 require "felix/task_manager"
 
+# Main entry point of the program for batch outputting files
+
 module PetitFelix
 
 	class Output

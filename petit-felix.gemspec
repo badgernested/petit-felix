@@ -20,12 +20,15 @@ Gem::Specification.new do |spec|
   spec.files.append(Dir['lib/task/*'].keep_if { |file| File.file?(file) })
   spec.files.append(Dir['lib/worker/*'].keep_if { |file| File.file?(file) })
   spec.files.append(Dir['lib/worker/pdf_writer/*'].keep_if { |file| File.file?(file) })
+  spec.files.append(Dir['lib/worker/templater/*'].keep_if { |file| File.file?(file) })
+  spec.files.append(Dir['templates/*'].keep_if { |file| File.file?(file) })
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  spec.require_paths = ["lib", "templates"]
 
   spec.add_runtime_dependency "prawn", "~> 2.5", ">= 2.5.0"
   spec.add_runtime_dependency "prawndown-ext", "~> 0.1.12"
+  spec.add_runtime_dependency "eqn", "~> 1.6.5"
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"

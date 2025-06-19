@@ -7,23 +7,30 @@ module PetitFelix
 	
 		class SinglePDFTask < PetitFelix::Task::DefaultTask
 		
+			# Task name
 			def self.name 
+			
 				"pdf-single"
+				
 			end
 
 			## Default options of the application
 			def self.default_options
+			
 				return {
-					"template" => "./templates/zine_single.json",
 					"pdf" => "false"
 				}
+				
 			end
 		
+			# Renders zine
 			def render_zine
-
+			
 				# Only continue if metadata has a title
 				# Generates PDF
-					
+			
+				@metaoptions["pdf"] = false
+
 				page = File.read(@metaoptions["filename"])
 				
 				# splits the page into parts for metadata and content
@@ -35,7 +42,10 @@ module PetitFelix
 						
 				metadata = @metaoptions.merge(metadata_helper.get_metadata(page_data[0]))
 
-				if metadata.key?("pdf") && metadata["pdf"] == "true"
+				# Always forces you to use this template
+				@metaoptions["template"] = File.dirname(__FILE__) + "/../../templates/zine-single.json"
+
+				if metadata["pdf"] == "true"
 					
 					pdf = PetitFelix::Worker::TemplatePDFWriter.new(
 						page_layout: @metaoptions["page_layout"],
@@ -56,12 +66,9 @@ module PetitFelix
 					pdf.output
 					
 				end
-
 			end
 			
 		
 		end
-		
 	end
-
 end

@@ -8,15 +8,19 @@ module PetitFelix
 		class TemplatePDFTask < PetitFelix::Task::DefaultTask
 		
 			def self.name
+			
 				"template-pdf"
+				
 			end
 
 			## Default options of the application
 			def self.default_options 
+			
 				return {
 					"template" => "./templates/test.json",
 					"output_file" => "./output/test.pdf"
 				}
+				
 			end
 		
 			def render_zine
@@ -33,9 +37,6 @@ module PetitFelix
 				pdf.init_values @metaoptions, pdf
 
 				pdf.read_template
-
-				# Adds extra fonts
-				#pdf.initialize_font
 				
 				# Outputs to file
 				pdf.output

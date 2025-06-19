@@ -8,12 +8,16 @@ module PetitFelix
 		class BasicPDFTask < PetitFelix::Task::DefaultTask
 		
 			def self.name 
+			
 				"basic-pdf-classic"
+				
 			end
 
 			## Default options of the application
 			def self.default_options 
+			
 				return {
+						"date" => "",
 						"columns" => 1,
 						"default_font_size" => 12,
 						"header1_size" => 32,
@@ -46,11 +50,12 @@ module PetitFelix
 						"back_author" => "",
 						"back_author_size" => 16,
 				}
+				
 			end
 
-			def render_zine
+			def render_zine options
 				
-				page = File.read(options["filename"])
+				page = File.read options["filename"]
 				
 				# splits the page into parts for metadata and content
 				
@@ -67,25 +72,17 @@ module PetitFelix
 				
 				# Only continue if metadata has a title
 					
-				if @metadata.key?("title")
+				if @metadata.key? "title"
 								
 					# Parameters
 						
 					page_layout = :portrait
 					print_scaling = :none
 					
-					if @metaoptions.key?("page_layout")
-						page_layout = @metaoptions["page_layout"]
+					if @metaoptions.key? "page_layout"
+					
+						page_layout = @metaoptions["page_layout"].to_sym
 						
-						if page_layout.is_a? String
-							if page_layout.include?("portrait")
-								page_layout = :portrait
-							else 
-								if page_layout.include?("landscape")
-								page_layout = :landscape
-								end
-							end
-						end
 					end
 
 					# Generates PDF
@@ -128,36 +125,33 @@ module PetitFelix
 				@metaoptions = {}
 				
 				options.keys.each do |key|
+				
 					@metaoptions[key] = options[key]
+					
 				end
 				
 				@metadata.keys.each do |key|
+				
 					@metaoptions[key] = @metadata[key]
+					
 				end
 				
 				# Loads proper values from strings for certain params
 				page_layout = :portrait
 				print_scaling = :none
 				
-				if @metaoptions.key?("page_layout")
-					page_layout = @metaoptions["page_layout"]
-					
-					if page_layout.is_a? String
-						if page_layout.include?("portrait")
-							@metaoptions["page_layout"] = :portrait
-						else 
-							if page_layout.include?("landscape")
-							@metaoptions["page_layout"] = :landscape
-							end
-						end
-					end
+				if @metaoptions.key? "page_layout"
+					page_layout = @metaoptions["page_layout"].to_sym
 				end
 				
 			end
 			
 			def render_files options
-				if options.key?("input_files")
+			
+				if options.key? "input_files"
+				
 					site_list = options["input_files"].split(",")
+					
 				end
 
 				site_list.each do |page|
@@ -167,18 +161,15 @@ module PetitFelix
 					if !file_list.empty?
 				
 						file_list.each do |file|
+						
 							options["filename"] = file.strip
 							
-							if File.file?(options["filename"])
-								render_zine
+							if File.file? options["filename"]
+								render_zine options
 							end
 						
 						end
 						
-					else
-						if File.file?(page)
-							render_zine(page)
-						end
 					end
 				end
 

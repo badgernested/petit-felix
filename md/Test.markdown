@@ -7,7 +7,7 @@ pdf: false
 front_cover: true
 front_extra_page: true
 front_cover_image: cane-revolution.png
-back_cover_image:cane-revolution.png
+back_cover_image: cane-revolution.png
 ---
 
 # The Existential Reality of Change

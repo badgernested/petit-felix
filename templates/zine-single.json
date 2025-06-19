@@ -190,7 +190,7 @@
 		"default_font_size" : 12,
 		"columns" : 1,
 
-		"front_cover" : true,
+		"front_cover" : false,
 		"front_extra_page" : true,
 		"front_title_size" : 32,
 		"front_author_size" : 16,
@@ -203,7 +203,7 @@
 		"front_cover_show_image" : true,
 		"front_cover_image" : "",
 
-		"back_cover" : true,
+		"back_cover" : false,
 		"back_extra_page" : true,
 		"back_text_size" : 18,
 		"back_text" : "",
