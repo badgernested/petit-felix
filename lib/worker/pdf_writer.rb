@@ -1,6 +1,7 @@
 require "prawn"
 require 'fileutils'
 require "prawndown-ext"
+require "felix/file"
 require "worker/pdf_writer/column_box"
 require "worker/pdf_writer/bounding_box"
 
@@ -87,8 +88,12 @@ module PetitFelix
 			end
 		
 			def output
+				
+				fileedit = PetitFelix::FileManager.new
+				
+				file_output = fileedit.file_array_from_string(@options["output_dir"]) + [@options["output_file"]]
 
-				file = File.join(@options["output_dir"], @options["output_file"])
+				file = File.join(file_output)
 
 				FileUtils.mkdir_p File.dirname(file)
 				render_file(file)

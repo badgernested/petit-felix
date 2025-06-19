@@ -2,6 +2,7 @@ require "prawn"
 require 'fileutils'
 require "prawndown-ext"
 require "felix/metadata"
+require "felix/file"
 require "worker/pdf_writer"
 
 module PetitFelix
@@ -52,7 +53,11 @@ module PetitFelix
 			end
 		
 			def output
-				file = File.join(@options["output_dir"], "#{@options["title"].gsub(/[^\w\s]/, '').tr(" ", "_")}.pdf")
+				fileedit = PetitFelix::FileManager.new
+			
+				file_output = fileedit.file_array_from_string(@options["output_dir"]) + [@options["output_file"]]
+
+				file = File.join(file_output)
 			
 				FileUtils.mkdir_p File.dirname(file)
 				

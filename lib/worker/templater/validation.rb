@@ -45,17 +45,7 @@ module PetitFelix
 				
 				file = replace_variable args[arg_name].to_s
 				
-				file_split = []
-				
-				if file.include? "/"
-					file_split = file.split("/")
-				elsif  file.include? "\\"
-					file_split = file.split("\\")
-				end
-				
-				if file_split.count > 0
-					file = File.join(file_split)
-				end
+
 				
 				args[arg_name] = file
 				
