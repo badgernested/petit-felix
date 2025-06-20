@@ -256,7 +256,7 @@ module PetitFelix
 									return [4, counter]
 									
 								end
-
+								
 								comm = COMMAND[command].call obj, args
 
 								@counter_stack[-1] = counter

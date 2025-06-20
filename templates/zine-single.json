@@ -189,6 +189,7 @@
     
 		"default_font_size" : 12,
 		"columns" : 1,
+		"alternate_output" : false,
 
 		"front_cover" : false,
 		"front_extra_page" : true,
@@ -723,6 +724,11 @@
       }
     ],
     
+    "alternate_output" : [
+    	{
+    		"cmd" : "alternate_pages"
+    	}
+    ],
     
     "main": [
       {
@@ -768,6 +774,13 @@
         "args": {
           "func": "paginator"
         }
+      },
+      {
+      	"cmd" : "if",
+      	"args" : {
+      		"exp" : "${alternate_output}",
+      		"func" : "alternate_output"
+      	}
       }
     ]
   }

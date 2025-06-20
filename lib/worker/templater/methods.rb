@@ -13,6 +13,9 @@ module PetitFelix
 			# List of executable commands
 			
 			COMMAND = {
+				## Comment this one out when releasing
+				#:test => -> (obj, args) { obj.com_test args, obj },
+			
 				:print => -> (obj, args) { obj.com_print args, obj },
 				:call => -> (obj, args) { obj.com_call args, obj },
 				:if => -> (obj, args) { obj.com_if args, obj },
@@ -32,6 +35,8 @@ module PetitFelix
 				:move_down => -> (obj, args) { obj.com_move_down args, obj },
 				:move_to => -> (obj, args) { obj.com_move_to args, obj },
 				:move_cursor_to => -> (obj, args) { obj.com_move_cursor_to args, obj },
+				:copy_page => -> (obj, args) { obj.com_copy_page args, obj },
+				:paste_page => -> (obj, args) { obj.com_paste_page args, obj },
 				:delete_page => -> (obj, args) { obj.com_delete_page args, obj },
 				:start_new_page => -> (obj, args) { obj.com_start_new_page args, obj },
 				:draw_text => -> (obj, args) { obj.com_draw_text args, obj },
@@ -53,7 +58,19 @@ module PetitFelix
 				:span => -> (obj, args) { obj.com_span args, obj },
 				:translate => -> (obj, args) { obj.com_translate args, obj },
 				:transparent => -> (obj, args) { obj.com_transparent args, obj },
+				
+				# special custom functions
+				:alternate_pages => -> (obj, args) { obj.com_alternate_pages args, obj },
 			}
+			
+			## Debug test command
+			
+			def com_test args, obj
+				#obj.reorder_pages [3,2,0,1]
+				obj.reorder_pages_for_2_page
+				
+				return 0
+			end
 			
 			# Prawn commands
 			
@@ -139,6 +156,33 @@ module PetitFelix
 				end
 				
 				return 0
+			end
+			
+			def com_copy_page args, obj
+				args_has_int :val, args
+			
+				if args.key?(:val)
+					obj.copy_page args[:val]
+				else
+					obj.copy_page
+				end
+				
+				return 0
+			
+			end
+			
+			def com_paste_page args, obj
+
+				args_has_int :val, args
+			
+				if args.key?(:val)
+					obj.paste_page args[:val]
+				else
+					obj.paste_page
+				end
+				
+				return 0
+				
 			end
 			
 			def com_delete_page args, obj
@@ -1064,6 +1108,13 @@ module PetitFelix
 			
 				@variables[args[:var]] = args[:val]
 
+				return 0
+			end
+			
+			def com_alternate_pages args, obj
+				#obj.reorder_pages [3,2,0,1]
+				obj.reorder_pages_for_2_page
+				
 				return 0
 			end
 			

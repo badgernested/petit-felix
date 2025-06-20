@@ -99,6 +99,117 @@ module PetitFelix
 				render_file(file)
 				
 			end
+			
+			# Copies the contents of a page.
+			def copy_page index=@page_number-1
+			
+				return false if index.abs > (state.pages.count - 1)
+			
+				# deep copies the page data
+				@page_data = copy_page_data index
+				
+			end
+			
+			# Returns the page data copied
+			def copy_page_data index
+				return false if index.abs > (state.pages.count - 1)
+			
+				# deep copies the page data
+				return Marshal.load(Marshal.dump(state.store.pages.data[:Kids][index]))
+			end
+			
+			# Pastes (overwrites) the content of a page.
+			def paste_page index=@page_number-1
+
+				return false if index.abs > (state.pages.count - 1)
+			
+				if !@page_data.nil?
+				
+					state.store.pages.data[:Kids][index] = @page_data
+
+					# deep copies the page data so its not referencing the same object constantly
+					@page_data = Marshal.load(Marshal.dump(@page_data))
+					
+				end
+				
+			end
+			
+			# Clears copied page data.
+			def clear_copied_page
+			
+				@page_data = nil
+				
+			end
+			
+			# Reorganizes the pages in the given order.
+			
+			def reorder_pages pages
+			
+				if pages.count != state.pages.count
+				
+					return false
+					
+				end
+				
+				initial_content = []
+				
+				state.store.pages.data[:Kids].each_with_index {
+					|item,index| 
+					initial_content.append(state.store.pages.data[:Kids][index])
+				}
+				
+				index = 0
+				
+				while index < initial_content.count
+				
+					return false if pages[index].abs > (state.pages.count - 1)
+				
+					state.store.pages.data[:Kids][index] = initial_content[pages[index]]
+					index +=1
+					
+				end
+			
+			end
+			
+			# Orders the pages properly so they can be printed 2 on a page for stapling
+			def reorder_pages_for_2_page
+			
+				pages = []
+				pairs = []
+				
+				# first test if page count is odd.
+				# if its odd add an extra page before the back cover
+
+				if state.pages.count % 2 == 1
+					go_to_page(-2)
+					start_new_page
+					
+					go_to_page(state.pages.count)
+				end
+				
+				# Now that its even do the algorithm
+				center = (state.pages.count / 2) - 1 
+				center_other = center + 1
+				
+				while center >= 0
+				
+					pairs.unshift [center, center_other]
+					
+					center -= 1
+					center_other += 1
+					
+				end
+				
+				pairs.each do |item|
+				
+					pages.append item[0]
+					pages.append item[1]
+					
+				end
+			
+				reorder_pages pages
+			
+			end
 		
 		end
 	end

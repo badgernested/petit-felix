@@ -18,7 +18,7 @@ module PetitFelix
 			
 				return {
 					"template" => (File.join(File.dirname(__FILE__),"..","..","templates","test.json")),
-					"output_file" => (File.join("output","test.pdf"))
+					"output_file" => "test.pdf"
 				}
 				
 			end
