@@ -1,3 +1,7 @@
+## [0.1.10] - 2025-06-20
+
+- Added ``copy_page``, ``paste_page`` and ``alternate_pages`` functions to template reader.
+
 ## [0.1.9] - 2025-06-19
 
 - Bug fixes:
