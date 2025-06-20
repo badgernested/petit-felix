@@ -61,6 +61,7 @@ module PetitFelix
 				
 				# special custom functions
 				:alternate_pages => -> (obj, args) { obj.com_alternate_pages args, obj },
+				:set_alternate_pages => -> (obj, args) { obj.com_set_alternate_pages args, obj },
 			}
 			
 			## Debug test command
@@ -474,8 +475,6 @@ module PetitFelix
 					args_has_int :page_start, args
 					args_has_int :page_finish, args
 					
-					odd_options[:start_count_at] += 1
-					
 					if !args.key?(:page_start)
 						@variables["paginator_start"] = @metaoptions["paginator_start"]
 					else
@@ -484,13 +483,26 @@ module PetitFelix
 					
 					@variables["paginator_end"] = args[:page_finish]
 				
-					if @metaoptions["paginator_switch"]
-						odd_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 1 }
-						even_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 0 }
-						
+					if obj.alternates_pages
+						even_options[:start_count_at] = ((obj.page_count - 1) * 0.5).floor
+					
+							even_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg > obj.page_count * 0.5 }
+							
+							odd_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg <= obj.page_count * 0.5 }
+							
 					else
-						even_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 1 }
-						odd_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 0 }
+				
+						odd_options[:start_count_at] += 1
+				
+						if @metaoptions["paginator_switch"]
+							odd_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 1 }
+							even_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 0 }
+							
+						else
+							even_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 1 }
+							odd_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 0 }
+						
+						end
 					
 					end
 
@@ -1114,6 +1126,12 @@ module PetitFelix
 			def com_alternate_pages args, obj
 				#obj.reorder_pages [3,2,0,1]
 				obj.reorder_pages_for_2_page
+				
+				return 0
+			end
+			
+			def com_set_alternate_pages args, obj
+				obj.set_alternate_pages
 				
 				return 0
 			end

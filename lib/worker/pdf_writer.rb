@@ -12,6 +12,14 @@ module PetitFelix
 
 		class	DefaultPDFWriter < Prawn::Document
 		
+			def alternates_pages
+				return @alternates_pages
+			end
+			
+			def set_alternate_pages
+				@alternates_pages = true
+			end
+		
 			# Initializes fonts
 			def initialize_font
 			
@@ -82,7 +90,8 @@ module PetitFelix
 			end
 		
 			def set_options metaoptions
-			
+				@alternates_pages = false
+				
 				@options = metaoptions
 				
 			end

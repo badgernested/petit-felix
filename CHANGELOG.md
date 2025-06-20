@@ -1,3 +1,10 @@
+## [0.1.11] - 2025-06-20
+
+- Added ``set_alternate_pages`` method. This needs to be used at the beginning of a document to alter behavior for ``alternate_pages``.
+- Made it so all command line parameters not defined are treated as properties
+
+Note: Margins for alternating pages is not automated. I will have to figure out a way to make this work without rendering the pages twice... may be the only option though
+
 ## [0.1.10] - 2025-06-20
 
 - Added ``copy_page``, ``paste_page`` and ``alternate_pages`` functions to template reader.

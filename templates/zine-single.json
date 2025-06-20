@@ -730,7 +730,20 @@
     	}
     ],
     
+    "set_alternate_output" : [
+    	{
+    		"cmd" : "set_alternate_pages"
+    	}
+    ],
+    
     "main": [
+      {
+      	"cmd" : "if",
+      	"args" : {
+      		"exp" : "${alternate_output}",
+      		"func" : "set_alternate_output"
+      	}
+      },
       {
         "cmd": "set",
         "args": {

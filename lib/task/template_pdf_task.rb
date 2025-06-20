@@ -31,7 +31,7 @@ module PetitFelix
 				pdf = PetitFelix::Worker::TemplatePDFWriter.new(
 					page_layout: @metaoptions["page_layout"],
 					print_scaling: @metaoptions["print_scaling"])
-
+					
 				pdf.set_options @metaoptions
 
 				pdf.init_values @metaoptions, pdf

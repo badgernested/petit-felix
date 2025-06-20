@@ -21,29 +21,12 @@ module PetitFelix
 
 		## Hash for custom command line argument calls
 		CL_DATA = {
-			"columns" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args).to_i },
-			"default_font_size" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args).to_i },
-			"header1_size" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args).to_i },
-			"header2_size" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args).to_i },
-			"header3_size" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args).to_i },
-			"header4_size" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args).to_i },
-			"header5_size" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args).to_i },
-			"header6_size" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args).to_i },
-			"margin" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args).to_i },
-			"font_normal" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
-			"font_italic" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
-			"font_bold" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
-			"font_bold_italic" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
-			"page_layout" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
-			"input_files" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
-			"image_dir" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
-			"task" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
-			"template" => -> (command, args, index, cl_args) { cl_add_config(command, args, index, cl_args) },
+
 		}
 
 		### Command Line Arguments
 
-		def self.cl_add_config command,args, index, cl_args
+		def cl_add_config command, args, index, cl_args
 			cl_args[command] = args[index + 1]
 		end
 
@@ -154,6 +137,10 @@ module PetitFelix
 						if CL_DATA.key? command
 						
 							CL_DATA[command].call command, args, index, cl_args
+
+						else
+						
+							cl_add_config command, args, index, cl_args
 
 						end
 						

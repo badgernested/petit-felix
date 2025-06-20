@@ -35,7 +35,9 @@ module Prawn
       	@margins = {}
       
       	if @base_margins.count > 0
-      		@margins = @base_margins[@document.page_count % @base_margins.count]
+
+      			@margins = @base_margins[(@document.page_count - 1) % @base_margins.count]
+      			
 				end
       end
       
