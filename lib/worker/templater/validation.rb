@@ -70,7 +70,7 @@ module PetitFelix
 						args[arg_name] = Eqn::Calculator.calc(replace_variable args[arg_name]).to_i
 					rescue
 					
-						@error_param["arg"] = replace_variable args[arg_name]
+						@error_param["arg"] = replace_variable args[arg_name].to_s
 						return 9
 					end
 				end
@@ -93,7 +93,7 @@ module PetitFelix
 				
 				rescue
 				
-					@error_param["arg"] = replace_variable args[arg_name]
+					@error_param["arg"] = replace_variable args[arg_name].to_s
 					return 9
 					
 				end

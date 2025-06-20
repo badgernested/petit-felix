@@ -1,3 +1,8 @@
+## [0.1.9] - 2025-06-19
+
+- Bug fixes:
+  - Fixed bug crash regarding validating floats 
+
 ## [0.1.8] - 2025-06-18
 
 - Bug fixes:
