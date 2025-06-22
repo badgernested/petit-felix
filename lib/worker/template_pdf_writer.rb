@@ -1,7 +1,6 @@
 require "prawn"
 require 'fileutils'
 require "prawndown-ext"
-require "felix/metadata"
 require "felix/error"
 require "worker/pdf_writer"
 require "worker/templater/methods"
@@ -26,7 +25,9 @@ module PetitFelix
 			
 				@variables = {}
 			
-				@options = Marshal.load(Marshal.dump(options))
+				if @options.nil? || @options.count == 0
+					@options = Marshal.load(Marshal.dump(options))
+				end
 				
 				# Options to use for method calls and stuff
 				# Updated every time a template is loaded
@@ -82,6 +83,14 @@ module PetitFelix
 				
 				# the currently loaded markdown file
 				@variables["loaded_markdown"] = {}
+				
+				if @variables.key?("right_to_left") && @variables["right_to_left"]
+					@right_to_left = @variables["right_to_left"]
+				end
+				
+				if @variables.key?("alternates_pages") && @variables["alternates_pages"]
+					@alternates_pages = @variables["alternates_pages"]
+				end
 
 			end
 			
@@ -256,7 +265,7 @@ module PetitFelix
 									return [4, counter]
 									
 								end
-								
+
 								comm = COMMAND[command].call obj, args
 
 								@counter_stack[-1] = counter
@@ -272,6 +281,7 @@ module PetitFelix
 								@command_stack.pop
 							else
 								# failed because command not found
+								@error_param["arg"] = command.to_s
 								return [3, counter]
 								
 							end

@@ -11,7 +11,7 @@ module PetitFelix
 				"OK",
 				"Malformed command list.",
 				"No command defined. Use \"com\" or \"command\" to define commands.",
-				"Command not found.",
+				"Command \"{{arg}}\" not found.",
 				"Stack overflow.",
 				"Template ID \"{{arg}}\" not found.",
 				"Template method \"{{arg}}\" not found.",

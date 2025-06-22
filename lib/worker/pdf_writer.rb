@@ -4,6 +4,7 @@ require "prawndown-ext"
 require "felix/file"
 require "worker/pdf_writer/column_box"
 require "worker/pdf_writer/bounding_box"
+require "felix/metadata"
 
 ## Prawn PDF writer that outputs template files
 
@@ -12,12 +13,20 @@ module PetitFelix
 
 		class	DefaultPDFWriter < Prawn::Document
 		
+			def right_to_left
+				return @right_to_left
+			end
+			
+			def set_right_to_left val
+				@right_to_left = val
+			end
+		
 			def alternates_pages
 				return @alternates_pages
 			end
 			
-			def set_alternate_pages
-				@alternates_pages = true
+			def set_alternate_pages val
+				@alternates_pages = val
 			end
 		
 			# Initializes fonts
@@ -91,8 +100,15 @@ module PetitFelix
 		
 			def set_options metaoptions
 				@alternates_pages = false
+				@right_to_left = false
 				
 				@options = metaoptions
+				
+				md = PetitFelix::Metadata.new
+				
+				metadata = md.get_metadata(md.split(File.read metaoptions["filename"])[0])
+				
+				@options = @options.merge(metadata)
 				
 			end
 		
@@ -186,15 +202,30 @@ module PetitFelix
 				pages = []
 				pairs = []
 				
-				# first test if page count is odd.
-				# if its odd add an extra page before the back cover
+				# Test if the pages line up to mod 4 for double print
+				# if not, fix it
 
-				if state.pages.count % 2 == 1
-					go_to_page(-2)
+				modval = state.pages.count % 4
+				
+				if modval > 0
+
+					modval = 4 - modval
+
+					go_to_page(2)
+					
 					start_new_page
 					
-					go_to_page(state.pages.count)
+					modval -= 1
+					
+					go_to_page(-3)
+					
+					(modval).times do
+						start_new_page
+					end
+					
 				end
+				
+				go_to_page(state.pages.count)
 				
 				# Now that its even do the algorithm
 				center = (state.pages.count / 2) - 1 
@@ -209,11 +240,21 @@ module PetitFelix
 					
 				end
 				
+				counter = 0
+				
 				pairs.each do |item|
 				
+					counter += 1
+					
 					pages.append item[0]
 					pages.append item[1]
 					
+					if !@right_to_left && (counter % 4 == 1 || counter % 4 == 3) 
+						pages[-2] = item[1]
+						pages[-1] = item[0]
+
+					end
+				
 				end
 			
 				reorder_pages pages

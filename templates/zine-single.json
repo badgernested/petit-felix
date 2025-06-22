@@ -189,10 +189,12 @@
     
 		"default_font_size" : 12,
 		"columns" : 1,
-		"alternate_output" : false,
+		"alternates_pages" : true,
 
 		"front_cover" : false,
 		"front_extra_page" : true,
+		"front_extra_page_show" : false,
+		"front_extra_page_image" : "",
 		"front_title_size" : 32,
 		"front_author_size" : 16,
 		"front_author" : "",
@@ -206,6 +208,8 @@
 
 		"back_cover" : false,
 		"back_extra_page" : true,
+		"back_extra_page_show" : false,
+		"back_extra_page_image" : "",
 		"back_text_size" : 18,
 		"back_text" : "",
 		"back_text_line_spacing" : 0,
@@ -221,6 +225,8 @@
 		"paginator_start" : 1,
 		"paginator_switch" : false,
 		"page_mode" : "alternate",
+		"paginator_odd_align" : "left",
+		"paginator_even_align" : "right",
 
     "markdown_margin_array": "[{\"left\":30,\"right\":30,\"top\":30,\"bottom\":30}]",
     "back_text_margin": "[{\"left\":30, \"right\":30, \"top\":30, \"bottom\":30 }]"
@@ -236,8 +242,25 @@
         }
       },
       {
+      	"cmd" : "if",
+      	"args" : {
+      		"exp" : "${front_extra_page_show}",
+      		"func" : "start_new_page_front_img"
+      	}
+      },
+      {
         "cmd": "start_new_page"
       }
+    ],
+    
+    "start_new_page_front_img": [
+    	{
+    		"cmd" : "image",
+    		"args" : {
+    			"file" : "${front_extra_page_image}",
+    			"vposition" : "center"
+    		}
+    	}
     ],
     
     "start_new_page_back": [
@@ -250,7 +273,23 @@
       },
       {
         "cmd": "start_new_page"
+      },
+      {
+      	"cmd" : "if",
+      	"args" : {
+      		"exp" : "${back_extra_page_show}",
+      		"func" : "start_new_page_back_img"
+      	}
       }
+    ],
+    
+    "start_new_page_back_img": [
+    	{
+    		"cmd" : "image",
+    		"args" : {
+    			"file" : "${back_extra_page_image}"
+    		}
+    	}
     ],
     
     "main_section": [
@@ -376,9 +415,13 @@
         }
       },
       {
-        "cmd": "call",
-        "args" : {
-        	"func" : "start_new_page_front"
+        "cmd": "start_new_page"
+      },
+      {
+        "cmd": "set",
+        "args": {
+          "var": "page_start_increment",
+          "val" : "${page_start_increment} + 1"
         }
       },
       {
@@ -716,8 +759,8 @@
       		"page_finish" : "${pages} - ${page_end_increment} + 1",
       		"odd_at" : ["0","0"],
       		"even_at" : ["0", "0"],
-      		"odd_align" : "left",
-      		"even_align" : "right",
+      		"odd_align" : "${paginator_odd_align}",
+      		"even_align" : "${paginator_even_align}",
       		"width" : "${bounds_width}",
       		"height" : "${bounds_height}"
       	}
@@ -732,7 +775,10 @@
     
     "set_alternate_output" : [
     	{
-    		"cmd" : "set_alternate_pages"
+    		"cmd" : "set_alternate_pages",
+    		"args" : {
+    			"val" : true
+    		}
     	}
     ],
     
@@ -740,7 +786,7 @@
       {
       	"cmd" : "if",
       	"args" : {
-      		"exp" : "${alternate_output}",
+      		"exp" : "${alternates_pages}",
       		"func" : "set_alternate_output"
       	}
       },
@@ -791,7 +837,7 @@
       {
       	"cmd" : "if",
       	"args" : {
-      		"exp" : "${alternate_output}",
+      		"exp" : "${alternates_pages}",
       		"func" : "alternate_output"
       	}
       }

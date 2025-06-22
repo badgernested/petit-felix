@@ -16,6 +16,7 @@ module PetitFelix
 				:mode,
 				:style,
 				:overflow,
+				:vposition,
 				:rotate_around
 			]
 			
@@ -55,7 +56,7 @@ module PetitFelix
 			
 			def args_has_int arg_name, args
 			
-				if !args.key? arg_name
+				if args.nil? || !args.key?(arg_name) || args[arg_name].nil?
 				
 					# text not defined
 					@error_param["arg"] = arg_name.to_s
@@ -80,7 +81,7 @@ module PetitFelix
 			
 			def args_has_float arg_name, args
 
-				if !args.key? arg_name
+				if args.nil? || !args.key?(arg_name) || args[arg_name].nil?
 					# text not defined
 					@error_param["arg"] = arg_name.to_s
 					return 7

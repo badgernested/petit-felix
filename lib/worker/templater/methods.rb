@@ -62,6 +62,7 @@ module PetitFelix
 				# special custom functions
 				:alternate_pages => -> (obj, args) { obj.com_alternate_pages args, obj },
 				:set_alternate_pages => -> (obj, args) { obj.com_set_alternate_pages args, obj },
+				:set_right_to_left => -> (obj, args) { obj.com_set_right_to_left args, obj },
 			}
 			
 			## Debug test command
@@ -424,8 +425,10 @@ module PetitFelix
 					return validate
 				end
 				
-				args = args_correct_values args
-				
+				args_has_string :align_even, args
+				args_has_string :valign_even, args
+				args_has_string :align_odd, args
+				args_has_string :valign_odd, args
 				args_has_int :width, args
 				args_has_arr :at, args, :int
 				args_has_arr :odd_at, args, :int
@@ -455,7 +458,9 @@ module PetitFelix
 					if !args.key?(:page_finish)
 						args[:page_finish] = -1
 					end
-						
+					
+					args = args_correct_values args
+
 					odd_array = {
 						:start_count_at => args[:odd_start_count_at],
 						:at => args[:odd_at],
@@ -484,12 +489,22 @@ module PetitFelix
 					@variables["paginator_end"] = args[:page_finish]
 				
 					if obj.alternates_pages
-						even_options[:start_count_at] = ((obj.page_count - 1) * 0.5).floor
 					
-							even_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg > obj.page_count * 0.5 }
-							
-							odd_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg <= obj.page_count * 0.5 }
-							
+						if @metaoptions["paginator_switch"]
+
+							even_options[:start_count_at] += 1
+						
+							even_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 0 }
+								
+							odd_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 1 }
+						else
+							odd_options[:start_count_at] = ((obj.page_count - 1) * 0.5).floor
+						
+							odd_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg > obj.page_count * 0.5 }
+								
+							even_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg <= obj.page_count * 0.5 }
+						end
+								
 					else
 				
 						odd_options[:start_count_at] += 1
@@ -871,6 +886,7 @@ module PetitFelix
 						result = Eqn::Calculator.calc(args[:exp].strip)
 					rescue
 						# expression cannot be evaluated
+						@error_param["arg"] = replace_variable args[:exp].to_s
 						return 9
 					end
 				
@@ -1106,34 +1122,58 @@ module PetitFelix
 			
 			## sets a variable to a value
 			def com_set args, obj
+			
+				validate = args_has_int :val, args
+				
+				if validate != 0
+					return validate
+				end
+
+				validate = args_has_string :var, args
+				
+				if validate != 0
+					return validate
+				end
+
+				@variables[args[:var]] = args[:val]
+
+				return 0
+				
+			end
+			
+			def com_alternate_pages args, obj
+
+				obj.reorder_pages_for_2_page
+				
+				return 0
+				
+			end
+			
+			def com_set_alternate_pages args, obj
+			
+				validate = args_has_int :val, args
+				
+				if validate != 0
+					return validate
+				end
+					
+				obj.set_alternate_pages args[:val]
+				
+				return 0
+			end
+			
+			def com_set_right_to_left args, obj
+			
 				validate = args_has_int :val, args
 				
 				if validate != 0
 					return validate
 				end
 				
-				validate = args_has_string :var, args
-				
-				if validate != 0
-					return validate
-				end
+				obj.set_right_to_left args[:val]
 			
-				@variables[args[:var]] = args[:val]
-
 				return 0
-			end
-			
-			def com_alternate_pages args, obj
-				#obj.reorder_pages [3,2,0,1]
-				obj.reorder_pages_for_2_page
 				
-				return 0
-			end
-			
-			def com_set_alternate_pages args, obj
-				obj.set_alternate_pages
-				
-				return 0
 			end
 			
 		end

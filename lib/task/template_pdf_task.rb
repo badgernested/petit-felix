@@ -18,7 +18,8 @@ module PetitFelix
 			
 				return {
 					"template" => (File.join(File.dirname(__FILE__),"..","..","templates","test.json")),
-					"output_file" => "test.pdf"
+					"output_file" => "test.pdf",
+					"right_to_left" => false
 				}
 				
 			end

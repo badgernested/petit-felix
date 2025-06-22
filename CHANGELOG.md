@@ -1,3 +1,11 @@
+## [0.1.12] - 2025-06-21
+
+- Bug fixes:
+	- Fixed left-to-right output being printed right-to-left
+	- Made sure 2-page prints always have page count divisible by 4 so that it prints correctly
+	- Fixed bug with ``pdf-single`` not properly loading properties.
+- Added some default parameters to ``pdf-single``.
+
 ## [0.1.11] - 2025-06-20
 
 - Added ``set_alternate_pages`` method. This needs to be used at the beginning of a document to alter behavior for ``alternate_pages``.
