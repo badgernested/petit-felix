@@ -6,7 +6,7 @@ module PetitFelix
 	
 		## Renders all the files in the given directory.
 		
-		def render_files(wm, options)
+		def render_files(wm, options, override_options: {})
 			
 			task = wm.get_task options["task"]
 			
@@ -15,7 +15,7 @@ module PetitFelix
 			default_options = default_options.merge(options)
 
 			if !task.nil?
-				task.render_files default_options
+				task.render_files default_options, override_options
 			end
 
 		end

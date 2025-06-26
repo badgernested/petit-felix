@@ -98,7 +98,7 @@ module PetitFelix
 					end
 			end
 		
-			def set_options metaoptions
+			def set_options metaoptions, override_options: {}
 				@alternates_pages = false
 				@right_to_left = false
 				
@@ -109,6 +109,8 @@ module PetitFelix
 				metadata = md.get_metadata(md.split(File.read metaoptions["filename"])[0])
 				
 				@options = @options.merge(metadata)
+				
+				@override_options = override_options
 				
 			end
 		

@@ -33,7 +33,7 @@ module PetitFelix
 					page_layout: @metaoptions["page_layout"],
 					print_scaling: @metaoptions["print_scaling"])
 					
-				pdf.set_options @metaoptions
+				pdf.set_options @metaoptions, override_options: @override_options
 
 				pdf.init_values @metaoptions, pdf
 

@@ -15,19 +15,19 @@ module PetitFelix
 
 				if font.key?(:normal)
 				
-					if font.key?(:italic)
+					if !font.key?(:italic)
 					
 						font[:italic] = font[:normal]
 						
 					end
 					
-					if font.key?(:bold)
+					if !font.key?(:bold)
 					
 						font[:bold] = font[:normal]
 						
 					end
 					
-					if font.key?(:bold_italic)
+					if !font.key?(:bold_italic)
 					
 						font[:bold_italic] = font[:normal]
 						
@@ -38,7 +38,7 @@ module PetitFelix
 						font[key] = replace_variable font[key]
 						
 					end
-				
+					
 					font_families.update(font_name => font)
 					
 				end

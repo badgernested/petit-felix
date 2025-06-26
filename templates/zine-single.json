@@ -56,39 +56,39 @@
     },
     "header1": {
       "normal": "${header1_font_normal}",
-      "italic": "${header1_font_italic}",
-      "bold": "${header1_font_bold}",
-      "bold_italic": "${header1_font_bold_italic}"
+      "italic": "${header1_font_normal}",
+      "bold": "${header1_font_normal}",
+      "bold_italic": "${header1_font_normal}"
     },
     "header2": {
       "normal": "${header2_font_normal}",
-      "italic": "${header2_font_italic}",
-      "bold": "${header2_font_bold}",
-      "bold_italic": "${header2_font_bold_italic}"
+      "italic": "${header2_font_normal}",
+      "bold": "${header2_font_normal}",
+      "bold_italic": "${header2_font_normal}"
     },
     "header3": {
       "normal": "${header3_font_normal}",
-      "italic": "${header3_font_italic}",
-      "bold": "${header3_font_bold}",
-      "bold_italic": "${header3_font_bold_italic}"
+      "italic": "${header3_font_normal}",
+      "bold": "${header3_font_normal}",
+      "bold_italic": "${header3_font_normal}"
     },
     "header4": {
       "normal": "${header4_font_normal}",
-      "italic": "${header4_font_italic}",
-      "bold": "${header4_font_bold}",
-      "bold_italic": "${header4_font_bold_italic}"
+      "italic": "${header4_font_normal}",
+      "bold": "${header4_font_normal}",
+      "bold_italic": "${header4_font_normal}"
     },
     "header5": {
       "normal": "${header5_font_normal}",
-      "italic": "${header5_font_italic}",
-      "bold": "${header5_font_bold}",
-      "bold_italic": "${header5_font_bold_italic}"
+      "italic": "${header5_font_normal}",
+      "bold": "${header5_font_normal}",
+      "bold_italic": "${header5_font_normal}"
     },
     "header6": {
       "normal": "${header6_font_normal}",
-      "italic": "${header6_font_italic}",
-      "bold": "${header6_font_bold}",
-      "bold_italic": "${header6_font_bold_italic}"
+      "italic": "${header6_font_normal}",
+      "bold": "${header6_font_normal}",
+      "bold_italic": "${header6_font_normal}"
     },
     "quote": {
       "normal": "${quote_font_normal}",
@@ -163,29 +163,11 @@
     "quote_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
     "quote_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
     "header1_font_normal": "./assets/font/Unageo-Regular.ttf",
-    "header1_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
-    "header1_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
-    "header1_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
     "header2_font_normal": "./assets/font/Unageo-Regular.ttf",
-    "header2_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
-    "header2_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
-    "header2_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
     "header3_font_normal": "./assets/font/Unageo-Regular.ttf",
-    "header3_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
-    "header3_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
-    "header3_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
     "header4_font_normal": "./assets/font/Unageo-Regular.ttf",
-    "header4_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
-    "header4_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
-    "header4_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
     "header5_font_normal": "./assets/font/Unageo-Regular.ttf",
-    "header5_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
-    "header5_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
-    "header5_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
     "header6_font_normal": "./assets/font/Unageo-Regular.ttf",
-    "header6_font_italic": "./assets/font/Unageo-Regular-Italic.ttf",
-    "header6_font_bold": "./assets/font/Unageo-ExtraBold.ttf",
-    "header6_font_bold_italic": "./assets/font/Unageo-ExtraBold-Italic.ttf",
     
 		"default_font_size" : 12,
 		"columns" : 1,
@@ -225,8 +207,10 @@
 		"paginator_start" : 1,
 		"paginator_switch" : false,
 		"page_mode" : "alternate",
+		"paginator_align" : "right",
 		"paginator_odd_align" : "left",
 		"paginator_even_align" : "right",
+		"paginator_y" : 0,
 
     "markdown_margin_array": "[{\"left\":30,\"right\":30,\"top\":30,\"bottom\":30}]",
     "back_text_margin": "[{\"left\":30, \"right\":30, \"top\":30, \"bottom\":30 }]"
@@ -757,8 +741,8 @@
       		"start_count_at" : "1",
       		"page_start" : "${page_start_increment}",
       		"page_finish" : "${pages} - ${page_end_increment} + 1",
-      		"odd_at" : ["0","0"],
-      		"even_at" : ["0", "0"],
+      		"odd_at" : ["0","-10+${paginator_y}"],
+      		"even_at" : ["0", "-10+${paginator_y}"],
       		"odd_align" : "${paginator_odd_align}",
       		"even_align" : "${paginator_even_align}",
       		"width" : "${bounds_width}",

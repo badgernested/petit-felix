@@ -1,3 +1,8 @@
+## [0.1.13] - 2025-06-24
+
+- Added ``PetitFelix::Process`` class, which separates generation from initialization.
+- Fixed bug with default fonts not working with ``template_pdf``
+
 ## [0.1.12] - 2025-06-21
 
 - Bug fixes:

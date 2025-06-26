@@ -30,6 +30,10 @@ module PetitFelix
 					
 				end
 				
+				@override_options.keys.each do |key|
+					@metaoptions[key] = @override_options[key]
+				end
+				
 				# Loads proper values from strings for certain params
 				page_layout = :portrait
 				print_scaling = :none
@@ -50,7 +54,9 @@ module PetitFelix
 			end
 		
 			# gets the files from input files and renders them.
-			def render_files options
+			def render_files options, override_options
+			
+				@override_options = override_options
 			
 				if options.key? "input_files"
 				

@@ -119,7 +119,9 @@ module PetitFelix
 				end
 			end
 			
-			def prepare_options options
+			def prepare_options options, override_options
+			
+				options.merge(override_options)
 			
 				# stores options + metadata. metadata overrides options.
 				@metaoptions = {}

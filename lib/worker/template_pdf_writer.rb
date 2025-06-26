@@ -75,6 +75,10 @@ module PetitFelix
 					
 				end
 				
+				@override_options.keys.each do |key|
+					@variables[key] = @override_options[key]
+				end
+				
 				## add additional functional stuff
 				@variables["cursor"] = @pdf.cursor
 				@variables["bounds_height"] = @pdf.bounds.height

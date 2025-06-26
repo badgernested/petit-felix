@@ -41,7 +41,7 @@ module PetitFelix
 				page_data = metadata_helper.split page
 						
 				metadata = @metaoptions.merge(metadata_helper.get_metadata(page_data[0]))
-
+				
 				# Always forces you to use this template
 				@metaoptions["template"] = File.join(File.dirname(__FILE__),"..","..", "templates","zine-single.json")
 
@@ -53,8 +53,8 @@ module PetitFelix
 
 					@metaoptions["output_file"] = File.basename(File.basename(@metaoptions["filename"], ".md"), ".markdown") + ".pdf"
 
-					pdf.set_options @metaoptions
-
+					pdf.set_options @metaoptions, override_options: @override_options
+					
 					pdf.init_values @metaoptions, pdf
 
 					pdf.read_template
