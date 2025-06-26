@@ -213,7 +213,7 @@ module PetitFelix
 
 					modval = 4 - modval
 
-					go_to_page(2)
+					go_to_page(1)
 					
 					start_new_page
 					

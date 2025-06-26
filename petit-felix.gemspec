@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib", "templates"]
 
   spec.add_runtime_dependency "prawn", "~> 2.5", ">= 2.5.0"
-  spec.add_runtime_dependency "prawndown-ext", "~> 0.1.15"
+  spec.add_dependency "prawndown-ext", "~> 0.1.16"
   spec.add_runtime_dependency "eqn", "~> 1.6.5"
   spec.add_runtime_dependency "redcarpet", "~> 3.6.1", ">= 3.6.1"
 

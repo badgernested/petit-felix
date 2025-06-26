@@ -1,3 +1,7 @@
+## [0.1.14] - 2025-06-26
+
+- Fixed rendering bugs
+
 ## [0.1.13] - 2025-06-24
 
 - Added ``PetitFelix::Process`` class, which separates generation from initialization.

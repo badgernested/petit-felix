@@ -483,23 +483,33 @@ module PetitFelix
 				@variables["paginator_end"] = args[:page_finish]
 				
 				if page_mode == :alternate
-				
+
 					odd_options = odd_array.merge(args)
 				
 					even_options = even_array.merge(args)
 
+					if @variables["paginator_switch"].to_s.downcase == "true"
 
-					even_options[:start_count_at] += 1
-				
-					even_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 1 }
-					odd_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 0 }
-				
+						odd_options[:start_count_at] += 1
+					
+						even_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 1 }
+						odd_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 0 }
+					
+					else
+					
+						even_options[:start_count_at] += 1
+					
+						odd_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 1 }
+						even_options[:page_filter] = ->(pg) { pg > @variables["paginator_start"] && (pg < @variables["paginator_end"] || @variables["paginator_end"] <= -1) && pg % 2 == 0 }
+					
+					
+					end
 
 					string = replace_variable args[:text]
 					
 					number_pages string, odd_options
 					number_pages string, even_options
-				
+			
 				else
 
 					odd_array = {
